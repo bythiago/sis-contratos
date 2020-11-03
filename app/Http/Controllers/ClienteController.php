@@ -65,6 +65,16 @@ class ClienteController extends Controller
         //
     }
 
+    public function lista($id)
+    {
+        $dados = [
+            'readonly' => "readonly",
+            'cliente' => Cliente::find($id)->first()
+        ];
+
+        return $dados;
+    }
+
     /**
      * Display the specified resource.
      *
