@@ -42,16 +42,12 @@ App = {
                     // perguntas: perguntas
                 },
                 beforeSend: function () {
-                    // bootbox.dialog({
-                    //     message:
-                    //         '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
-                    //     closeButton: false,
-                    // });
+                    Util.processing();
                 },
                 success: function (data) {
                     const message = App.iniciarDadosCliente(data);
 
-                    bootbox.hideAll();
+                    Util.hideAll();
                     bootbox.dialog({
                         title: `Cliente: ${data.cliente.nome}`,
                         message : message,
@@ -60,11 +56,6 @@ App = {
                 },
                 error: function (error) {
                     console.log(error);
-                    // bootbox.hideAll();
-                    // bootbox.alert({
-                    //     title: 'Error',
-                    //     message: 'Não foi possivel cadastrar o formulário'
-                    // });
                 }
             })
 
@@ -114,80 +105,28 @@ App = {
             //     // perguntas: perguntas
             // },
             beforeSend: function () {
-                // bootbox.dialog({
-                //     message:
-                //         '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
-                //     closeButton: false,
-                // });
+                Util.processing();
             },
-            success: function (data) {
-                bootbox.hideAll();
-                bootbox.alert(/*data.message*/'aaa', function(){
+            success: function (success) {
+                Util.hideAll();
+                bootbox.alert(success.message, function(){
                     window.location.reload();
                 });
             },
             error: function (error) {
+                Util.hideAll();
                 console.log(error);
-                // bootbox.hideAll();
-                // bootbox.alert({
-                //     title: 'Error',
-                //     message: 'Não foi possivel cadastrar o formulário'
-                // });
             }
         })
     },
     iniciarDadosCliente: function(dados){ 
-        return `
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input class="form-control" value="${dados.cliente.nome}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">CPF</label>
-                <input class="form-control" value="${dados.cliente.cpf}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">Dt. Nascimento</label>
-                <input class="form-control" value="${dados.cliente.nascimento}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">CEP</label>
-                <input class="form-control" value="${dados.cliente.cep}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">Bairro</label>
-                <input class="form-control" value="${dados.cliente.bairro}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">Cidade</label>
-                <input class="form-control" value="${dados.cliente.cidade}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">UF</label>
-                <input class="form-control" value="${dados.cliente.uf}" ${dados.readonly}>
-            </div>
-            <div class="form-group">
-                <label for="nome">Observação</label>
-                <textarea class="form-control" ${dados.readonly}>${dados.cliente.observacao}</textarea>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-info">
-                    Cancelar
-                    <i class="far fa-arrow-left"></i>
-                </button>
-                <button class="btn btn-success">
-                    Salvar
-                    <i class="far fa-save"></i>
-                </button>
-            </div>
-        `;
+        return ``;
     },
     iniciarClienteDatatable: function () {
         App.clienteDatatable.DataTable();
     },
     iniciarMascaras: function (){
         Inputmask().mask(document.querySelectorAll("input"));
-        // https://github.com/RobinHerbots/Inputmask
     },
     iniciar: function () {
         App.iniciarCampos();

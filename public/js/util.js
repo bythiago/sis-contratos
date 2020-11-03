@@ -1,4 +1,11 @@
 Util = {
+    processing: function(){
+        return bootbox.dialog({
+            message:
+                '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
+            closeButton: false,
+        });
+    },
     hideAll: function () { 
         setTimeout(() => bootbox.hideAll(), 1000);
     },

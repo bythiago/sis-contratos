@@ -100,7 +100,5 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/cep.js') }}"></script>
-    <script src="{{ asset('js/util.js') }}"></script>
     <script src="{{ asset('js/cliente/lista.js') }}"></script>
 @stop
