@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
-
+//get
 Route::get('/clientes', [ClienteController::class, 'index']);
 Route::get('/clientes/novo', [ClienteController::class, 'novo'])->name('cliente.novo');
 Route::get('/clientes/lista', [ClienteController::class, 'lista'])->name('cliente.lista');
+
+//post
+Route::post('/clientes/salvar', [ClienteController::class, 'salvar'])->name('cliente.salvar');
+
 
 Auth::routes();
 

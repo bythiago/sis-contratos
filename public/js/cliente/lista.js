@@ -13,6 +13,7 @@ App = {
     iniciarCampos: function () {
 
         //
+        App._token = $('meta[name="csrf-token"]').attr('content');
         App.campos.nome = $("#cliente-nome");
         App.campos.cep = $("#cep");
 
@@ -31,12 +32,39 @@ App = {
         //
         CEP.buscaCEP(App.campos.cep);
     },
-    iniciarBotoes: function() {
+    salvar: function(event){
 
+        if(!event.valid()){
+            return false;
+        }
+
+        $.ajax({
+            url: App.formulario.attr('action'),
+            method: "POST",
+            dataType: "json",
+            data: { 
+                _token : App._token,
+                dados : App.formulario.serialize(),
+            },
+            beforeSend: function () {
+                // Util.processing();
+            },
+            success: function (data) {
+                Util.hideAll();
+                bootbox.alert("This is an alert with a callback!", function(){ 
+                    console.log('This was logged in the callback!'); 
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    },
+    iniciarBotoes: function() {
         App.botoes.btnSalvar.on('click', function (event) {
-            //event.preventDefault();
+            event.preventDefault();
             Form.validation(App.formulario);
-            // App.formulario.submit();
+            App.salvar(App.formulario);
         });
 
         App.clienteDatatable.on('click', '.btn-detalhes', function (event) {
@@ -68,7 +96,7 @@ App = {
                 error: function (error) {
                     console.log(error);
                 }
-            })
+            });
 
         });
 

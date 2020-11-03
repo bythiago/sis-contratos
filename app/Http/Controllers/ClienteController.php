@@ -12,6 +12,7 @@ class ClienteController extends Controller
     public function novo(){
         return view('cliente.novo');
     }
+
     public function index()
     {
         // $cliente = new Cliente();
@@ -40,6 +41,33 @@ class ClienteController extends Controller
         // $tipoContato->descricao = "Celular";
 
         // $tipoContato->save();
+    }
+
+    public function salvar(Request $request)
+    {
+        try {
+
+            $dados = [];
+            parse_str($request->get('dados'), $dados);
+
+            $cliente = new Cliente();
+            $cliente->nome = $dados['cliente-nome'];
+            $cliente->cpf = $dados['cliente-cpf'];
+            $cliente->nascimento = $dados['cliente-nascimento'];
+            $cliente->sexo = $dados['cliente-sexo'];
+            $cliente->cep = $dados['cliente-cep'];
+            $cliente->rua = $dados['cliente-rua'];
+            $cliente->numero = $dados['cliente-numero'];
+            $cliente->bairro = $dados['cliente-bairro'];
+            $cliente->cidade = $dados['cliente-cidade'];
+            $cliente->uf = $dados['cliente-uf'];
+            $cliente->observacao = $dados['cliente-observacao'];
+
+            $cliente->save();
+
+        } catch(\Exception $exception){
+            dd($exception->getMessage());
+        }
     }
 
     public function lista()

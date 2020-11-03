@@ -51,11 +51,11 @@ CEP = {
             url: `https://viacep.com.br/ws/${cep}/json`,
             method: "GET",
             beforeSend: function (data) {
-                bootbox.dialog({
-                    message:
-                        '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
-                    closeButton: false,
-                });
+                // bootbox.dialog({
+                //     message:
+                //         '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
+                //     closeButton: false,
+                // });
             },
             success: function (data) {
                 Util.hideAll();
