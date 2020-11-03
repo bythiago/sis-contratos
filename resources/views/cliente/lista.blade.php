@@ -37,15 +37,15 @@
                                     <td>{{ $cliente->sexo }}</td>
                                     <td>{{ $cliente->cidade }}</td>
                                     <td>{{ $cliente->bairro }}</td>
-                                    <td data-id="{{ $cliente->id }}">
-                                        <button class="btn btn-info btn-sm actions">
-                                            <i class="far fa-search"></i>
+                                    <td>
+                                    <button class="btn btn-info btn-sm btn-detalhes" data-cliente="{{ $cliente }}">
+                                            <i class="fa fa-search"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm">
-                                            <i class="far fa-edit"></i>
+                                        <button class="btn btn-success btn-sm btn-editar" data-cliente="{{ $cliente }}">
+                                            <i class="fa fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm">
-                                            <i class="far fa-trash"></i>
+                                        <button class="btn btn-danger btn-sm btn-deletar" data-cliente="{{ $cliente }}">
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>

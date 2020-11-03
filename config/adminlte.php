@@ -250,11 +250,22 @@ return [
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Clientes',
+            'icon' => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Novo',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'clientes/novo',
+                ],
+                [
+                    'text' => 'Lista',
+                    'icon' => 'fas fa-fw fa-search',
+                    'url'  => 'clientes/lista',
+                ],
+            ]
         ],
-        [
+        /*[
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
@@ -312,7 +323,7 @@ return [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
-        ],
+        ],*/
     ],
 
     /*

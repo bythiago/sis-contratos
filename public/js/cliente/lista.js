@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     setTimeout(function () {
         App.iniciar();
     }, 100);
@@ -11,13 +11,26 @@ App = {
     elementos: [],
 
     iniciarCampos: function () {
+
+        //
+        App.campos.nome = $("#cliente-nome");
+        App.campos.cep = $("#cep");
+
+        //
         App.clienteDatatable = $("#cliente-table");
+
+        //
+        Util.formatarPalavras();
+
+        //
+        CEP.buscaCEP(App.campos.cep);
     },
     iniciarBotoes: function() {
         let clienteId = null;
 
-        App.clienteDatatable.on('click', 'td', function () {  
-            clienteId = $(this).data('id');
+        App.clienteDatatable.on('click', '.btn-detalhes', function (event) {
+            event.preventDefault();
+            const clienteId = $(this).data('id');
             console.log(clienteId);
 
             $.ajax({
@@ -56,6 +69,72 @@ App = {
             })
 
         });
+
+        App.clienteDatatable.on('click', '.btn-editar', function (event) { 
+            event.preventDefault();
+            const clienteId = $(this).data('id');
+            console.log(clienteId);
+        });
+
+        App.clienteDatatable.on('click', '.btn-deletar', function (event) { 
+            event.preventDefault();
+
+            const data = {
+                cliente: $(this).data('cliente'),
+                href: $(this).data('href')
+            };
+
+            bootbox.confirm({
+                message: `Você tem certeza que deseja excluir o cliente <strong>${data.cliente.nome}</strong>?`,
+                buttons: {
+                    confirm: {
+                        label: 'Sim',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Não',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if(result === true){
+                        App.enviarDeleteCliente(data);
+                    }
+                }
+            });
+        });
+    },
+    enviarDeleteCliente: function(data){
+        $.ajax({
+            url: `${data.href}`,
+            method: "GET",
+            // data: { 
+            //     // _token : myself.token,
+            //     // dados : dados,
+            //     // perguntas: perguntas
+            // },
+            beforeSend: function () {
+                // bootbox.dialog({
+                //     message:
+                //         '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
+                //     closeButton: false,
+                // });
+            },
+            success: function (data) {
+                bootbox.hideAll();
+                bootbox.alert(/*data.message*/'aaa', function(){
+                    window.location.reload();
+                });
+            },
+            error: function (error) {
+                console.log(error);
+                // bootbox.hideAll();
+                // bootbox.alert({
+                //     title: 'Error',
+                //     message: 'Não foi possivel cadastrar o formulário'
+                // });
+            }
+        })
     },
     iniciarDadosCliente: function(dados){ 
         return `
@@ -106,9 +185,14 @@ App = {
     iniciarClienteDatatable: function () {
         App.clienteDatatable.DataTable();
     },
+    iniciarMascaras: function (){
+        Inputmask().mask(document.querySelectorAll("input"));
+        // https://github.com/RobinHerbots/Inputmask
+    },
     iniciar: function () {
         App.iniciarCampos();
         App.iniciarBotoes();
         App.iniciarClienteDatatable();
+        App.iniciarMascaras();
     }
 };

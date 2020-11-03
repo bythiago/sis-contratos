@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/clientes', [ClienteController::class, 'index']);
-Route::get('/clientes/show/{id}', [ClienteController::class, 'show']);
-Route::get('/clientes/lista/{id}', [ClienteController::class, 'lista']);
+Route::get('/clientes/novo', [ClienteController::class, 'novo'])->name('cliente.novo');
+Route::get('/clientes/lista', [ClienteController::class, 'lista'])->name('cliente.lista');
 
 Auth::routes();
 
