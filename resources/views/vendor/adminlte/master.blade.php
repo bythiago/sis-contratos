@@ -81,13 +81,17 @@
     {{-- Base Scripts --}}
     @if(!config('adminlte.enabled_laravel_mix'))
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('vendor/inputmask/inputmask.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
         
         <!-- Util.js -->
+        <script src="{{ asset('vendor/inputmask/inputmask.js') }}"></script>
+        <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('vendor/jquery-validation/localization/messages_pt_BR.min.js') }}"></script>
+
         <script src="{{ asset('js/cep.js') }}"></script>
         <script src="{{ asset('js/util.js') }}"></script>
+        <script src="{{ asset('js/form.js') }}"></script>
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

@@ -20,13 +20,24 @@ App = {
         App.clienteDatatable = $("#cliente-table");
 
         //
+        App.formulario = $("#formulario-lista");
+
+        //
+        App.botoes.btnSalvar = $("#btn-salvar");
+
+        //
         Util.formatarPalavras();
 
         //
         CEP.buscaCEP(App.campos.cep);
     },
     iniciarBotoes: function() {
-        let clienteId = null;
+
+        App.botoes.btnSalvar.on('click', function (event) {
+            //event.preventDefault();
+            Form.validation(App.formulario);
+            // App.formulario.submit();
+        });
 
         App.clienteDatatable.on('click', '.btn-detalhes', function (event) {
             event.preventDefault();
