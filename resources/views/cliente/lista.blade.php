@@ -44,7 +44,7 @@
                                         <button class="btn btn-success btn-sm btn-editar" data-cliente="{{ $cliente }}">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm btn-deletar" data-cliente="{{ $cliente }}">
+                                        <button class="btn btn-danger btn-sm btn-excluir" data-href="{{ route('cliente.excluir', $cliente->id) }}" data-cliente="{{ $cliente }}">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>

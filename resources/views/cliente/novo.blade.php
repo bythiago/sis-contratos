@@ -38,6 +38,7 @@
                         <div class="form-group">
                             <label for="cliente-sexo">Sexo</label>
                             <select class="form-control" name="cliente-sexo" required>
+                                <option value="">Selecione o sexo</option>
                                 <option value="1">Masculino</option>
                                 <option value="2">Feminino</option>
                             </select>

@@ -106,7 +106,7 @@ App = {
             console.log(clienteId);
         });
 
-        App.clienteDatatable.on('click', '.btn-deletar', function (event) { 
+        App.clienteDatatable.on('click', '.btn-excluir', function (event) { 
             event.preventDefault();
 
             const data = {
@@ -134,17 +134,16 @@ App = {
             });
         });
     },
-    enviarDeleteCliente: function(data){
+    enviarDeleteCliente: function(dados){
         $.ajax({
-            url: `${data.href}`,
-            method: "GET",
-            // data: { 
-            //     // _token : myself.token,
-            //     // dados : dados,
-            //     // perguntas: perguntas
-            // },
+            url: `${dados.href}`,
+            method: "DELETE",
+            data: { 
+                _token : App._token,
+                clienteId : dados.cliente.id
+            },
             beforeSend: function () {
-                Util.processing();
+                //Util.processing();
             },
             success: function (success) {
                 Util.hideAll();
@@ -153,8 +152,11 @@ App = {
                 });
             },
             error: function (error) {
-                Util.hideAll();
                 console.log(error);
+                Util.hideAll();
+                bootbox.alert(error.statusText, function(){
+                    window.location.reload();
+                });
             }
         })
     },

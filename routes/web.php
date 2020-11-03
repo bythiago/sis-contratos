@@ -22,6 +22,8 @@ Route::get('/clientes/lista', [ClienteController::class, 'lista'])->name('client
 //post
 Route::post('/clientes/salvar', [ClienteController::class, 'salvar'])->name('cliente.salvar');
 
+//delete
+Route::delete('/clientes/excluir/{id}', [ClienteController::class, 'excluir'])->name('cliente.excluir');
 
 Auth::routes();
 

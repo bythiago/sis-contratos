@@ -70,6 +70,20 @@ class ClienteController extends Controller
         }
     }
 
+    public function excluir(Request $request)
+    {
+        try {
+            $cliente = Cliente::find($request->get('clienteId'));
+            //$cliente->delete();
+            
+            return response()->json([
+                'message' => 'Cliente foi removido com sucesso'
+            ], 200);
+        } catch(\Exception $exception){
+            return [];
+        }
+    }
+
     public function lista()
     {
         $dados = [
