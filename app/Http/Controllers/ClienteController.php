@@ -48,7 +48,6 @@ class ClienteController extends Controller
             $cliente->cidade = $dados['cliente-cidade'];
             $cliente->uf = $dados['cliente-uf'];
             $cliente->observacao = $dados['cliente-observacao'];
-
             $cliente->save();
 
             $tipo = TipoContato::where('tipo', $dados['cliente-tipo-contato'])->first();
@@ -58,9 +57,7 @@ class ClienteController extends Controller
             $contato->id_tipo_contato = $tipo->id;
             $contato->numero = $dados['cliente-contato'];
             $contato->descricao = 'web';
-
             $cliente->contatos()->save($contato);
-
             DB::commit();
 
             return response()->json([
@@ -101,6 +98,8 @@ class ClienteController extends Controller
             $dados = [];
             parse_str($request->get('dados'), $dados);
 
+            DB::beginTransaction();
+
             $cliente = Cliente::find($id);
             $cliente->nome = $dados['cliente-nome'];
             $cliente->cpf = $dados['cliente-cpf'];
@@ -113,7 +112,6 @@ class ClienteController extends Controller
             $cliente->cidade = $dados['cliente-cidade'];
             $cliente->uf = $dados['cliente-uf'];
             $cliente->observacao = $dados['cliente-observacao'];
-
             $cliente->save();
 
             foreach($cliente->contatos()->get() as $i => $contato){
@@ -122,47 +120,38 @@ class ClienteController extends Controller
                 $contato->id_tipo_contato = $tipo->id;
                 $contato->numero = $dados['cliente-contato'][$i];
                 $contato->descricao = 'update';
-
                 $cliente->contatos()->save($contato);
             }
 
-            //exit;
-
-            // $tipo = TipoContato::where('tipo', $dados['cliente-tipo-contato'])->first();
-
-            // $contato = new Contato();
-            // $contato->id_cliente = $cliente;
-            // $contato->id_tipo_contato = $tipo->id;
-            // $contato->numero = $dados['cliente-contato'];
-            // $contato->descricao = 'web';
-
-            //$cliente->contatos()->save($contato);
-
+            DB::commit();
             return response()->json([
                 'message' => "<strong>{$cliente->nome}</strong> foi alterado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
+            DB::rollBack();
             return response()->json([
                 'message' => $exception->getMessage()
             ], 500);
         }
-
     }
 
 
     public function destroy(Request $request)
     {
         try {
+            DB::beginTransaction();
             $cliente = Cliente::find($request->get('clienteId'));
             $cliente->contatos()->delete();
             $cliente->delete();
-            
+            DB::commit();
+
             return response()->json([
                 'message' => "<strong>{$cliente->nome}</strong> foi removido com sucesso"
             ], 200);
             
         } catch(\Exception $exception){
+            DB::rollBack();
             return response()->json([
                 'message' => $exception->getMessage()
             ], 500);
