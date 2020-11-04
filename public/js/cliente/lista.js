@@ -40,7 +40,7 @@ App = {
 
         $.ajax({
             url: App.formulario.attr('action'),
-            method: "PUT" || "POST",
+            method: App.formulario.attr('method'),
             dataType: "json",
             data: { 
                 _token : App._token,
@@ -50,13 +50,15 @@ App = {
                 // Util.processing();
             },
             success: function (data) {
-                Util.hideAll();
+                // Util.hideAll();
                 bootbox.alert(data.message, function(){ 
                     window.location.href = '../';
                 });
             },
             error: function (error) {
-                console.log(error);
+                bootbox.alert(error.responseJSON.message, function(){ 
+                    window.location.reload()
+                });
             }
         });
     },
@@ -135,7 +137,13 @@ App = {
         return ``;
     },
     iniciarClienteDatatable: function () {
-        App.clienteDatatable.DataTable();
+        App.clienteDatatable.DataTable(
+            {
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                }
+            }
+        );
     },
     iniciarMascaras: function (){
         Inputmask().mask(document.querySelectorAll("input"));

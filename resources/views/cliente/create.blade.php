@@ -10,9 +10,12 @@
     <div class="row">
         <div class="col-12">
             <div class="card card-primary">
+                {{-- <div class="card-header">
+                    <h3 class="card-title">Cliente</h3>
+                </div> --}}
                 <!-- form start -->
-                <form id="formulario-lista" role="form" action="{{ route('cliente.store') }}" novalidate>
-                    <div class="card-body">                   
+                <form id="formulario-lista" method="POST" role="form" action="{{ route('cliente.store') }}" novalidate>
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
@@ -53,36 +56,57 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente-rua">Rua</label>
-                                    <input type="text" class="form-control" id="rua" name="cliente-rua">
+                                    <input type="text" class="form-control" id="rua" name="cliente-rua" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente-bairro">Bairro</label>
-                                    <input type="text" class="form-control" id="bairro" name="cliente-bairro">
+                                    <input type="text" class="form-control" id="bairro" name="cliente-bairro" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente-numero">Número</label>
-                                    <input type="text" class="form-control" id="numero" name="cliente-numero" required="true">
+                                    <input type="text" class="form-control" id="numero" name="cliente-numero" required>
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente-cidade">Cidade</label>
-                                    <input type="text" class="form-control" id="cidade" name="cliente-cidade">
+                                    <input type="text" class="form-control" id="cidade" name="cliente-cidade" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente-uf">UF</label>
-                                    <input type="text" class="form-control" id="uf" name="cliente-uf">
+                                    <input type="text" class="form-control" id="uf" name="cliente-uf" required>
                                 </div>
                             </div>
                         </div>
-                    
+                        
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cliente-tipo-contato">Tipo</label>
+                                    <select class="form-control" name="cliente-tipo-contato" required>
+                                        <option value="">Selecione o tipo</option>
+                                        @foreach ($tipoContato as $tipo)
+                                            <option value="{{ $tipo->tipo }}">{{ $tipo->descricao }}</option>    
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cliente-contato">Contato</label>
+                                    <input type="text" class="form-control" id="contato" name="cliente-contato" minlength="10" data-inputmask="'mask': '(99)99999999[9]', 'greedy' : true" required>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="form-group">
                             <label for="cliente-observacao">Observação</label>
                             <textarea name="cliente-observacao" class="form-control" rows="3" required="true"></textarea>
@@ -90,6 +114,11 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
+                        <a href="{{ route('cliente.index') }}" class="btn btn-info">
+                            Voltar
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                        </a>
+
                         <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success">
                             Salvar
                             <i class="fa fa-save"></i>
