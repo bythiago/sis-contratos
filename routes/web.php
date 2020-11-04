@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,12 @@ Route::group(['prefix' => 'clientes'], function (){
     Route::put('/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
     Route::get('/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');
     Route::delete('/destroy/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+});
+
+Route::group(['prefix' => 'produtos'], function(){
+    Route::get('/', [ProdutoController::class, 'index'])->name('produto.index');
+    Route::get('/create', [ProdutoController::class, 'create'])->name('produto.create');
+    Route::post('/store', [ProdutoController::class, 'store'])->name('produto.store');
 });
 
 //Auth::routes();

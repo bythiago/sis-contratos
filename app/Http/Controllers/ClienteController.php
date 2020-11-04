@@ -158,7 +158,9 @@ class ClienteController extends Controller
         }
     }
 
-    public function findAllSexo(){
+    //--------------------------------------------------------------------------------//
+
+    private function findAllSexo(){
         return Sexo::all();
     }
 
@@ -177,4 +179,7 @@ class ClienteController extends Controller
     private function all(){
         return Cliente::all();
     }
+
+    //--------------------------------------------------------------------------------//
+
 }
