@@ -115,7 +115,7 @@ class ClienteController extends Controller
             $cliente->save();
 
             return response()->json([
-                'message' => "{$cliente->nome} foi alterado com sucesso"
+                'message' => "<strong>{$cliente->nome}</strong> foi alterado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -135,7 +135,7 @@ class ClienteController extends Controller
             $cliente->delete();
             
             return response()->json([
-                'message' => 'Cliente foi removido com sucesso'
+                'message' => "<strong>{$cliente->nome}</strong> foi removido com sucesso"
             ], 200);
             
         } catch(\Exception $exception){
