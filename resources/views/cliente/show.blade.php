@@ -38,8 +38,9 @@
                             <label for="cliente-sexo">Sexo</label>
                             <select class="form-control" name="cliente-sexo" required>
                                 <option value="">Selecione o sexo</option>
-                                <option value="1" {{ $cliente->sexo == 1 ? 'selected' : '' }}>Masculino</option>
-                                <option value="2" {{ $cliente->sexo == 2 ? 'selected' : '' }}>Feminino</option>
+                                @foreach ($sexos as $sexo)
+                                    <option value="{{ $sexo->id }}" {{ $sexo->id == $cliente->id_sexo ? 'selected' : '' }}>{{ $sexo->descricao }}</option>
+                                @endforeach
                             </select>
                         </div>
 

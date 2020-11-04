@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>{{ $cliente->nome }}</td>
                                     <td>{{ $cliente->cpf }}</td>
-                                    <td>{{ $cliente->sexo }}</td>
+                                    <td>{{ $cliente->sexo->descricao }}</td>
                                     <td>{{ $cliente->cidade }}</td>
                                     <td>{{ $cliente->bairro }}</td>
                                     <td>

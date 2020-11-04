@@ -16,7 +16,7 @@ class Cliente extends Model
         'nome',
         'cpf',
         'nascimento',
-        'sexo',
+        'id_sexo',
         'cep',
         'rua',
         'numero',
@@ -30,5 +30,8 @@ class Cliente extends Model
     {
         return $this->hasMany(Contato::class, 'id_cliente', 'id');
     }
-    
+
+    public function sexo(){
+        return $this->belongsTo(Sexo::class, 'id_sexo', 'id');
+    }
 }
