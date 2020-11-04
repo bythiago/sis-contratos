@@ -23,7 +23,7 @@ class ClienteController extends Controller
 
     public function create()
     {
-        $tipoContato = TipoContato::all();
+        $tipoContato = $this->findAllTipoContato();
         return view('cliente.create', compact('tipoContato'));
     }
 
@@ -78,6 +78,7 @@ class ClienteController extends Controller
     public function show($id)
     {
         return view('cliente.show', [
+                'tipoContato' => $this->findAllTipoContato(),
                 'cliente' => $this->find($id),
                 'readonly' => true
             ]
@@ -87,6 +88,7 @@ class ClienteController extends Controller
     public function edit($id)
     {
         return view('cliente.show', [
+                'tipoContato' => $this->findAllTipoContato(),
                 'cliente' => $this->find($id),
                 'readonly' => false
             ]
@@ -98,7 +100,7 @@ class ClienteController extends Controller
         try {
             $dados = [];
             parse_str($request->get('dados'), $dados);
-        
+
             $cliente = Cliente::find($id);
             $cliente->nome = $dados['cliente-nome'];
             $cliente->cpf = $dados['cliente-cpf'];
@@ -113,6 +115,28 @@ class ClienteController extends Controller
             $cliente->observacao = $dados['cliente-observacao'];
 
             $cliente->save();
+
+            foreach($cliente->contatos()->get() as $i => $contato){
+                $tipo = TipoContato::where('tipo', $dados['cliente-tipo-contato'][$i])->first();
+                $contato->id_cliente = $cliente->id;
+                $contato->id_tipo_contato = $tipo->id;
+                $contato->numero = $dados['cliente-contato'][$i];
+                $contato->descricao = 'update';
+
+                $cliente->contatos()->save($contato);
+            }
+
+            //exit;
+
+            // $tipo = TipoContato::where('tipo', $dados['cliente-tipo-contato'])->first();
+
+            // $contato = new Contato();
+            // $contato->id_cliente = $cliente;
+            // $contato->id_tipo_contato = $tipo->id;
+            // $contato->numero = $dados['cliente-contato'];
+            // $contato->descricao = 'web';
+
+            //$cliente->contatos()->save($contato);
 
             return response()->json([
                 'message' => "<strong>{$cliente->nome}</strong> foi alterado com sucesso"
@@ -143,6 +167,10 @@ class ClienteController extends Controller
                 'message' => $exception->getMessage()
             ], 500);
         }
+    }
+
+    private function findAllTipoContato(){
+        return TipoContato::all();
     }
 
     private function find($id){

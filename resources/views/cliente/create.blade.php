@@ -107,6 +107,7 @@
                             </div>
                         </div>
                         <hr>
+                        
                         <div class="form-group">
                             <label for="cliente-observacao">Observação</label>
                             <textarea name="cliente-observacao" class="form-control" rows="3" required="true"></textarea>

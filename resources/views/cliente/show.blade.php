@@ -81,6 +81,29 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            @foreach ($cliente->contatos()->get() as $contato)
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="cliente-tipo-contato">Tipo</label>
+                                        <select class="form-control" name="cliente-tipo-contato[]" required>
+                                            <option value="">Selecione o tipo</option>
+                                            @foreach ($tipoContato as $tipo)
+                                                <option value="{{ $tipo->tipo }}" {{ $tipo->id == $contato->id_tipo_contato ? 'selected' : ''}}>{{ $tipo->descricao }}</option>    
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="cliente-contato">Contato</label>
+                                        <input type="text" class="form-control" id="contato" name="cliente-contato[]" value="{{ $contato->numero }}" minlength="10" data-inputmask="'mask': '(99)99999999[9]', 'greedy' : true" required>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <hr>
                     
                         <div class="form-group">
                             <label for="cliente-observacao">Observação</label>
