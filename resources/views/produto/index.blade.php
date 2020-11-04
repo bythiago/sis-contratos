@@ -25,7 +25,7 @@
                                 <th>Descrição</th>
                                 <th>Preço</th>
                                 <th>Status</th>
-                                <th>Açõe</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>

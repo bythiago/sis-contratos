@@ -143,7 +143,7 @@ class ProdutoController extends Controller
     }
 
     private function find($id){
-        return Produto::find($id)->with('categoria')->first();
+        return Produto::where('id', $id)->with('categoria')->first();
     }
 
     private function all(){

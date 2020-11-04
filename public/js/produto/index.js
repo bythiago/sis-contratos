@@ -47,7 +47,7 @@ Produto = {
             success: function (data) {
                 // Util.hideAll();
                 bootbox.alert(data.message, function(){ 
-                    window.location.href = '../produtos';
+                    window.location.href = window.BASE_HREF + 'produtos';
                 });
             },
             error: function (error) {
