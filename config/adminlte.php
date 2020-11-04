@@ -256,12 +256,12 @@ return [
                 [
                     'text' => 'Novo',
                     'icon' => 'fas fa-fw fa-plus',
-                    'url'  => 'clientes/novo',
+                    'url'  => 'clientes/create',
                 ],
                 [
                     'text' => 'Lista',
                     'icon' => 'fas fa-fw fa-search',
-                    'url'  => 'clientes/lista',
+                    'url'  => 'clientes',
                 ],
             ]
         ],

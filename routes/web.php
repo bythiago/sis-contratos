@@ -14,18 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//get
-Route::get('/clientes', [ClienteController::class, 'index']);
-Route::get('/clientes/novo', [ClienteController::class, 'novo'])->name('cliente.novo');
-Route::get('/clientes/lista', [ClienteController::class, 'lista'])->name('cliente.lista');
+Route::group(['prefix' => 'clientes'], function (){
+    Route::get('/', [ClienteController::class, 'index'])->name('cliente.index');
+    Route::get('/create', [ClienteController::class, 'create'])->name('cliente.create');
+    Route::post('/store', [ClienteController::class, 'store'])->name('cliente.store');
+    Route::get('/edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
+    Route::put('/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
+    Route::get('/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');
+    Route::delete('/destroy/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+});
 
-//post
-Route::post('/clientes/salvar', [ClienteController::class, 'salvar'])->name('cliente.salvar');
-
-//delete
-Route::delete('/clientes/excluir/{id}', [ClienteController::class, 'excluir'])->name('cliente.excluir');
-
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', function() {
     return view('home');

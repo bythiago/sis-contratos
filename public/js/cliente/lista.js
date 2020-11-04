@@ -40,7 +40,7 @@ App = {
 
         $.ajax({
             url: App.formulario.attr('action'),
-            method: "POST",
+            method: "PUT" || "POST",
             dataType: "json",
             data: { 
                 _token : App._token,
@@ -51,8 +51,8 @@ App = {
             },
             success: function (data) {
                 Util.hideAll();
-                bootbox.alert("This is an alert with a callback!", function(){ 
-                    console.log('This was logged in the callback!'); 
+                bootbox.alert(data.message, function(){ 
+                    window.location.href = '../';
                 });
             },
             error: function (error) {
@@ -67,46 +67,17 @@ App = {
             App.salvar(App.formulario);
         });
 
-        App.clienteDatatable.on('click', '.btn-detalhes', function (event) {
-            event.preventDefault();
-            const clienteId = $(this).data('id');
-            console.log(clienteId);
-
-            $.ajax({
-                url: `${window.location.origin}/html/php/laravel/sis-contratos/public/index.php/clientes/lista/${clienteId}`,
-                method: "GET",
-                data: { 
-                    // _token : myself.token,
-                    // dados : dados,
-                    // perguntas: perguntas
-                },
-                beforeSend: function () {
-                    Util.processing();
-                },
-                success: function (data) {
-                    const message = App.iniciarDadosCliente(data);
-
-                    Util.hideAll();
-                    bootbox.dialog({
-                        title: `Cliente: ${data.cliente.nome}`,
-                        message : message,
-                        size: 'large'
-                    });
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-
+        App.clienteDatatable.on('click', '.btn-show', function (event) {
+            event.preventDefault();            
+            window.location.href = $(this).data('href');
         });
 
-        App.clienteDatatable.on('click', '.btn-editar', function (event) { 
+        App.clienteDatatable.on('click', '.btn-edit', function (event) { 
             event.preventDefault();
-            const clienteId = $(this).data('id');
-            console.log(clienteId);
+            window.location.href = $(this).data('href');
         });
 
-        App.clienteDatatable.on('click', '.btn-excluir', function (event) { 
+        App.clienteDatatable.on('click', '.btn-destroy', function (event) { 
             event.preventDefault();
 
             const data = {

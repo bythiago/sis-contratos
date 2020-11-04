@@ -25,10 +25,10 @@ CEP = {
     },
     popularCEP: function(data){
         if(!data.erro){
-            CEP.objetoCEP().rua.val(data.logradouro).attr('readonly', 'readonly');
-            CEP.objetoCEP().bairro.val(data.bairro).attr('readonly', 'readonly');
-            CEP.objetoCEP().cidade.val(data.localidade).attr('readonly', 'readonly');
-            CEP.objetoCEP().uf.val(data.uf).attr('readonly', 'readonly');
+            CEP.objetoCEP().rua.val(data.logradouro);//.attr('readonly', 'readonly');
+            CEP.objetoCEP().bairro.val(data.bairro);//.attr('readonly', 'readonly');
+            CEP.objetoCEP().cidade.val(data.localidade);//;.attr('readonly', 'readonly');
+            CEP.objetoCEP().uf.val(data.uf);//.attr('readonly', 'readonly');
         } else {
             CEP.objetoCEP().cep.removeAttr('readonly').val('');
             CEP.objetoCEP().rua.removeAttr('readonly').val('');

@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card card-primary">
                 <!-- form start -->
-                <form id="formulario-lista" role="form" action="{{ route('cliente.salvar') }}" novalidate>
+                <form id="formulario-lista" role="form" action="{{ route('cliente.store') }}" novalidate>
                     <div class="card-body">                   
                         <div class="row">
                             <div class="col-4">

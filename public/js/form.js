@@ -1,3 +1,7 @@
+$(function () {
+    Form.iniciar();
+});
+
 Form = {
     validation: function(input){
         return input.validate(
@@ -15,4 +19,12 @@ Form = {
             }
         });
     },
+    readonly: function(){
+        if((typeof readonly != 'undefined') && (readonly.length > 0)){
+            $("form :input").attr("disabled", true);
+        } 
+    },
+    iniciar: function(){
+        Form.readonly();      
+    }
 }
