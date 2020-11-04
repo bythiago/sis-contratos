@@ -15,7 +15,7 @@ class ClienteController extends Controller
     public function index()
     {
         $dados = [
-            'readonly' => "readonly",
+            'readonly' => false,
             'cliente' => $this->all()
         ];
 
@@ -61,7 +61,7 @@ class ClienteController extends Controller
 
             return response()->json([
                 'message' => "{$cliente->nome} foi cadastrado com sucesso"
-            ], 500);
+            ], 200);
 
         } catch(\Exception $exception){
             DB::rollBack();

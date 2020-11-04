@@ -27,7 +27,10 @@
                                 <div class="form-group">
                                     <label for="produto-categoria">Categoria</label>
                                     <select name="produto-categoria" class="form-control">
-                                        <option></option>
+                                        <option value="">Selecione uma categoria</option>
+                                        @foreach ($dados['categorias'] as $categoria)
+                                            <option value="{{ $categoria->id }}">{{ $categoria->descricao }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -48,7 +51,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a href="{{ route('cliente.index') }}" class="btn btn-info">
+                        <a href="{{ route('produto.index') }}" class="btn btn-info">
                             Voltar
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a>
@@ -64,5 +67,5 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/cliente/lista.js') }}"></script>
+    <script src="{{ asset('js/produto/index.js') }}"></script>
 @stop

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoriaProduto;
 use App\Models\Cliente;
 use App\Models\Contato;
+use App\Models\Produto;
 use App\Models\Sexo;
 use App\Models\TipoContato;
 use Exception;
@@ -15,16 +16,19 @@ class ProdutoController extends Controller
 {
     public function index()
     {
-        $dados = [];
+        $dados = [
+            'produtos' => $this->all()
+        ];
+
         return view('produto.index', compact('dados'));
     }
 
     public function create()
     {
         $dados = [
-            'categoria' => $this->findAllCategoria()
+            'categorias' => $this->findAllCategoria()
         ];
-        
+
         return view('produto.create', compact('dados'));
     }
 
@@ -34,14 +38,23 @@ class ProdutoController extends Controller
 
             $dados = [];
             parse_str($request->get('dados'), $dados);
+            
+            $produto = new Produto();
+            $produto->id_categoria = $dados['produto-categoria'];
+            $produto->nome = $dados['produto-nome'];
+            $produto->descricao = $dados['produto-descricao'];
+            $produto->preco = $dados['produto-preco'];
+            $produto->status = 1;
+
+            $produto->save();
 
             DB::beginTransaction();
             //
             DB::commit();
 
-            // return response()->json([
-            //     'message' => "{$cliente->nome} foi cadastrado com sucesso"
-            // ], 500);
+            return response()->json([
+                'message' => "{$produto->nome} foi cadastrado com sucesso"
+            ], 200);
 
         } catch(\Exception $exception){
             DB::rollBack();
@@ -53,13 +66,23 @@ class ProdutoController extends Controller
 
     public function show($id)
     {
-        $dados = [];
+        $dados = [
+            'readonly' => true,
+            'produto' => $this->find($id),
+            'categorias' => $this->findAllCategoria()
+        ];
+
         return view('produto.show', compact('dados'));
     }
 
     public function edit($id)
     {
-        $dados = [];
+        $dados = [
+            'readonly' => false,
+            'produto' => $this->find($id),
+            'categorias' => $this->findAllCategoria()
+        ];
+
         return view('produto.show', compact('dados'));
     }
 
@@ -71,10 +94,17 @@ class ProdutoController extends Controller
 
             DB::beginTransaction();
             //
+            $produto = $this->find($id);
+            $produto->id_categoria = $dados['produto-categoria'];
+            $produto->nome = $dados['produto-nome'];
+            $produto->descricao = $dados['produto-descricao'];
+            $produto->preco = $dados['produto-preco'];
+            $produto->save();
+
             DB::commit();
-            // return response()->json([
-            //     'message' => "<strong>{$cliente->nome}</strong> foi alterado com sucesso"
-            // ], 200);
+            return response()->json([
+                'message' => "<strong>{$produto->nome}</strong> foi alterado com sucesso"
+            ], 200);
 
         } catch(\Exception $exception){
             DB::rollBack();
@@ -89,14 +119,13 @@ class ProdutoController extends Controller
     {
         try {
             DB::beginTransaction();
-            //$cliente = $this->find($request->get('clienteId'));
-            //$cliente->contatos()->delete();
-            //$cliente->delete();
+            $produto = $this->find($request->get('id'));
+            $produto->delete();
             DB::commit();
 
-            // return response()->json([
-            //     'message' => "<strong>{$cliente->nome}</strong> foi removido com sucesso"
-            // ], 200);
+            return response()->json([
+                'message' => "<strong>{$produto->nome}</strong> foi removido com sucesso"
+            ], 200);
             
         } catch(\Exception $exception){
             DB::rollBack();
@@ -114,11 +143,11 @@ class ProdutoController extends Controller
     }
 
     private function find($id){
-        return;
+        return Produto::find($id)->with('categoria')->first();
     }
 
     private function all(){
-        return;
+        return Produto::all();
     }
 
     //--------------------------------------------------------------------------------//

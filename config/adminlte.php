@@ -277,7 +277,7 @@ return [
                 [
                     'text' => 'Lista',
                     'icon' => 'fas fa-fw fa-search',
-                    'url'  => 'clientes',
+                    'url'  => 'produtos',
                 ],
             ]
         ],
