@@ -1,20 +1,30 @@
 CEP = {
-    buscaCEP: async function (input) {
+    consulta: async function (input)
+    {
         input.on('blur', function(event){
-            var cep = $(this).val().replace(/\D/g, '');
-
-            if(CEP.validaCEP(cep) === true){
-                CEP.ajaxCEP(cep)
-                    .catch(e => {
-                        console.log(e);
-                    }).then(v => {
-                        CEP.popularCEP(v);
-                    }
-                );
-            }
+            CEP.valida($(this).val().replace(/\D/g, ''));
         });
     },
-    objetoCEP: function(data){
+    valida: function(cep)
+    {
+        let validacep = /^[0-9]{8}$/;
+
+        if(validacep.test(cep)){
+            CEP.popula(cep);
+        }
+
+        return false;
+    },
+    busca: function(cep)
+    {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(fetch(`https://viacep.com.br/ws/${cep}/json`));
+            }, 500);
+        });
+    },
+    objeto: function()
+    {
         return {
             cep: $("#cep"),
             rua: $("#rua"),
@@ -23,48 +33,18 @@ CEP = {
             uf: $("#uf"),
         };
     },
-    popularCEP: function(data){
-        if(!data.erro){
-            CEP.objetoCEP().rua.val(data.logradouro);//.attr('readonly', 'readonly');
-            CEP.objetoCEP().bairro.val(data.bairro);//.attr('readonly', 'readonly');
-            CEP.objetoCEP().cidade.val(data.localidade);//;.attr('readonly', 'readonly');
-            CEP.objetoCEP().uf.val(data.uf);//.attr('readonly', 'readonly');
-        } else {
-            CEP.objetoCEP().cep.removeAttr('readonly').val('');
-            CEP.objetoCEP().rua.removeAttr('readonly').val('');
-            CEP.objetoCEP().bairro.removeAttr('readonly').val('');
-            CEP.objetoCEP().cidade.removeAttr('readonly').val('');
-            CEP.objetoCEP().uf.removeAttr('readonly').val('');
-        }
-    },
-    validaCEP: function(cep){
-        let validacep = /^[0-9]{8}$/;
-
-        if(validacep.test(cep)){
-            return true;
-        }
-
-        return false;
-    },
-    ajaxCEP: async function (cep) {
-        return await $.ajax({
-            url: `https://viacep.com.br/ws/${cep}/json`,
-            method: "GET",
-            beforeSend: function (data) {
-                // bootbox.dialog({
-                //     message:
-                //         '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
-                //     closeButton: false,
-                // });
-            },
-            success: function (data) {
-                Util.hideAll();
-                return data;
-            },
-            error: function (error) {
-                Util.hideAll();
-                return error;
-            }
+    popula: async function(cep)
+    {
+        Util.processing();
+        return await CEP.busca(cep).then(response => {
+            response.json().then(data => {
+                CEP.objeto().rua.val(data.logradouro);
+                CEP.objeto().bairro.val(data.bairro);
+                CEP.objeto().cidade.val(data.localidade);
+                CEP.objeto().uf.val(data.uf);
+            });
+        }).then(() => {
+            Util.hideAll();
         });
     },
 }

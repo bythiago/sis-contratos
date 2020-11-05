@@ -1,12 +1,16 @@
 Util = {
     processing: function(){
-        // bootbox.dialog({
-        //     message:    '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
-        //     closeButton: false,
-        // });
+        return bootbox.dialog({
+            message:    '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
+            closeButton: false,
+        });
     },
     hideAll: function () {
-        bootbox.hideAll();
+        return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(bootbox.hideAll());
+            }, 100);
+        });
     },
     formatarPalavras:function (input) {
         $(input).on("keyup",function () {

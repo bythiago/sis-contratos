@@ -30,7 +30,7 @@ App = {
         Util.formatarPalavras();
 
         //
-        CEP.buscaCEP(App.campos.cep);
+        CEP.consulta(App.campos.cep);
     },
     salvar: function(event){
 
