@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoriaProduto;
 use App\Models\Cliente;
-use App\Models\Contato;
+use App\Models\Pedido;
 use App\Models\Produto;
-use App\Models\Sexo;
-use App\Models\TipoContato;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +23,7 @@ class PedidoController extends Controller
     public function create()
     {
         $dados = [
+            'produtos' => $this->findAllProduto(),
             'clientes' => $this->findAllCliente()
         ];
 
@@ -39,12 +37,13 @@ class PedidoController extends Controller
             $dados = [];
             parse_str($request->get('dados'), $dados);
             
-            $pedido = new Produto();
-            $pedido->id_categoria = $dados['pedido-categoria'];
-            $pedido->nome = $dados['pedido-nome'];
-            $pedido->descricao = $dados['pedido-descricao'];
-            $pedido->preco = $dados['pedido-preco'];
-            $pedido->status = 1;
+            $pedido = new Pedido();
+            // $pedido->id_contrato = 1;
+            // $pedido->id_orcamento = 1;
+            $pedido->id_cliente = $dados['pedido-cliente'];
+            $pedido->id_anotacao = 1;
+            $pedido->id_status = 1;
+            // $pedido->status = 1;
 
             $pedido->save();
 
@@ -53,7 +52,7 @@ class PedidoController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => "{$pedido->nome} foi cadastrado com sucesso"
+                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -118,13 +117,14 @@ class PedidoController extends Controller
     public function destroy(Request $request)
     {
         try {
+            
             DB::beginTransaction();
             $pedido = $this->find($request->get('id'));
             $pedido->delete();
             DB::commit();
 
             return response()->json([
-                'message' => "<strong>{$pedido->nome}</strong> foi removido com sucesso"
+                'message' => "<strong>Pedido {$request->get('id')}</strong> foi removido com sucesso"
             ], 200);
             
         } catch(\Exception $exception){
@@ -142,18 +142,22 @@ class PedidoController extends Controller
         return Cliente::all();
     }
 
+    private function findAllProduto(){
+        return Produto::all();
+    }
+
     private function findAllCategoria()
     {
         return;// CategoriaProduto::all();
     }
 
     private function find($id){
-        return;// Produto::where('id', $id)->with('categoria')->first();
+        return Pedido::where('id', $id)->with('cliente');
     }
     
 
     private function all(){
-        return; //Produto::all();
+        return Pedido::all();
     }
 
     //--------------------------------------------------------------------------------//

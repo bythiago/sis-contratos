@@ -25,6 +25,7 @@ Pedido = {
 
         //campos
         Pedido.campos.cliente = $("#pedido-cliente");
+        Pedido.campos.produto = $("#pedido-produto");
 
         //botoes
         Pedido.botoes.btnSalvar = $("#btn-salvar");
@@ -32,6 +33,7 @@ Pedido = {
         //utils
         Util.formatarPalavras();
         Util.select2(Pedido.campos.cliente);
+        Util.select2(Pedido.campos.produto);
     },
     salvar: function(event){
 
@@ -91,7 +93,7 @@ Pedido = {
             };
 
             bootbox.confirm({
-                message: `Você tem certeza que deseja excluir o pedido <strong>${data.pedido.nome}</strong>?`,
+                message: `Você tem certeza que deseja cancelar o <strong>Pedido ${data.pedido.id}</strong>?`,
                 buttons: {
                     confirm: {
                         label: 'Sim',

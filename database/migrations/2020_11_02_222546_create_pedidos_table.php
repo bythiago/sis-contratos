@@ -13,7 +13,7 @@ class CreateControlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('controles', function (Blueprint $table) {
+        Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_contrato')->constrained('contratos');
             $table->foreignId('id_orcamento')->constrained('orcamentos');

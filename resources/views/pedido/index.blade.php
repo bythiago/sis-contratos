@@ -18,31 +18,31 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="produto-table" class="table table-bordered">
+                    <table id="pedido-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                                <th>Preço</th>
+                                <th>@</th>
+                                <th>Cliente</th>
                                 <th>Status</th>
+                                <th>Anotação</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dados['produtos'] as $produto)
+                            @foreach ($dados['pedidos'] as $pedido)
                                 <tr>
-                                    <td>{{ $produto->nome }}</td>
-                                    <td>{{ $produto->descricao }}</td>
-                                    <td>{{ $produto->preco }}</td>
-                                    <td>{{ $produto->status }}</td>
+                                    <td>{{ $pedido->id }}</td>
+                                    <td>{{ $pedido->cliente()->first()->nome }}</td>
+                                    <td>{{ $pedido->status()->first()->descricao }}</td>
+                                    <td>{{ $pedido->id_anotacao }}</td>
                                     <td>
-                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('produto.show', $produto->id) }}">
-                                            <i class="fa fa-search"></i>
+                                        <button class="btn btn-info btn-sm btn-show" data-href="{{ route('pedido.show', $pedido->id) }}">
+                                            <i class="fa fa-list"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('produto.edit', $produto->id) }}">
-                                            <i class="fa fa-edit"></i>
+                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('pedido.edit', $pedido->id) }}">
+                                            <i class="fa fa-handshake"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('produto.destroy', $produto->id) }}" data-produto="{{ $produto }}">
+                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('pedido.destroy', $pedido->id) }}" data-pedido="{{ $pedido }}">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
@@ -56,5 +56,5 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/produto/index.js') }}"></script>
+    <script src="{{ asset('js/pedido/index.js') }}"></script>
 @stop

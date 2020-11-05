@@ -28,7 +28,7 @@
                                     {{-- <input type="text" class="form-control" id="pedido-cliente" name="pedido-cliente" required="true" minlength="2"> --}}
                                 </div>
                             </div>
-                            
+
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label for="pedido-categoria">Categoria</label>
