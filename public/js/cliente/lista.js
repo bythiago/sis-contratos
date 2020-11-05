@@ -50,10 +50,12 @@ App = {
                 Util.processing();
             },
             success: function (data) {
-                setTimeout(() => Util.hideAll(), 250);
-                bootbox.alert(data.message, function(){ 
-                    window.location.href = '../';
-                });
+                setTimeout(() => { 
+                    Util.hideAll();
+                    bootbox.alert(data.message, function(){ 
+                        window.location.href = window.BASE_HREF + 'clientes';
+                    });
+                }, 250);
             },
             error: function (error) {
                 bootbox.alert(error.responseJSON.message, function(){ 

@@ -1,7 +1,7 @@
 $(function () {
     setTimeout(function () {
         Produto.iniciar();
-    }, 500);
+    }, 100);
 });
 
 Produto = {
@@ -45,10 +45,12 @@ Produto = {
                 Util.processing();
             },
             success: function (data) {
-                setTimeout(() => Util.hideAll(), 250);
-                bootbox.alert(data.message, function(){ 
-                    window.location.href = window.BASE_HREF + 'produtos';
-                });
+                setTimeout(() => { 
+                    Util.hideAll();
+                    bootbox.alert(data.message, function(){ 
+                        window.location.href = window.BASE_HREF + 'produtos';
+                    });
+                }, 250);
             },
             error: function (error) {
                 bootbox.alert(error.responseJSON.message, function(){ 
