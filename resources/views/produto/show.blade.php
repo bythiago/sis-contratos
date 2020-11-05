@@ -40,7 +40,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="produto-preco">Preço</label>
-                                    <input type="text" class="form-control" name="produto-preco" value="{{ $dados['produto']->preco }}" required="true">
+                                    <input type="text" class="form-control" name="produto-preco" value="{{ $dados['produto']->preco }}" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
                                 </div>
                             </div>
                         </div>
