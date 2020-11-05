@@ -47,10 +47,10 @@ App = {
                 dados : App.formulario.serialize(),
             },
             beforeSend: function () {
-                // Util.processing();
+                Util.processing();
             },
             success: function (data) {
-                // Util.hideAll();
+                setTimeout(() => Util.hideAll(), 250);
                 bootbox.alert(data.message, function(){ 
                     window.location.href = '../';
                 });
