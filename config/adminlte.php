@@ -281,6 +281,22 @@ return [
                 ],
             ]
         ],
+        [
+            'text' => 'Pedidos',
+            'icon' => 'fas fa-fw fa-credit-card',
+            'submenu' => [
+                [
+                    'text' => 'Novo',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'pedidos/create',
+                ],
+                [
+                    'text' => 'Lista',
+                    'icon' => 'fas fa-fw fa-search',
+                    'url'  => 'pedidos',
+                ],
+            ]
+        ],
     ],
 
     /*

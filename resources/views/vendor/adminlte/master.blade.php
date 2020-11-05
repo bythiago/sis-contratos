@@ -86,10 +86,16 @@
         <script src="{{ asset('vendor/inputmask/inputmask.js') }}"></script>
         <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
         <script src="{{ asset('vendor/jquery-validation/localization/messages_pt_BR.min.js') }}"></script>
+        
+        <script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
+        <script src="{{ asset('vendor/select2/js/i18n/pt-BR.js') }}"></script>
 
         <script src="{{ asset('js/cep.js') }}"></script>
         <script src="{{ asset('js/util.js') }}"></script>
         <script src="{{ asset('js/form.js') }}"></script>
+
+        <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

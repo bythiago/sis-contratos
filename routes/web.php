@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,16 @@ Route::group(['prefix' => 'produtos'], function(){
     Route::put('/update/{id}', [ProdutoController::class, 'update'])->name('produto.update');
     Route::get('/show/{id}', [ProdutoController::class, 'show'])->name('produto.show');
     Route::delete('/destroy/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
+});
+
+Route::group(['prefix' => 'pedidos'], function(){
+    Route::get('/', [PedidoController::class, 'index'])->name('pedido.index');
+    Route::get('/create', [PedidoController::class, 'create'])->name('pedido.create');
+    Route::post('/store', [PedidoController::class, 'store'])->name('pedido.store');
+    Route::get('/edit/{id}', [PedidoController::class, 'edit'])->name('pedido.edit');
+    Route::put('/update/{id}', [PedidoController::class, 'update'])->name('pedido.update');
+    Route::get('/show/{id}', [PedidoController::class, 'show'])->name('pedido.show');
+    Route::delete('/destroy/{id}', [PedidoController::class, 'destroy'])->name('pedido.destroy');
 });
 
 //Auth::routes();
