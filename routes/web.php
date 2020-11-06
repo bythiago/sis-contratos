@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,16 @@ Route::group(['prefix' => 'pedidos'], function(){
     Route::put('/update/{id}', [PedidoController::class, 'update'])->name('pedido.update');
     Route::get('/show/{id}', [PedidoController::class, 'show'])->name('pedido.show');
     Route::delete('/destroy/{id}', [PedidoController::class, 'destroy'])->name('pedido.destroy');
+});
+
+Route::group(['prefix' => 'orcamentos/pedido'], function(){
+    Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
+    Route::get('/create', [OrcamentoController::class, 'create'])->name('orcamento.create');
+    Route::post('/store', [OrcamentoController::class, 'store'])->name('orcamento.store');
+    Route::get('/edit/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
+    Route::put('/update/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
+    Route::get('/show/{id}', [OrcamentoController::class, 'show'])->name('orcamento.show');
+    Route::delete('/destroy/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
 });
 
 //Auth::routes();

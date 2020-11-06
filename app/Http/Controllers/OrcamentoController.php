@@ -2,32 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriaProduto;
 use App\Models\Cliente;
+use App\Models\Contato;
+use App\Models\Orcamento;
 use App\Models\Pedido;
 use App\Models\Produto;
+use App\Models\Sexo;
+use App\Models\TipoContato;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PedidoController extends Controller
+class OrcamentoController extends Controller
 {
     public function index()
     {
         $dados = [
-            'pedidos' => $this->all()
+            'orcamentos' => $this->all()
         ];
 
-        return view('pedido.index', compact('dados'));
+        return view('orcamento.index', compact('dados'));
     }
 
     public function create()
     {
         $dados = [
-            'produtos' => $this->findAllProduto(),
-            'clientes' => $this->findAllCliente()
+            'categorias' => $this->findAllCategoria()
         ];
 
-        return view('pedido.create', compact('dados'));
+        return view('orcamento.create', compact('dados'));
     }
 
     public function store(Request $request)
@@ -37,17 +41,16 @@ class PedidoController extends Controller
             $dados = [];
             parse_str($request->get('dados'), $dados);
             
-            $pedido = new Pedido();
-            $pedido->id_cliente = $dados['pedido-cliente'];
-            $pedido->id_status = 1;
-            $pedido->save();
+            $orcamento = new Orcamento();
+
+            $orcamento->save();
 
             DB::beginTransaction();
             //
             DB::commit();
 
             return response()->json([
-                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
+                'message' => "<strong>{$orcamento->nome}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -61,23 +64,23 @@ class PedidoController extends Controller
     public function show($id)
     {
         $dados = [
-            'readonly' => true,
-            'pedido' => $this->find($id),
-            'categorias' => $this->findAllCategoria()
+            'readonly' => false,
+            'produtos' => $this->findAllProduto(),
+            'pedido' => $this->findByPedido($id),
         ];
 
-        return view('pedido.show', compact('dados'));
+        return view('orcamento.show', compact('dados'));
     }
 
     public function edit($id)
     {
         $dados = [
             'readonly' => false,
-            'pedido' => $this->find($id),
+            'orcamento' => $this->find($id),
             'categorias' => $this->findAllCategoria()
         ];
 
-        return view('pedido.show', compact('dados'));
+        return view('orcamento.show', compact('dados'));
     }
 
     public function update(Request $request, $id){
@@ -88,16 +91,16 @@ class PedidoController extends Controller
 
             DB::beginTransaction();
             //
-            $pedido = $this->find($id);
-            $pedido->id_categoria = $dados['pedido-categoria'];
-            $pedido->nome = $dados['pedido-nome'];
-            $pedido->descricao = $dados['pedido-descricao'];
-            $pedido->preco = $dados['pedido-preco'];
-            $pedido->save();
+            $orcamento = $this->find($id);
+            $orcamento->id_categoria = $dados['orcamento-categoria'];
+            $orcamento->nome = $dados['orcamento-nome'];
+            $orcamento->descricao = $dados['orcamento-descricao'];
+            $orcamento->preco = $dados['orcamento-preco'];
+            $orcamento->save();
 
             DB::commit();
             return response()->json([
-                'message' => "<strong>{$pedido->nome}</strong> foi alterado com sucesso"
+                'message' => "<strong>{$orcamento->nome}</strong> foi alterado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -112,14 +115,13 @@ class PedidoController extends Controller
     public function destroy(Request $request)
     {
         try {
-            
             DB::beginTransaction();
-            $pedido = $this->find($request->get('id'));
-            $pedido->delete();
+            $orcamento = $this->find($request->get('id'));
+            $orcamento->delete();
             DB::commit();
 
             return response()->json([
-                'message' => "<strong>Pedido {$request->get('id')}</strong> foi removido com sucesso"
+                'message' => "<strong>{$orcamento->nome}</strong> foi removido com sucesso"
             ], 200);
             
         } catch(\Exception $exception){
@@ -132,27 +134,21 @@ class PedidoController extends Controller
 
     //--------------------------------------------------------------------------------//
     
-    private function findAllCliente()
-    {
-        return Cliente::all();
-    }
-
     private function findAllProduto(){
         return Produto::all();
     }
 
-    private function findAllCategoria()
+    private function findByPedido($id)
     {
-        return;// CategoriaProduto::all();
+        return Pedido::where('id', $id)->with('cliente')->first();
     }
 
     private function find($id){
-        return Pedido::where('id', $id)->with('cliente');
+        return Orcamento::where('id', $id)->with('categoria')->first();
     }
-    
 
     private function all(){
-        return Pedido::all();
+        return Orcamento::all();
     }
 
     //--------------------------------------------------------------------------------//

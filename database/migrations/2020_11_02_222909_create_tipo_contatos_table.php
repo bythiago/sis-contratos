@@ -17,6 +17,7 @@ class CreateTipoContatosTable extends Migration
             $table->id();
             $table->string('tipo');
             $table->string('descricao');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

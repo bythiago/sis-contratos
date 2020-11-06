@@ -20,6 +20,7 @@ class CreateProdutosTable extends Migration
             $table->string('descricao');
             $table->float('preco', 6, 2);
             $table->boolean('status');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

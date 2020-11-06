@@ -19,6 +19,7 @@ class CreateContatosTable extends Migration
             $table->foreignId('id_tipo_contato')->constrained('tipo_contatos');
             $table->string('numero');
             $table->string('descricao');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

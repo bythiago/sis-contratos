@@ -53,7 +53,7 @@ class ProdutoController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => "{$produto->nome} foi cadastrado com sucesso"
+                'message' => "<strong>{$produto->nome}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){

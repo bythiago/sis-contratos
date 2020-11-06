@@ -36,7 +36,7 @@
                                     <td>{{ $pedido->status()->first()->descricao }}</td>
                                     <td>{{ $pedido->id_anotacao }}</td>
                                     <td>
-                                        <button class="btn btn-info btn-sm btn-show" data-href="{{ route('orcamento.show', $pedido->id) }}">
+                                        <button class="btn btn-info btn-sm btn-show" data-href="{{ route('pedido.show', $pedido->id) }}">
                                             <i class="fa fa-list"></i>
                                         </button>
                                         <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('pedido.edit', $pedido->id) }}">

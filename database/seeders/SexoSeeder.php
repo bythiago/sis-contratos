@@ -18,7 +18,10 @@ class SexoSeeder extends Seeder
             [
                 'tipo' => 'masculino',
                 'descricao' => 'Masculino',
-            ],
+            ]
+        );
+        
+        DB::table('sexos')->insert(
             [
                 'tipo' => 'feminino',
                 'descricao' => 'Feminino',

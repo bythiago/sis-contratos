@@ -18,7 +18,7 @@ class CreateClientesTable extends Migration
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->date('nascimento');
-            $table->char('sexo');
+            $table->foreignId('id_sexo')->constrained('sexos');
             $table->string('cep');
             $table->string('rua');
             $table->string('numero');
@@ -26,6 +26,7 @@ class CreateClientesTable extends Migration
             $table->string('cidade');
             $table->string('uf');
             $table->string('observacao');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

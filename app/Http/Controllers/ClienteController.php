@@ -36,12 +36,12 @@ class ClienteController extends Controller
             parse_str($request->get('dados'), $dados);
 
             DB::beginTransaction();
-            
+           
             $cliente = new Cliente();
             $cliente->nome = $dados['cliente-nome'];
             $cliente->cpf = $dados['cliente-cpf'];
             $cliente->nascimento = $dados['cliente-nascimento'];
-            $cliente->id_sexo = $dados['cliente-sexo'];
+            $cliente->id_sexo = (int)$dados['cliente-sexo'];
             $cliente->cep = $dados['cliente-cep'];
             $cliente->rua = $dados['cliente-rua'];
             $cliente->numero = $dados['cliente-numero'];
@@ -60,7 +60,7 @@ class ClienteController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => "{$cliente->nome} foi cadastrado com sucesso"
+                'message' => "<strong>{$cliente->nome}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){

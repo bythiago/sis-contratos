@@ -21,6 +21,7 @@ class CreateOrcamentoHasProdutosTable extends Migration
             $table->integer('quantidade');
             $table->float(6, 2, 'total');
             $table->boolean('status');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

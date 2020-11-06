@@ -16,7 +16,7 @@ class StatusSeeder extends Seeder
     {
         DB::table('status')->insert([
             'tipo' => 'orcamento',
-            'descricao' => 'Orcamento',
+            'descricao' => 'Orcamento'
         ]);
     }
 }
