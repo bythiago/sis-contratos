@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             CategoriaProdutoSeeder::class,
             TipoContatoSeeder::class,
             StatusSeeder::class,
+            TipoAnotacaoSeeder::class,
+            ClienteSeeder::class
         ]);
     }
 }

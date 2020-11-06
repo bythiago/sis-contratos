@@ -22,37 +22,17 @@
                                     <label for="pedido-cliente">Cliente</label>
                                     <select name="pedido-cliente" id="pedido-cliente" class="form-control select2" required>
                                         @foreach ($dados['clientes'] as $cliente)
-                                            <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    {{-- <input type="text" class="form-control" id="pedido-cliente" name="pedido-cliente" required="true" minlength="2"> --}}
-                                </div>
-                            </div>
-
-                            {{-- <div class="col-12">
-                                <div class="form-group">
-                                    <label for="pedido-categoria">Categoria</label>
-                                    <select name="pedido-categoria" class="form-control">
-                                        <option value="">Selecione uma categoria</option>
-                                        @foreach ($dados['categorias'] as $categoria)
-                                            <option value="{{ $categoria->id }}">{{ $categoria->descricao }}</option>
+                                            <option value="{{ $cliente->id }}">{{ $cliente->cpf }} - {{ $cliente->nome }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="pedido-descricao">Descrição</label>
-                                    <textarea name="pedido-descricao" class="form-control" rows="3" required="true"></textarea>
+                                    <label for="pedido-anotacao">Anotação</label>
+                                    <textarea name="pedido-anotacao" class="form-control" rows="3" required="true"></textarea>
                                 </div>
                             </div>
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="pedido-preco">Preço</label>
-                                    <input type="text" class="form-control" name="pedido-preco" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                     <!-- /.card-body -->

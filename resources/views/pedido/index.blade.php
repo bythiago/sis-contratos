@@ -34,7 +34,11 @@
                                     <td>{{ $pedido->id }}</td>
                                     <td>{{ $pedido->cliente()->first()->nome }}</td>
                                     <td>{{ $pedido->status()->first()->descricao }}</td>
-                                    <td>{{ $pedido->id_anotacao }}</td>
+                                    <td>
+                                        @if ($pedido->anotacao()->first())
+                                            {{ mb_strimwidth($pedido->anotacao()->first()->descricao, 0, 20, '...') }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <button class="btn btn-info btn-sm btn-show" data-href="{{ route('orcamento.show', $pedido->id) }}">
                                             <i class="fa fa-list"></i>

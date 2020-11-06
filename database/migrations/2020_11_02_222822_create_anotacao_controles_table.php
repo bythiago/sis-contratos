@@ -16,7 +16,7 @@ class CreateAnotacaoControlesTable extends Migration
         Schema::create('anotacoes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pedido')->constrained('pedidos');
-            $table->foreignId('id_tipo')->constrained('anotacoes');
+            $table->foreignId('id_tipo')->constrained('tipo_anotacoes');
             $table->string('descricao');
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();

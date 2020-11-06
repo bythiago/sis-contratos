@@ -31,4 +31,8 @@ class Pedido extends Model
     public function orcamentos(){
         return $this->hasMany(Orcamento::class, 'id_pedido', 'id');
     }
+
+    public function anotacao(){
+        return $this->hasOne(Anotacao::class, 'id_pedido', 'id');
+    }
 }

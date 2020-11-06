@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anotacao;
 use App\Models\Cliente;
 use App\Models\Pedido;
 use App\Models\Produto;
+use App\Models\TipoAnotacao;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,11 +38,19 @@ class PedidoController extends Controller
 
             $dados = [];
             parse_str($request->get('dados'), $dados);
-            
+           
             $pedido = new Pedido();
             $pedido->id_cliente = $dados['pedido-cliente'];
             $pedido->id_status = 1;
             $pedido->save();
+
+            $anotacao = new Anotacao();
+            $anotacao->id_pedido = $pedido->id;
+            $anotacao->id_tipo = $this->findByTipoAnotacao('pedido');
+            $anotacao->descricao = $dados['pedido-anotacao'];
+
+            $anotacao->save();
+            //$pedido->anotacao()->save($anotacao);
 
             DB::beginTransaction();
             //
@@ -150,6 +160,10 @@ class PedidoController extends Controller
         return Pedido::where('id', $id)->with('cliente');
     }
     
+    private function findByTipoAnotacao($tipo)
+    {
+        return TipoAnotacao::where('tipo', $tipo)->first()->id;
+    }
 
     private function all(){
         return Pedido::all();
