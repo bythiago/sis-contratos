@@ -16,11 +16,9 @@ class CreateOrcamentoHasProdutosTable extends Migration
         Schema::create('orcamento_has_produtos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_orcamento')->constrained('orcamentos');
-            $table->foreignId('id_produtos')->constrained('produtos');
-            $table->foreignId('id_anotacao')->constrained('anotacoes');
+            $table->foreignId('id_produto')->constrained('produtos');
             $table->integer('quantidade');
-            $table->float(6, 2, 'total');
-            $table->boolean('status');
+            $table->float('total', 8, 2);
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });

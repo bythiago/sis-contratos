@@ -54,7 +54,7 @@ Orcamento = {
                     setTimeout(() => { 
                         Util.hideAll();
                         bootbox.alert(data.message, function(){ 
-                            window.location.href = window.BASE_HREF + 'produtos';
+                            window.location.href = window.BASE_HREF + 'pedidos';
                         });
                     }, 250);
                 },
@@ -87,7 +87,7 @@ Orcamento = {
                 setTimeout(() => { 
                     Util.hideAll();
                     bootbox.alert(data.message, function(){ 
-                        window.location.href = window.BASE_HREF + 'produtos';
+                        window.location.href = window.BASE_HREF + 'pedidos';
                     });
                 }, 250);
             },

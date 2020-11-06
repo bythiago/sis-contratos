@@ -40,17 +40,31 @@ class OrcamentoController extends Controller
 
             $dados = [];
             parse_str($request->get('dados'), $dados);
-            
-            $orcamento = new Orcamento();
 
+            $produto = $this->findByProduto($dados['pedido-id-produto']);
+
+            //
+            $quantidade = 60;
+                        
+            $orcamento = new Orcamento();
+            $orcamento->id_pedido = $dados['pedido-id'];
             $orcamento->save();
+            
+            $orcamento->produtos()->attach($orcamento->id, 
+                array(
+                    'id_orcamento'=> $orcamento->id, 
+                    'id_produto' => $produto->id, 
+                    'quantidade' => $quantidade, 
+                    'total' => $produto->preco * $quantidade
+                )
+            );
 
             DB::beginTransaction();
             //
             DB::commit();
 
             return response()->json([
-                'message' => "<strong>{$orcamento->nome}</strong> foi cadastrado com sucesso"
+                'message' => "<strong>Orcamento {$orcamento->id}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -63,10 +77,13 @@ class OrcamentoController extends Controller
 
     public function show($id)
     {
+        // dd($this->findByIdPedido($id)[8]->produtos()->get()->toArray());
+
         $dados = [
             'readonly' => false,
             'produtos' => $this->findAllProduto(),
-            'pedido' => $this->findByPedido($id),
+            'pedidos' => $this->findByPedido($id),
+            //'orcamentos' => $this->findByIdPedido($id)
         ];
 
         return view('orcamento.show', compact('dados'));
@@ -134,17 +151,29 @@ class OrcamentoController extends Controller
 
     //--------------------------------------------------------------------------------//
     
-    private function findAllProduto(){
+    private function findAllProduto()
+    {
         return Produto::all();
+    }
+
+    private function findByProduto($id)
+    {
+        return Produto::where('id', $id)->first();
     }
 
     private function findByPedido($id)
     {
-        return Pedido::where('id', $id)->with('cliente')->first();
+        return Pedido::where('id', $id)->with('cliente')->with('orcamentos')->first();
+    }
+    
+    private function findByIdPedido($id)
+    {
+        return Orcamento::where('id_pedido', $id)->with('produtos')->get();
     }
 
-    private function find($id){
-        return Orcamento::where('id', $id)->with('categoria')->first();
+    private function find($id)
+    {
+        return Orcamento::where('id', $id)->first();
     }
 
     private function all(){

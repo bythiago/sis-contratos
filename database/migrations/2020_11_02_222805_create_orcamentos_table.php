@@ -16,10 +16,11 @@ class CreateOrcamentosTable extends Migration
         Schema::create('orcamentos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pedido')->constrained('pedidos');
-            $table->string('assessora');
-            $table->string('cerimonia');
-            $table->boolean('valido_contrato');
-            $table->integer('quantidade_convidados');
+            $table->foreignId('id_anotacao')->constrained('anotacoes');
+            // $table->string('assessora');
+            // $table->string('cerimonia');
+            // $table->boolean('valido_contrato');
+            // $table->integer('quantidade_convidados');
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });

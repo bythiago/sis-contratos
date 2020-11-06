@@ -41,7 +41,7 @@ class ClienteController extends Controller
             $cliente->nome = $dados['cliente-nome'];
             $cliente->cpf = $dados['cliente-cpf'];
             $cliente->nascimento = $dados['cliente-nascimento'];
-            $cliente->id_sexo = (int)$dados['cliente-sexo'];
+            $cliente->id_sexo = $dados['cliente-sexo'];
             $cliente->cep = $dados['cliente-cep'];
             $cliente->rua = $dados['cliente-rua'];
             $cliente->numero = $dados['cliente-numero'];

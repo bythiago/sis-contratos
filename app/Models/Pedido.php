@@ -28,7 +28,7 @@ class Pedido extends Model
         return $this->belongsTo(StatusControle::class, 'id_status', 'id');
     }
 
-    // public function anotacoes(){
-    //     return $this->hasMany(AnotacaoControle::class, 'id_anotacao', 'id');
-    // }
+    public function orcamentos(){
+        return $this->hasMany(Orcamento::class, 'id_pedido', 'id');
+    }
 }

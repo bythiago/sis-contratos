@@ -47,7 +47,7 @@ Route::group(['prefix' => 'pedidos'], function(){
     Route::delete('/destroy/{id}', [PedidoController::class, 'destroy'])->name('pedido.destroy');
 });
 
-Route::group(['prefix' => 'orcamentos/pedido'], function(){
+Route::group(['prefix' => 'orcamentos'], function(){
     Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
     Route::get('/create', [OrcamentoController::class, 'create'])->name('orcamento.create');
     Route::post('/store', [OrcamentoController::class, 'store'])->name('orcamento.store');

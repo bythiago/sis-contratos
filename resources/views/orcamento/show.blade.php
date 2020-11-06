@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Pedido: {{ $dados['pedido']->id }}</h1>
+    <h1 class="m-0 text-dark">Pedido: {{ $dados['pedidos']->id }}</h1>
 @stop
 @section('content')
     <div class="row">
@@ -11,13 +11,13 @@
             <div class="card card-primary">
                 <!-- form start -->
                 <form id="formulario-lista" method="POST" action="{{ route('orcamento.store') }}" role="form" novalidate>
-                    <input type="hidden" name="pedido-id" value="{{ $dados['pedido']->id }}">
+                    {{-- <input type="hidden" name="pedido-id" value="{{ $dados['pedidos']->id }}">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-11">
                                 <div class="form-group">
-                                    <label for="pedido-produto">Produtos</label>
-                                    <select name="pedido-produto" class="form-control" required>
+                                    <label for="pedido-id-produto">Produtos</label>
+                                    <select name="pedido-id-produto" class="form-control" required>
                                         <option value="">Selecione uma produto</option>
                                         @foreach ($dados['produtos'] as $produto)
                                             <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
@@ -31,65 +31,46 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <table id="orcamento-table" class="table table-bordered">
-                                        <thead>
+                            <div class="card-body">
+                                <table id="orcamento-table" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>@</th>
+                                            <th>Cliente</th>
+                                            <th>Anotação</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($dados['pedidos']->orcamentos()->get() as $orcamento)
                                             <tr>
-                                                <th>@</th>
-                                                <th>Cliente</th>
-                                                <th>Status</th>
-                                                <th>Anotação</th>
-                                                <th>Ações</th>
+                                                {{-- @if ($orcamento->produtos()->first()) --}}
+                                                <td>{{ $orcamento->id }}</td>
+                                                <td>{{ $dados['pedidos']->cliente()->first()->nome }}</td>
+                                                <td></td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('orcamento.show', $orcamento->id) }}">
+                                                        <i class="fa fa-list"></i>
+                                                    </button>
+                                                    <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('orcamento.edit', $orcamento->id) }}">
+                                                        <i class="fa fa-handshake"></i>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('orcamento.destroy', $orcamento->id) }}" data-orcamento="{{ $orcamento }}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                                    {{-- <td>{{ $orcamento->produtos()->first()->nome }}</td> --}}
+                                                    {{-- @dump($orcamento->produtos()->first()->toArray()) --}}
+                                                    {{-- @endif --}}
+                                                    {{-- @dump($pedido->orcamentos()->get()[7]->produtos()->get()->toArray()) --}}
+                                                    {{-- @dump($orcamento->toArray()) --}}
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                            </tr>
-                                            {{-- @foreach ($dados['pedidos'] as $pedido)
-                                                <tr>
-                                                    <td>{{ $pedido->id }}</td>
-                                                    <td>{{ $pedido->cliente()->first()->nome }}</td>
-                                                    <td>{{ $pedido->status()->first()->descricao }}</td>
-                                                    <td>{{ $pedido->id_anotacao }}</td>
-                                                    <td>
-                                                        <button class="btn btn-info btn-sm btn-show" data-href="{{ route('pedido.show', $pedido->id) }}">
-                                                            <i class="fa fa-list"></i>
-                                                        </button>
-                                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('pedido.edit', $pedido->id) }}">
-                                                            <i class="fa fa-handshake"></i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('pedido.destroy', $pedido->id) }}" data-pedido="{{ $pedido }}">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach --}}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
