@@ -1,14 +1,4 @@
 <template>
-    <!-- <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12" v-if="posts && posts.length">
-                <div class="card" v-for="post of posts">
-                    <div class="card-header">{{ post.title }}</div>
-                    <div class="card-body">{{ post.body }}</div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="card-body table-responsive p-0">
         <table class="table table-striped table-valign-middle">
             <thead>
