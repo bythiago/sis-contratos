@@ -19,19 +19,19 @@
                     <th>More</th>
                 </tr>
             </thead>
-            <tbody v-if="posts && posts.length">
-                <tr v-for="post of posts">
+            <tbody v-if="produtos && produtos.length">
+                <tr v-for="produto of produtos">
                     <td>
                         <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                        {{ post.nome }}
+                        {{ produto.nome }}
                     </td>
-                    <td>$13 USD</td>
+                    <td>R$ {{ produto.preco }}</td>
                     <td>
                         <small class="text-success mr-1">
                             <i class="fas fa-arrow-up"></i>
                             12%
                         </small>
-                        {{ preco.preco }}
+                        12,000 Sold
                     </td>
                     <td>
                         <a href="#" class="text-muted">
@@ -48,14 +48,14 @@
     export default {
         data() {
             return {
-                posts: [],
+                produtos: [],
                 errors: []
             }
         },
 
         created() {
             axios.get(`http://localhost:8080/html/php/laravel/sis-contratos/public/index.php/api/produtos`).then(response => {
-                this.posts = response.data;
+                this.produtos = response.data;
             })
             .catch(e => {
                 this.errors.push(e);

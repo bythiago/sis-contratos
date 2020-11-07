@@ -1957,7 +1957,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      posts: [],
+      produtos: [],
       errors: []
     };
   },
@@ -1965,7 +1965,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get("http://localhost:8080/html/php/laravel/sis-contratos/public/index.php/api/produtos").then(function (response) {
-      _this.posts = response.data;
+      _this.produtos = response.data;
     })["catch"](function (e) {
       _this.errors.push(e);
     });
@@ -37568,10 +37568,10 @@ var render = function() {
     _c("table", { staticClass: "table table-striped table-valign-middle" }, [
       _vm._m(0),
       _vm._v(" "),
-      _vm.posts && _vm.posts.length
+      _vm.produtos && _vm.produtos.length
         ? _c(
             "tbody",
-            _vm._l(_vm.posts, function(post) {
+            _vm._l(_vm.produtos, function(produto) {
               return _c("tr", [
                 _c("td", [
                   _c("img", {
@@ -37584,21 +37584,14 @@ var render = function() {
                   }),
                   _vm._v(
                     "\n                    " +
-                      _vm._s(post.nome) +
+                      _vm._s(produto.nome) +
                       "\n                "
                   )
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v("$13 USD")]),
+                _c("td", [_vm._v("R$ " + _vm._s(produto.preco))]),
                 _vm._v(" "),
-                _c("td", [
-                  _vm._m(1, true),
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.preco.preco) +
-                      "\n                "
-                  )
-                ]),
+                _vm._m(1, true),
                 _vm._v(" "),
                 _vm._m(2, true)
               ])
@@ -37630,9 +37623,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("small", { staticClass: "text-success mr-1" }, [
-      _c("i", { staticClass: "fas fa-arrow-up" }),
-      _vm._v("\n                        12%\n                    ")
+    return _c("td", [
+      _c("small", { staticClass: "text-success mr-1" }, [
+        _c("i", { staticClass: "fas fa-arrow-up" }),
+        _vm._v("\n                        12%\n                    ")
+      ]),
+      _vm._v("\n                    12,000 Sold\n                ")
     ])
   },
   function() {
