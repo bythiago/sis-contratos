@@ -9,8 +9,6 @@
 @section('content')
 <form id="formulario-lista" method="POST" role="form" action="{{ route('orcamento.store') }}" novalidate>
     <div id="app" class="row">
-        
-      <example-component></example-component>
         {{-- <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -165,6 +163,7 @@
                                     </div>
                                   </div>
                             </div>
+                            <example-component></example-component>
                         </div>
                     </div>
                 </div>
