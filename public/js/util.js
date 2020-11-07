@@ -12,11 +12,11 @@ Util = {
             }, 100);
         });
     },
-    select2: function(input){
-        input.select2({
-            theme: 'bootstrap4'
-        });
-    },
+    // select2: function(input){
+    //     input.select2({
+    //         theme: 'bootstrap4'
+    //     });
+    // },
     formatarPalavras:function (input) {
         $(input).on("keyup",function () {
             var palavra =  input.val();

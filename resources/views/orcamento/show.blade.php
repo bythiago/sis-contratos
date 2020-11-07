@@ -11,7 +11,7 @@
             <div class="card card-primary">
                 <!-- form start -->
                 <form id="formulario-lista" method="POST" action="{{ route('orcamento.store') }}" role="form" novalidate>
-                    {{-- <input type="hidden" name="pedido-id" value="{{ $dados['pedidos']->id }}">
+                    <input type="hidden" name="pedido-id" value="{{ $dados['pedidos']->id }}">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-11">
@@ -31,7 +31,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card-body">
@@ -39,19 +39,19 @@
                                     <thead>
                                         <tr>
                                             <th>@</th>
-                                            <th>Cliente</th>
-                                            <th>Anotação</th>
-                                            <th>Ações</th>
+                                            <th>#</th>
+                                            <th>Produto</th>
+                                            <th>Preço</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($dados['pedidos']->orcamentos()->get() as $orcamento)
                                             <tr>
-                                                {{-- @if ($orcamento->produtos()->first()) --}}
                                                 <td>{{ $orcamento->id }}</td>
                                                 <td>{{ $dados['pedidos']->cliente()->first()->nome }}</td>
-                                                <td></td>
-                                                <td>
+                                                <td>{{ $orcamento->produtos()->get()[0]->nome }}</td>
+                                                <td>{{ $orcamento->produtos()->get()[0]->preco }}</td>
+                                                {{-- <td>
                                                     <button class="btn btn-info btn-sm btn-show" data-href="{{ route('orcamento.show', $orcamento->id) }}">
                                                         <i class="fa fa-list"></i>
                                                     </button>
@@ -61,7 +61,7 @@
                                                     <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('orcamento.destroy', $orcamento->id) }}" data-orcamento="{{ $orcamento }}">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
-                                                </td>
+                                                </td> --}}
                                                     {{-- <td>{{ $orcamento->produtos()->first()->nome }}</td> --}}
                                                     {{-- @dump($orcamento->produtos()->first()->toArray()) --}}
                                                     {{-- @endif --}}

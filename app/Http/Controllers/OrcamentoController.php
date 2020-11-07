@@ -44,7 +44,7 @@ class OrcamentoController extends Controller
             $produto = $this->findByProduto($dados['pedido-id-produto']);
 
             //
-            $quantidade = 60;
+            $quantidade = rand(1, 99);
                         
             $orcamento = new Orcamento();
             $orcamento->id_pedido = $dados['pedido-id'];
@@ -149,11 +149,30 @@ class OrcamentoController extends Controller
         }
     }
 
+    public function autocomplete(Request $request)
+    {
+        $produtos = $this->findByNameProduto($request->get('q'));
+        
+        $data['results'] = $produtos->map(function($produto){
+            return [
+                'id' => $produto->id,
+                'text' => $produto->nome
+            ];
+        });
+
+        return response()->json($data);
+    }
+
     //--------------------------------------------------------------------------------//
     
     private function findAllProduto()
     {
         return Produto::all();
+    }
+
+    private function findByNameProduto($q)
+    {
+        return Produto::whereRaw( 'UPPER(`nome`) LIKE ?', '%'.strtoupper($q).'%')->get();
     }
 
     private function findByProduto($id)

@@ -15,6 +15,10 @@ Orcamento = {
         //token
         Orcamento._token = $('meta[name="csrf-token"]').attr('content');
 
+        //campos
+        Orcamento.campos.autocomplete = $("#produto-autocomplete");
+        Form.autocomplete(Orcamento.campos.autocomplete);
+
         //table
         Orcamento.datatable = $("#produto-table");
 

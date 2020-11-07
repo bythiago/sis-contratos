@@ -47,7 +47,7 @@ Route::group(['prefix' => 'pedidos'], function(){
     Route::delete('/destroy/{id}', [PedidoController::class, 'destroy'])->name('pedido.destroy');
 });
 
-Route::group(['prefix' => 'orcamentos'], function(){
+Route::group(['prefix' => 'orcamentos/pedido'], function(){
     Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
     Route::get('/create', [OrcamentoController::class, 'create'])->name('orcamento.create');
     Route::post('/store', [OrcamentoController::class, 'store'])->name('orcamento.store');
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'orcamentos'], function(){
     Route::put('/update/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
     Route::get('/show/{id}', [OrcamentoController::class, 'show'])->name('orcamento.show');
     Route::delete('/destroy/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
+    Route::get('/autocomplete', [OrcamentoController::class, 'autocomplete'])->name('orcamento.autocomplete');
 });
 
 //Auth::routes();

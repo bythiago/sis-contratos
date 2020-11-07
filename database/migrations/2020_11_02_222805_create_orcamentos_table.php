@@ -16,7 +16,7 @@ class CreateOrcamentosTable extends Migration
         Schema::create('orcamentos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pedido')->constrained('pedidos');
-            $table->foreignId('id_anotacao')->constrained('anotacoes');
+            // $table->foreignId('id_anotacao')->constrained('anotacoes');
             // $table->string('assessora');
             // $table->string('cerimonia');
             // $table->boolean('valido_contrato');

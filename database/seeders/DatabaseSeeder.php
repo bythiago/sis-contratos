@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Produto;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,8 @@ class DatabaseSeeder extends Seeder
             TipoContatoSeeder::class,
             StatusSeeder::class,
             TipoAnotacaoSeeder::class,
-            ClienteSeeder::class
+            ClienteSeeder::class,
+            ProdutoSeeder::class
         ]);
     }
 }

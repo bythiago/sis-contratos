@@ -83,6 +83,7 @@
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
         
         <!-- Util.js -->
+        <script src="{{ asset('vendor/angular/angular.min.js') }}"></script>
         <script src="{{ asset('vendor/inputmask/inputmask.js') }}"></script>
         <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
         <script src="{{ asset('vendor/jquery-validation/localization/messages_pt_BR.min.js') }}"></script>
@@ -96,6 +97,7 @@
 
         <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+        {{-- <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css"> --}}
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

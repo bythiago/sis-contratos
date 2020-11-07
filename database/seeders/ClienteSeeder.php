@@ -15,7 +15,7 @@ class ClienteSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i < 20; $i++) { 
+        for ($i=1; $i <= 20; $i++) { 
             DB::table('clientes')->insert(
                 [
                     'nome' => Str::random(10),
@@ -28,9 +28,15 @@ class ClienteSeeder extends Seeder
                     'bairro' => Str::random(10),
                     'cidade' => Str::random(10),
                     'uf' => 'RJ',
-                    'observacao' => 'observacao' . Str::random(10),
+                    'observacao' => Str::random(10),
                 ]
             );
+
+            DB::table('contatos')->insert([
+                'id_cliente' => $i,
+                'id_tipo_contato' => rand(1, 2),
+                'numero' => rand(1111111111, 9999999999)
+            ]);
         }
     }
 }
