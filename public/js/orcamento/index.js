@@ -1,7 +1,7 @@
 $(function () {
-    setTimeout(function () {
+    //setTimeout(function () {
         Orcamento.iniciar();
-    }, 100);
+    //}, 500);
 });
 
 Orcamento = {
@@ -16,19 +16,19 @@ Orcamento = {
         Orcamento._token = $('meta[name="csrf-token"]').attr('content');
 
         //campos
-        Orcamento.campos.autocomplete = $("#produto-autocomplete");
+        Orcamento.campos.autocomplete = $("#pedido-id-produto");
         Form.autocomplete(Orcamento.campos.autocomplete);
 
-        //table
-        Orcamento.datatable = $("#produto-table");
+        // //table
+        // Orcamento.datatable = $("#produto-table");
 
-        //formulario
-        Orcamento.formulario = $("#formulario-lista");
+        // //formulario
+        // Orcamento.formulario = $("#formulario-lista");
 
-        //botoes
-        Orcamento.botoes.btnSalvar = $("#btn-salvar");
+        // //botoes
+        // Orcamento.botoes.btnSalvar = $("#btn-salvar");
         Orcamento.botoes.btnProdutoAdicionar = $("#btnProdutoAdicionar");
-        Orcamento.botoes.btnProdutoRemover = $("btnProdutoRemover");
+        // Orcamento.botoes.btnProdutoRemover = $("btnProdutoRemover");
 
         //utils
         Util.formatarPalavras();
@@ -187,8 +187,8 @@ Orcamento = {
     },
     iniciar: function () {
         Orcamento.iniciarCampos();
-        Orcamento.iniciarBotoes();
-        Orcamento.iniciarDatatable();
+        //Orcamento.iniciarBotoes();
+        //Orcamento.iniciarDatatable();
         Orcamento.iniciarMascaras();
         Orcamento.adicionarProduto();
     }
