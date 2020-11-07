@@ -39,7 +39,6 @@ Orcamento = {
             Form.validation(Orcamento.formulario);
             
             if(!Orcamento.formulario.valid()){
-                console.log('huiaheriuae');
                 return false;
             }
 
@@ -55,12 +54,13 @@ Orcamento = {
                     // Util.processing();
                 },
                 success: function (data) {
-                    setTimeout(() => { 
-                        Util.hideAll();
-                        bootbox.alert(data.message, function(){ 
-                            window.location.href = window.BASE_HREF + 'pedidos';
-                        });
-                    }, 250);
+                    console.log(data);
+                    // setTimeout(() => { 
+                    //     Util.hideAll();
+                    //     bootbox.alert(data.message, function(){ 
+                    //         window.location.href = window.BASE_HREF + 'pedidos';
+                    //     });
+                    // }, 250);
                 },
                 error: function (error) {
                     bootbox.alert(error.responseJSON.message, function(){ 

@@ -13,6 +13,7 @@ use App\Models\TipoContato;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class OrcamentoController extends Controller
 {
@@ -48,7 +49,15 @@ class OrcamentoController extends Controller
                         
             $orcamento = new Orcamento();
             $orcamento->id_pedido = $dados['pedido-id'];
-            $orcamento->save();
+            
+            //
+            $session = $this->session($orcamento);
+
+            if(!$session){
+                $orcamento->save();
+            } else {
+                $orcamento = $session;
+            }
             
             $orcamento->produtos()->attach($orcamento->id, 
                 array(
@@ -164,7 +173,26 @@ class OrcamentoController extends Controller
     }
 
     //--------------------------------------------------------------------------------//
+    public function forget()
+    {
+        session()->forget('data');
+        session()->flush();
+        session()->save();
+        session()->regenerate();
+    }
     
+    private function session($data)
+    {
+        if(session()->has('data')){
+            return session()->get('data');
+        }
+        
+        session()->put('data', $data);
+        session()->save();
+
+        return false;
+    }
+
     private function findAllProduto()
     {
         return Produto::all();

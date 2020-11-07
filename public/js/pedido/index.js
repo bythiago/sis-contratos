@@ -32,8 +32,8 @@ Pedido = {
 
         //utils
         Util.formatarPalavras();
-        Util.select2(Pedido.campos.cliente);
-        Util.select2(Pedido.campos.produto);
+        Form.select2(Pedido.campos.cliente);
+        Form.select2(Pedido.campos.produto);
     },
     salvar: function(event){
 

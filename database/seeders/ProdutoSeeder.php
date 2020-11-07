@@ -19,7 +19,7 @@ class ProdutoSeeder extends Seeder
             DB::table('produtos')->insert(
                 [
                     'id_categoria' => rand(1, 2),
-                    'nome' => Str::random(10),
+                    'nome' => 'Doce'.Str::random(10),
                     'descricao' => Str::random(10),
                     'preco' => rand(1, 99),
                     'status' => 1

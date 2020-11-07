@@ -11,10 +11,12 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PedidoController extends Controller
+class PedidoController extends OrcamentoController
 {
     public function index()
     {
+        $this->forget();
+        
         $dados = [
             'pedidos' => $this->all()
         ];
@@ -24,6 +26,8 @@ class PedidoController extends Controller
 
     public function create()
     {
+        $this->forget();
+
         $dados = [
             'produtos' => $this->findAllProduto(),
             'clientes' => $this->findAllCliente()
@@ -34,6 +38,8 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
+        $this->forget();
+
         try {
 
             $dados = [];
@@ -70,6 +76,8 @@ class PedidoController extends Controller
 
     public function show($id)
     {
+        $this->forget();
+
         $dados = [
             'readonly' => true,
             'pedido' => $this->find($id),
@@ -81,6 +89,8 @@ class PedidoController extends Controller
 
     public function edit($id)
     {
+        $this->forget();
+
         $dados = [
             'readonly' => false,
             'pedido' => $this->find($id),
@@ -91,6 +101,8 @@ class PedidoController extends Controller
     }
 
     public function update(Request $request, $id){
+
+        $this->forget();
 
         try {
             $dados = [];
@@ -121,6 +133,8 @@ class PedidoController extends Controller
 
     public function destroy(Request $request)
     {
+        $this->forget();
+        
         try {
             
             DB::beginTransaction();
@@ -141,7 +155,7 @@ class PedidoController extends Controller
     }
 
     //--------------------------------------------------------------------------------//
-    
+
     private function findAllCliente()
     {
         return Cliente::all();

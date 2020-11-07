@@ -20,6 +20,11 @@ Form = {
             theme: 'bootstrap4'
         });
     },
+    select2: function(input){
+        input.select2({
+            theme: 'bootstrap4'
+        });
+    },
     validation: function(input){
         return input.validate(
             {

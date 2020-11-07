@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+<form id="formulario-lista" method="POST" role="form" action="{{ route('orcamento.store') }}" novalidate>
     <div class="row">
         {{-- <div class="col-12">
             <div class="card">
@@ -22,13 +23,14 @@
                         <div class="col-6">
                             <div class="">
                                 <div class="input-group mb-32">
-                                    {{-- <input type="text" class="form-control"> --}}
-                                    <select id="produto-autocomplete" data-placeholder="Selecione o Produto" data-href="{{ route('orcamento.autocomplete') }}" class="form-control">
+                                    {{-- <input type="hidden" name="pedido-id" value="{{ $dados['pedidos']->id }}"> --}}
+                                    <input type="hidden" name="pedido-id" value="1">
+                                    <select id="produto-autocomplete" name="pedido-id-produto" data-placeholder="Selecione o Produto" data-href="{{ route('orcamento.autocomplete') }}" class="form-control" required>
                                         <option></option>
                                     </select>
                                     <div class="input-group-append">
                                         <span class="input-group-append">
-                                            <button type="submit" class="btn btn-success btn-flat">
+                                            <button type="submit" id="btnProdutoAdicionar" class="btn btn-success btn-flat">
                                                 <em class="fa fa-plus"></em>
                                             </button>
                                         </span>
@@ -171,6 +173,7 @@
             </div>
         </div>
     </div>
+</form>
 @stop
 @section('js')
     <script src="{{ asset('js/orcamento/index.js') }}"></script>
