@@ -24,4 +24,9 @@ class Produto extends Model
     {
         return $this->belongsTo(CategoriaProduto::class, 'id_categoria', 'id');
     }
+
+    public function orcamentos(){
+        return $this->belongsToMany(Orcamento::class, 'orcamento_has_produtos', 'id_orcamento', 'id_produto')
+                    ->withPivot('quantidade', 'total');
+    }
 }

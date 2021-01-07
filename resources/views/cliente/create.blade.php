@@ -14,7 +14,7 @@
                     <h3 class="card-title">Cliente</h3>
                 </div> --}}
                 <!-- form start -->
-                <form id="formulario-lista" method="POST" role="form" action="{{ route('cliente.store') }}" novalidate>
+                <form id="formulario-lista" method="POST" role="form" action="{{ route('clientes.store') }}" novalidate>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-4">
@@ -115,7 +115,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a href="{{ route('cliente.index') }}" class="btn btn-info">
+                        <a href="{{ route('clientes.index') }}" class="btn btn-info">
                             Voltar
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a>

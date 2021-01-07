@@ -36,13 +36,13 @@
                                     <td>{{ $produto->preco }}</td>
                                     <td>{{ $produto->status }}</td>
                                     <td>
-                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('produto.show', $produto->id) }}">
+                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('produtos.show', $produto->id) }}">
                                             <i class="fa fa-search"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('produto.edit', $produto->id) }}">
+                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('produtos.edit', $produto->id) }}">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('produto.destroy', $produto->id) }}" data-produto="{{ $produto }}">
+                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('produtos.destroy', $produto->id) }}" data-produto="{{ $produto }}">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>

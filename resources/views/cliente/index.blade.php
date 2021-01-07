@@ -38,13 +38,13 @@
                                     <td>{{ $cliente->cidade }}</td>
                                     <td>{{ $cliente->bairro }}</td>
                                     <td>
-                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('cliente.show', $cliente->id) }}">
+                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('clientes.show', $cliente->id) }}">
                                             <i class="fa fa-search"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('cliente.edit', $cliente->id) }}">
+                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('clientes.edit', $cliente->id) }}">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('cliente.destroy', $cliente->id) }}" data-cliente="{{ $cliente }}">
+                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('clientes.destroy', $cliente->id) }}" data-cliente="{{ $cliente }}">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>

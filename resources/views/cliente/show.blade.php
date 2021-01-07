@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card card-primary">
                 <!-- form start -->
-                <form id="formulario-lista" role="form" method="PUT" action="{{ route('cliente.update', $cliente->id) }}" novalidate>
+                <form id="formulario-lista" role="form" method="PUT" action="{{ route('clientes.update', $cliente->id) }}" novalidate>
                     <div class="card-body">                   
                         <div class="row">
                             <div class="col-4">
@@ -114,7 +114,7 @@
                     
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a href="{{ route('cliente.index') }}" class="btn btn-info">
+                        <a href="{{ route('clientes.index') }}" class="btn btn-info">
                             Voltar
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a>

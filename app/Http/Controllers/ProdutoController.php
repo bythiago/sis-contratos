@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoriaProduto;
-use App\Models\Cliente;
-use App\Models\Contato;
 use App\Models\Produto;
-use App\Models\Sexo;
-use App\Models\TipoContato;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
+
+    private $produto;
+
+    public function __construct(Produto $produto)
+    {
+        $this->produto = $produto;
+    }
+
     public function index()
     {
         $dados = [
@@ -39,7 +43,7 @@ class ProdutoController extends Controller
             $dados = [];
             parse_str($request->get('dados'), $dados);
             
-            $produto = new Produto();
+            $produto = new $this->produto;
             $produto->id_categoria = $dados['produto-categoria'];
             $produto->nome = $dados['produto-nome'];
             $produto->descricao = $dados['produto-descricao'];
@@ -143,11 +147,11 @@ class ProdutoController extends Controller
     }
 
     private function find($id){
-        return Produto::where('id', $id)->with('categoria')->first();
+        return $this->produto::where('id', $id)->with('categoria')->first();
     }
 
     private function all(){
-        return Produto::all();
+        return $this->produto::all();
     }
 
     //--------------------------------------------------------------------------------//

@@ -13,9 +13,9 @@
                 <tr v-for="produto of produtos">
                     <td>
                         <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                        {{ produto.nome }}
+                        {{ produtos.nome }}
                     </td>
-                    <td>R$ {{ produto.preco }}</td>
+                    <td>R$ {{ produtos.preco }}</td>
                     <td>
                         <small class="text-success mr-1">
                             <i class="fas fa-arrow-up"></i>
