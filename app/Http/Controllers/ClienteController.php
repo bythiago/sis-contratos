@@ -38,25 +38,28 @@ class ClienteController extends Controller
             DB::beginTransaction();
            
             $cliente = new Cliente();
-            $cliente->nome = $dados['cliente-nome'];
-            $cliente->cpf = $dados['cliente-cpf'];
-            $cliente->nascimento = $dados['cliente-nascimento'];
-            $cliente->id_sexo = $dados['cliente-sexo'];
-            $cliente->cep = $dados['cliente-cep'];
-            $cliente->rua = $dados['cliente-rua'];
-            $cliente->numero = $dados['cliente-numero'];
-            $cliente->bairro = $dados['cliente-bairro'];
-            $cliente->cidade = $dados['cliente-cidade'];
-            $cliente->uf = $dados['cliente-uf'];
-            $cliente->observacao = $dados['cliente-observacao'];
-            $cliente->save();
+            $dados = $cliente->create($dados);
 
-            $contato = new Contato();
-            $contato->id_cliente = $cliente;
-            $contato->id_tipo_contato = $this->findByTipoContato($dados['cliente-tipo-contato']);
-            $contato->numero = $dados['cliente-contato'];
-            $contato->descricao = 'web';
-            $cliente->contatos()->save($contato);
+            dd($dados);
+            // $cliente->nome = $dados['cliente-nome'];
+            // $cliente->cpf = $dados['cliente-cpf'];
+            // $cliente->nascimento = $dados['cliente-nascimento'];
+            // $cliente->id_sexo = $dados['cliente-sexo'];
+            // $cliente->cep = $dados['cliente-cep'];
+            // $cliente->rua = $dados['cliente-rua'];
+            // $cliente->numero = $dados['cliente-numero'];
+            // $cliente->bairro = $dados['cliente-bairro'];
+            // $cliente->cidade = $dados['cliente-cidade'];
+            // $cliente->uf = $dados['cliente-uf'];
+            // $cliente->observacao = $dados['cliente-observacao'];
+            // $cliente->save();
+
+            // $contato = new Contato();
+            // $contato->id_cliente = $cliente;
+            // $contato->id_tipo_contato = $this->findByTipoContato($dados['cliente-tipo-contato']);
+            // $contato->numero = $dados['cliente-contato'];
+            // $contato->descricao = 'web';
+            // $cliente->contatos()->save($contato);
             DB::commit();
 
             return response()->json([
@@ -102,26 +105,8 @@ class ClienteController extends Controller
             DB::beginTransaction();
 
             $cliente = $this->find($id);
-            $cliente->nome = $dados['cliente-nome'];
-            $cliente->cpf = $dados['cliente-cpf'];
-            $cliente->nascimento = $dados['cliente-nascimento'];
-            $cliente->id_sexo = $dados['cliente-sexo'];
-            $cliente->cep = $dados['cliente-cep'];
-            $cliente->rua = $dados['cliente-rua'];
-            $cliente->numero = $dados['cliente-numero'];
-            $cliente->bairro = $dados['cliente-bairro'];
-            $cliente->cidade = $dados['cliente-cidade'];
-            $cliente->uf = $dados['cliente-uf'];
-            $cliente->observacao = $dados['cliente-observacao'];
-            $cliente->save();
-
-            foreach($cliente->contatos()->get() as $i => $contato){
-                $contato->id_cliente = $cliente->id;
-                $contato->id_tipo_contato = $this->findByTipoContato($dados['cliente-tipo-contato'][$i]);
-                $contato->numero = $dados['cliente-contato'][$i];
-                $contato->descricao = 'update';
-                $cliente->contatos()->save($contato);
-            }
+            $cliente->update($dados['cliente']);
+            $cliente->contatos()->update($dados['contato']);
 
             DB::commit();
             return response()->json([

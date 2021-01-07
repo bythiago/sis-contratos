@@ -21,28 +21,12 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 //
-Route::resource('clientes', ClienteController::class);
-Route::resource('produtos', ProdutoController::class);
 
-// Route::group(['prefix' => 'produtos'], function(){
-//     Route::get('/', [ProdutoController::class, 'index'])->name('produtos.index');
-//     Route::get('/create', [ProdutoController::class, 'create'])->name('produtos.create');
-//     Route::post('/store', [ProdutoController::class, 'store'])->name('produtos.store');
-//     Route::get('/edit/{id}', [ProdutoController::class, 'edit'])->name('produtos.edit');
-//     Route::put('/update/{id}', [ProdutoController::class, 'update'])->name('produtos.update');
-//     Route::get('/show/{id}', [ProdutoController::class, 'show'])->name('produtos.show');
-//     Route::delete('/destroy/{id}', [ProdutoController::class, 'destroy'])->name('produtos.destroy');
-// });
-
-// Route::group(['prefix' => 'pedidos'], function(){
-//     Route::get('/', [PedidoController::class, 'index'])->name('pedido.index');
-//     Route::get('/create', [PedidoController::class, 'create'])->name('pedido.create');
-//     Route::post('/store', [PedidoController::class, 'store'])->name('pedido.store');
-//     Route::get('/edit/{id}', [PedidoController::class, 'edit'])->name('pedido.edit');
-//     Route::put('/update/{id}', [PedidoController::class, 'update'])->name('pedido.update');
-//     Route::get('/show/{id}', [PedidoController::class, 'show'])->name('pedido.show');
-//     Route::delete('/destroy/{id}', [PedidoController::class, 'destroy'])->name('pedido.destroy');
-// });
+Route::group(['prefix' => 'admin'], function(){
+    Route::resource('clientes', ClienteController::class);
+    Route::resource('produtos', ProdutoController::class);
+    Route::resource('pedidos', PedidoController::class);
+});
 
 // Route::group(['prefix' => 'orcamentos/pedido'], function(){
 //     Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');

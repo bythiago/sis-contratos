@@ -53,7 +53,7 @@ App = {
                 setTimeout(() => { 
                     Util.hideAll();
                     bootbox.alert(data.message, function(){ 
-                        window.location.href = window.BASE_HREF + 'clientes';
+                        window.location.href = window.BASE_HREF + 'admin/clientes';
                     });
                 }, 250);
             },

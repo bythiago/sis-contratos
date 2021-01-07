@@ -256,12 +256,12 @@ return [
                 [
                     'text' => 'Novo',
                     'icon' => 'fas fa-fw fa-plus',
-                    'url'  => 'clientes/create',
+                    'route'  => 'clientes.create',
                 ],
                 [
                     'text' => 'Lista',
                     'icon' => 'fas fa-fw fa-search',
-                    'url'  => 'clientes',
+                    'route'  => 'clientes.index',
                 ],
             ]
         ],
@@ -272,12 +272,12 @@ return [
                 [
                     'text' => 'Novo',
                     'icon' => 'fas fa-fw fa-plus',
-                    'url'  => 'produtos/create',
+                    'route'  => 'produtos.create',
                 ],
                 [
                     'text' => 'Lista',
                     'icon' => 'fas fa-fw fa-search',
-                    'url'  => 'produtos',
+                    'route'  => 'produtos.index',
                 ],
             ]
         ],
@@ -288,12 +288,12 @@ return [
                 [
                     'text' => 'Novo',
                     'icon' => 'fas fa-fw fa-plus',
-                    'url'  => 'pedidos/create',
+                    'route'  => 'pedidos.create',
                 ],
                 [
                     'text' => 'Lista',
                     'icon' => 'fas fa-fw fa-search',
-                    'url'  => 'pedidos',
+                    'route'  => 'pedidos.index',
                 ],
             ]
         ],
