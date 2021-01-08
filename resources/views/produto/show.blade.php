@@ -16,13 +16,13 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="produto-nome">Nome</label>
-                                    <input type="text" class="form-control" id="produto-nome" name="produto-nome" value="{{ $dados['produto']->nome }}" required="true" minlength="2">
+                                    <input type="text" class="form-control" id="produto-nome" name="produto[nome]" value="{{ $dados['produto']->nome }}" required="true" minlength="2">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="produto-categoria">Categoria</label>
-                                    <select name="produto-categoria" class="form-control">
+                                    <select name="produto[id_categoria]" class="form-control">
                                         <option value="">Selecione uma categoria</option>
                                         @foreach ($dados['categorias'] as $categoria)
                                             <option value="{{ $categoria->id }}" {{ $dados['produto']->categoria()->first()->id === $categoria->id ? 'selected' : '' }}>{{ $categoria->descricao }}</option>
@@ -33,14 +33,14 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="produto-descricao">Descrição</label>
-                                    <textarea name="produto-descricao" class="form-control" rows="3" required="true">{{ $dados['produto']->descricao }}</textarea>
+                                    <textarea name="produto[descricao]" class="form-control" rows="3" required="true">{{ $dados['produto']->descricao }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="produto-preco">Preço</label>
-                                    <input type="text" class="form-control" name="produto-preco" value="{{ $dados['produto']->preco }}" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
+                                    <input type="text" class="form-control" name="produto[preco]" value="{{ $dados['produto']->preco }}" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
                                 </div>
                             </div>
                         </div>

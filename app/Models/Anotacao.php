@@ -16,4 +16,8 @@ class Anotacao extends Model
         'id_tipo',
         'descricao'
     ];
+
+    public function pedido(){
+        return $this->belongsTo(Pedido::class, 'id_pedido');
+    }
 }

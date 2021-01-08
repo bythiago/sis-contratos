@@ -22,10 +22,12 @@ Auth::routes();
 
 //
 
-Route::group(['prefix' => 'admin'], function(){
-    Route::resource('clientes', ClienteController::class);
-    Route::resource('produtos', ProdutoController::class);
-    Route::resource('pedidos', PedidoController::class);
+Route::middleware(['web'])->group(function () {
+    Route::group(['prefix' => 'admin'], function(){
+        Route::resource('clientes', ClienteController::class);
+        Route::resource('produtos', ProdutoController::class);
+        Route::resource('pedidos', PedidoController::class);
+    });
 });
 
 // Route::group(['prefix' => 'orcamentos/pedido'], function(){

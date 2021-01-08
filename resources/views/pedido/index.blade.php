@@ -101,10 +101,10 @@
                                         <button class="btn btn-info btn-sm btn-show" title="Orcamento" data-href="{{ route('orcamento.show', $pedido->id) }}">
                                             <i class="fa fa-list"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('pedido.edit', $pedido->id) }}">
+                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('pedidos.edit', $pedido->id) }}">
                                             <i class="fa fa-handshake"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('pedido.destroy', $pedido->id) }}" data-pedido="{{ $pedido }}">
+                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('pedidos.destroy', $pedido->id) }}" data-pedido="{{ $pedido }}">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>

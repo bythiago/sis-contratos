@@ -24,7 +24,7 @@ class ClienteController extends Controller
 
     public function create()
     {
-        $tipoContato = $this->findAllTipoContato();
+        $tipoContato = $this->findTipoContato();
         return view('cliente.create', compact('tipoContato'));
     }
 
@@ -38,28 +38,9 @@ class ClienteController extends Controller
             DB::beginTransaction();
            
             $cliente = new Cliente();
-            $dados = $cliente->create($dados);
+            $cliente = $cliente->create($dados['cliente']);
+            $cliente->contatos()->create($dados['contato']);
 
-            dd($dados);
-            // $cliente->nome = $dados['cliente-nome'];
-            // $cliente->cpf = $dados['cliente-cpf'];
-            // $cliente->nascimento = $dados['cliente-nascimento'];
-            // $cliente->id_sexo = $dados['cliente-sexo'];
-            // $cliente->cep = $dados['cliente-cep'];
-            // $cliente->rua = $dados['cliente-rua'];
-            // $cliente->numero = $dados['cliente-numero'];
-            // $cliente->bairro = $dados['cliente-bairro'];
-            // $cliente->cidade = $dados['cliente-cidade'];
-            // $cliente->uf = $dados['cliente-uf'];
-            // $cliente->observacao = $dados['cliente-observacao'];
-            // $cliente->save();
-
-            // $contato = new Contato();
-            // $contato->id_cliente = $cliente;
-            // $contato->id_tipo_contato = $this->findByTipoContato($dados['cliente-tipo-contato']);
-            // $contato->numero = $dados['cliente-contato'];
-            // $contato->descricao = 'web';
-            // $cliente->contatos()->save($contato);
             DB::commit();
 
             return response()->json([
@@ -77,8 +58,8 @@ class ClienteController extends Controller
     public function show($id)
     {
         return view('cliente.show', [
-                'sexos' => $this->findAllSexo(),
-                'tipoContato' => $this->findAllTipoContato(),
+                'sexos' => $this->findSexo(),
+                'tipoContato' => $this->findTipoContato(),
                 'cliente' => $this->find($id),
                 'readonly' => true
             ]
@@ -88,8 +69,8 @@ class ClienteController extends Controller
     public function edit($id)
     {
         return view('cliente.show', [
-                'sexos' => $this->findAllSexo(),
-                'tipoContato' => $this->findAllTipoContato(),
+                'sexos' => $this->findSexo(),
+                'tipoContato' => $this->findTipoContato(),
                 'cliente' => $this->find($id),
                 'readonly' => false
             ]
@@ -145,16 +126,12 @@ class ClienteController extends Controller
 
     //--------------------------------------------------------------------------------//
 
-    private function findAllSexo(){
+    private function findSexo(){
         return Sexo::all();
     }
 
-    private function findAllTipoContato(){
+    private function findTipoContato(){
         return TipoContato::all();
-    }
-
-    private function findByTipoContato($id){
-        return TipoContato::where('tipo', $id)->first()->id;
     }
 
     private function find($id){

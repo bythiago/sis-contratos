@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card card-primary">
                 <!-- form start -->
-                <form id="formulario-lista" role="form" method="PUT" action="{{ route('pedido.update', $dados['pedido']->id) }}" novalidate>
+                <form id="formulario-lista" role="form" method="PUT" action="{{ route('pedidos.update', $dados['pedido']->id) }}" novalidate>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -47,7 +47,7 @@
                     </div>       
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a href="{{ route('pedido.index') }}" class="btn btn-info">
+                        <a href="{{ route('pedidos.index') }}" class="btn btn-info">
                             Voltar
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a>

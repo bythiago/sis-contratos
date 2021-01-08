@@ -56,7 +56,7 @@ Pedido = {
                 setTimeout(() => { 
                     Util.hideAll();
                     bootbox.alert(data.message, function(){ 
-                        window.location.href = window.BASE_HREF + 'pedidos';
+                        window.location.href = window.BASE_HREF + 'admin/pedidos';
                     });
                 }, 250);
             },

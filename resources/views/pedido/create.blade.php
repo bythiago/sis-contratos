@@ -14,13 +14,13 @@
                     <h3 class="card-title">Cliente</h3>
                 </div> --}}
                 <!-- form start -->
-                <form id="formulario-lista" method="POST" role="form" action="{{ route('pedido.store') }}" novalidate>
+                <form id="formulario-lista" method="POST" role="form" action="{{ route('pedidos.store') }}" novalidate>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="pedido-cliente">Cliente</label>
-                                    <select name="pedido-cliente" id="pedido-cliente" class="form-control select2" required>
+                                    <select name="pedido[id_cliente]" id="pedido-cliente" class="form-control select2" required>
                                         @foreach ($dados['clientes'] as $cliente)
                                             <option value="{{ $cliente->id }}">{{ $cliente->cpf }} - {{ $cliente->nome }}</option>
                                         @endforeach
@@ -30,14 +30,14 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="pedido-anotacao">Anotação</label>
-                                    <textarea name="pedido-anotacao" class="form-control" rows="3" required="true"></textarea>
+                                    <textarea name="anotacao[descricao]" class="form-control" rows="3" required="true"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a href="{{ route('pedido.index') }}" class="btn btn-info">
+                        <a href="{{ route('pedidos.index') }}" class="btn btn-info">
                             Voltar
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a>
@@ -47,6 +47,9 @@
                             <i class="fa fa-save"></i>
                         </button>
                     </div>
+
+                    <input type="hidden" name="anotacao[id_tipo]" value="1">
+                    <input type="hidden" name="pedido[id_status]" value="1">
                 </form>
             </div>
         </div>

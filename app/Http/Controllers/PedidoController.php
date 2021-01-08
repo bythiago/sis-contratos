@@ -15,8 +15,7 @@ class PedidoController extends OrcamentoController
 {
     public function index()
     {
-        $this->forget();
-        
+      
         $dados = [
             'pedidos' => $this->all()
         ];
@@ -26,10 +25,8 @@ class PedidoController extends OrcamentoController
 
     public function create()
     {
-        $this->forget();
 
         $dados = [
-            'produtos' => $this->findAllProduto(),
             'clientes' => $this->findAllCliente()
         ];
 
@@ -38,27 +35,18 @@ class PedidoController extends OrcamentoController
 
     public function store(Request $request)
     {
-        $this->forget();
 
         try {
 
             $dados = [];
             parse_str($request->get('dados'), $dados);
-           
-            $pedido = new Pedido();
-            $pedido->id_cliente = $dados['pedido-cliente'];
-            $pedido->id_status = 1;
-            $pedido->save();
-
-            $anotacao = new Anotacao();
-            $anotacao->id_pedido = $pedido->id;
-            $anotacao->id_tipo = $this->findByTipoAnotacao('pedido');
-            $anotacao->descricao = $dados['pedido-anotacao'];
-
-            $anotacao->save();
-            //$pedido->anotacao()->save($anotacao);
-
+            
             DB::beginTransaction();
+
+            $pedido = new Pedido();
+            $pedido = $pedido->create($dados['pedido']);
+            $pedido->anotacao()->create($dados['anotacao']);
+            
             //
             DB::commit();
 
@@ -158,7 +146,7 @@ class PedidoController extends OrcamentoController
 
     private function findAllCliente()
     {
-        return Cliente::all();
+        return Cliente::all(['id', 'cpf', 'nome']);
     }
 
     private function findAllProduto(){

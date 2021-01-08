@@ -12,9 +12,11 @@ class ProdutoController extends Controller
 {
 
     private $produto;
+    private $categoriaProduto;
 
-    public function __construct(Produto $produto)
+    public function __construct(CategoriaProduto $categoriaProduto, Produto $produto)
     {
+        $this->categoriaProduto = $categoriaProduto;
         $this->produto = $produto;
     }
 
@@ -44,13 +46,7 @@ class ProdutoController extends Controller
             parse_str($request->get('dados'), $dados);
             
             $produto = new $this->produto;
-            $produto->id_categoria = $dados['produto-categoria'];
-            $produto->nome = $dados['produto-nome'];
-            $produto->descricao = $dados['produto-descricao'];
-            $produto->preco = $dados['produto-preco'];
-            $produto->status = 1;
-
-            $produto->save();
+            $produto->create($dados['produto']);
 
             DB::beginTransaction();
             //
@@ -99,11 +95,7 @@ class ProdutoController extends Controller
             DB::beginTransaction();
             //
             $produto = $this->find($id);
-            $produto->id_categoria = $dados['produto-categoria'];
-            $produto->nome = $dados['produto-nome'];
-            $produto->descricao = $dados['produto-descricao'];
-            $produto->preco = $dados['produto-preco'];
-            $produto->save();
+            $produto->update($dados['produto']);
 
             DB::commit();
             return response()->json([
@@ -143,7 +135,7 @@ class ProdutoController extends Controller
     
     private function findAllCategoria()
     {
-        return CategoriaProduto::all();
+        return $this->categoriaProduto::all(['id', 'descricao']);
     }
 
     private function find($id){
