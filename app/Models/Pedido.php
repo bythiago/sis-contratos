@@ -17,13 +17,13 @@ class Pedido extends Model
         'id_status'
     ];
 
-    // public function cliente(){
-    //     return $this->belongsTo(Cliente::class, 'id_cliente', 'id');
-    // }
+    public function cliente(){
+        return $this->belongsTo(Cliente::class, 'id_cliente');
+    }
 
-    // public function status(){
-    //     return $this->belongsTo(StatusControle::class, 'id_status', 'id');
-    // }
+    public function status(){
+        return $this->belongsTo(Status::class, 'id_status');
+    }
 
     public function anotacao(){
         return $this->hasOne(Anotacao::class, 'id_pedido');

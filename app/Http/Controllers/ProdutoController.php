@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoriaProduto;
+use App\Models\Categoria;
 use App\Models\Produto;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,11 +12,11 @@ class ProdutoController extends Controller
 {
 
     private $produto;
-    private $categoriaProduto;
+    private $categoria;
 
-    public function __construct(CategoriaProduto $categoriaProduto, Produto $produto)
+    public function __construct(Categoria $categoria, Produto $produto)
     {
-        $this->categoriaProduto = $categoriaProduto;
+        $this->categoria = $categoria;
         $this->produto = $produto;
     }
 
@@ -135,7 +135,7 @@ class ProdutoController extends Controller
     
     private function findAllCategoria()
     {
-        return $this->categoriaProduto::all(['id', 'descricao']);
+        return $this->categoria::all(['id', 'descricao']);
     }
 
     private function find($id){

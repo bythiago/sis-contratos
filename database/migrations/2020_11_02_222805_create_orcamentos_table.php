@@ -21,6 +21,7 @@ class CreateOrcamentosTable extends Migration
             // $table->string('cerimonia');
             // $table->boolean('valido_contrato');
             // $table->integer('quantidade_convidados');
+            $table->boolean('status');
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });

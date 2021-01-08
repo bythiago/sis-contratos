@@ -99,11 +99,8 @@ class PedidoController extends OrcamentoController
             DB::beginTransaction();
             //
             $pedido = $this->find($id);
-            $pedido->id_categoria = $dados['pedido-categoria'];
-            $pedido->nome = $dados['pedido-nome'];
-            $pedido->descricao = $dados['pedido-descricao'];
-            $pedido->preco = $dados['pedido-preco'];
-            $pedido->save();
+            $pedido->update($dados['pedido']);
+            $pedido->anotacao()->update($dados['anotacao']);
 
             DB::commit();
             return response()->json([

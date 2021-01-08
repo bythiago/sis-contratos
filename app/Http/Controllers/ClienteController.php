@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-use App\Models\Contato;
 use App\Models\Sexo;
 use App\Models\TipoContato;
 use Exception;
@@ -12,6 +11,17 @@ use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
+    private $cliente;
+    private $sexo;
+    private $tipoContato;
+
+    public function __construct(Cliente $cliente, Sexo $sexo, TipoContato $tipoContato)
+    {
+        $this->cliente = $cliente;
+        $this->sexo = $sexo;
+        $this->tipoContato = $tipoContato;
+    }
+
     public function index()
     {
         $dados = [
@@ -23,9 +33,13 @@ class ClienteController extends Controller
     }
 
     public function create()
-    {
-        $tipoContato = $this->findTipoContato();
-        return view('cliente.create', compact('tipoContato'));
+    {   
+        $dados = [
+            'tipoContato' => $this->findTipoContato(),
+            'sexos' => $this->findSexo()
+        ];
+
+        return view('cliente.create', compact('dados'));
     }
 
     public function store(Request $request)
@@ -37,7 +51,7 @@ class ClienteController extends Controller
 
             DB::beginTransaction();
            
-            $cliente = new Cliente();
+            $cliente = new $this->cliente();
             $cliente = $cliente->create($dados['cliente']);
             $cliente->contatos()->create($dados['contato']);
 
@@ -127,19 +141,19 @@ class ClienteController extends Controller
     //--------------------------------------------------------------------------------//
 
     private function findSexo(){
-        return Sexo::all();
+        return $this->sexo::all();
     }
 
     private function findTipoContato(){
-        return TipoContato::all();
+        return $this->tipoContato::all();
     }
 
     private function find($id){
-        return Cliente::where('id', $id)->with('contatos')->first();
+        return $this->cliente::where('id', $id)->with('contatos')->first();
     }
 
     private function all(){
-        return Cliente::all();
+        return $this->cliente::all();
     }
 
     //--------------------------------------------------------------------------------//

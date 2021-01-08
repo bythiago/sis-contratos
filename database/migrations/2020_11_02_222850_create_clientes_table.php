@@ -17,6 +17,7 @@ class CreateClientesTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('cpf')->unique();
+            $table->string('rg')->unique();
             $table->date('nascimento');
             $table->foreignId('id_sexo')->constrained('sexos');
             $table->string('cep');

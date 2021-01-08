@@ -15,9 +15,10 @@ class CreateContratosTable extends Migration
     {
         Schema::create('contratos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pedido')->constrained('pedidos');
-            $table->dateTime('entrega');
-            $table->string('observacao');
+            $table->foreignId('id_orcamento')->constrained('orcamentos');
+            // $table->dateTime('entrega');
+            // $table->string('observacao');
+            $table->boolean('status');
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });

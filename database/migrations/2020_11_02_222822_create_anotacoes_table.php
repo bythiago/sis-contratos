@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriaProdutosTable extends Migration
+class CreateAnotacoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateCategoriaProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        Schema::create('anotacoes', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
+            $table->foreignId('id_pedido')->constrained('pedidos');
+            $table->foreignId('id_tipo')->constrained('tipo_anotacoes');
             $table->string('descricao');
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
@@ -29,6 +30,6 @@ class CreateCategoriaProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoria_produtos');
+        Schema::dropIfExists('anotacao_controles');
     }
 }

@@ -32,19 +32,31 @@
 
                             <div class="col-4">
                                 <div class="form-group">
+                                    <label for="cliente-rg">RG</label>
+                                    <input type="text" class="form-control" name="cliente[rg]" data-inputmask="&quot;mask&quot;: &quot;99999999-9&quot;" data-mask="" im-insert="true" required="true">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cliente-sexo">Sexo</label>
+                                    <select class="form-control" name="cliente[id_sexo]" required>
+                                        <option value="">Selecione o sexo</option>
+                                        @foreach ($dados['sexos'] as $sexo)
+                                            <option value="{{ $sexo->id }}">{{ $sexo->descricao }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
                                     <label for="cliente-nascimento">Data de Nascimento</label>
                                     <input type="date" class="form-control" name="cliente[nascimento]" required="true">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cliente-sexo">Sexo</label>
-                            <select class="form-control" name="cliente[id_sexo]" required>
-                                <option value="">Selecione o sexo</option>
-                                <option value="1">Masculino</option>
-                                <option value="2">Feminino</option>
-                            </select>
                         </div>
 
                         <div class="form-group">
@@ -93,7 +105,7 @@
                                     <label for="cliente-tipo-contato">Tipo</label>
                                     <select class="form-control" name="contato[id_tipo_contato]" required>
                                         <option value="">Selecione o tipo</option>
-                                        @foreach ($tipoContato as $tipo)
+                                        @foreach ($dados['tipoContato'] as $tipo)
                                             <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>    
                                         @endforeach
                                     </select>
