@@ -131,6 +131,20 @@ class ProdutoController extends Controller
         }
     }
 
+    protected function autocompleteProdutoByName(Request $request)
+    {
+        $produtos = $this->findByNameProduto($request->get('q'));
+        
+        $data['results'] = $produtos->map(function($produto){
+            return [
+                'id' => $produto->id,
+                'text' => $produto->nome
+            ];
+        });
+
+        return response()->json($data);
+    }
+
     //--------------------------------------------------------------------------------//
     
     private function findAllCategoria()
@@ -144,6 +158,11 @@ class ProdutoController extends Controller
 
     private function all(){
         return $this->produto::all();
+    }
+
+    private function findByNameProduto($q)
+    {
+        return $this->produto::whereRaw( 'UPPER(`nome`) LIKE ?', '%'.strtoupper($q).'%')->get();
     }
 
     //--------------------------------------------------------------------------------//

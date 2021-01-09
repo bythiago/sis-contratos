@@ -21,6 +21,7 @@ export default {
         //campos
         Pedido.default.campos.cliente = $("#pedido-cliente");
         Pedido.default.campos.produto = $("#pedido-produto");
+        Pedido.default.campos.autocomplete = $("#pedido-id-produto");
 
         //botoes
         Pedido.default.botoes.btnSalvar = $("#btn-salvar");
@@ -29,6 +30,7 @@ export default {
         Util.default.formatarPalavras();
         Form.default.select2(Pedido.default.campos.cliente);
         Form.default.select2(Pedido.default.campos.produto);
+        Form.default.autocomplete(Pedido.default.campos.autocomplete);
     },
     salvar: function(event){
 

@@ -15,61 +15,69 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="pedido-nome">Nome</label>
-                                    <input type="text" class="form-control" id="pedido-nome" name="pedido-nome" value="{{ $dados['pedido']->nome }}" required="true" minlength="2">
+                                    <label for="cliente">Nome</label>
+                                    <input type="text" class="form-control" id="cliente" name="pedido[nome]" value="{{ $dados['pedido']->cliente->nome }}" required="true" readonly>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-10">
                                 <div class="form-group">
-                                    <label for="pedido-categoria">Categoria</label>
-                                    <select name="pedido-categoria" class="form-control">
-                                        <option value="">Selecione uma categoria</option>
-                                        @foreach ($dados['categorias'] as $categoria)
-                                            <option value="{{ $categoria->id }}" {{ $dados['pedido']->categoria()->first()->id === $categoria->id ? 'selected' : '' }}>{{ $categoria->descricao }}</option>
+                                    <label for="pedido-id-produto">Produtos</label>
+                                    <select name="pedido[id-produto]" id="pedido-id-produto" class="form-control" data-placeholder="Selecione um produto" data-href="{{ route('api.autocomplete.produtos') }}" required>
+                                        <option value="">Selecione uma produto</option>
+                                        @foreach ($dados['produtos'] as $produto)
+                                            <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-2">
                                 <div class="form-group">
-                                    <label for="pedido-descricao">Descrição</label>
-                                    <textarea name="pedido-descricao" class="form-control" rows="3" required="true">{{ $dados['pedido']->descricao }}</textarea>
+                                    <label for="cliente">Quantidade</label>
+                                    <input type="number" class="form-control" name="pedido[quantidade]" required="true" max="999" min="0">
                                 </div>
                             </div>
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="pedido-preco">Preço</label>
-                                    <input type="text" class="form-control" name="pedido-preco" value="{{ $dados['pedido']->preco }}" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
-                                </div>
-                            </div>
-                        </div>
-                    </div>       
+                        </div> 
+                    </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a href="{{ route('pedidos.index') }}" class="btn btn-info">
+                        {{-- <a href="{{ route('pedidos.index') }}" class="btn btn-info">
                             Voltar
                             <i class="fa fa-undo" aria-hidden="true"></i>
-                        </a>
-                        
-                        @if (empty($dados['readonly']))
-                            <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success">
-                                Salvar
-                                <i class="fa fa-save"></i>
-                            </button>
-                        @endif
-                    </div>                
+                        </a> --}}
+
+                        <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success">
+                            Adicionar Produto
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <table id="pedido-table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@</th>
+                                <th>Cliente</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 @stop
 @section('js')
     <script>
-        var readonly = "{{ $dados['readonly'] }}";
-
         $(document).ready(function(){
             Pedido.default.iniciar();
-        }
+        });
     </script>
 @stop

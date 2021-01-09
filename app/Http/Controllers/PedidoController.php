@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anotacao;
 use App\Models\Cliente;
 use App\Models\Pedido;
 use App\Models\Produto;
@@ -11,8 +10,21 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PedidoController extends OrcamentoController
+class PedidoController extends Controller
 {
+    private $cliente;
+    private $pedido;
+    private $produto;
+    private $tipoAnotacao;
+
+    public function __construct(Cliente $cliente, Pedido $pedido, Produto $produto, TipoAnotacao $tipoAnotacao)
+    {
+        $this->cliente = $cliente;
+        $this->pedido = $pedido;
+        $this->produto = $produto;
+        $this->tipoAnotacao = $tipoAnotacao;
+    }
+
     public function index()
     {
       
@@ -64,12 +76,10 @@ class PedidoController extends OrcamentoController
 
     public function show($id)
     {
-        $this->forget();
-
+        
         $dados = [
-            'readonly' => true,
-            'pedido' => $this->find($id),
-            'categorias' => $this->findAllCategoria()
+            'pedido' => $this->pedido::find($id),
+            'produtos' => $this->produto::all()
         ];
 
         return view('pedido.show', compact('dados'));

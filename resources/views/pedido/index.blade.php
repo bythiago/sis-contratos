@@ -44,7 +44,7 @@
                                         @endif
                                         
                                         @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_SOLICITADO)
-                                            <a href="{{ route('orcamentos.index') }}" class="fas fa-2x fa-user-plus"></a>
+                                            <a href="{{ route('pedidos.show', ['pedido' => $pedido]) }}" class="fas fa-2x fa-user-plus"></a>
                                         @endif
 
                                         @if($pedido->status->tipo === App\Models\Pedido::CONTRATO_SOLICITADO)

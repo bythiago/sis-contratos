@@ -3,35 +3,45 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Dashboard</h1>
+    <h1 class="m-0 text-dark">Novo Orçamento</h1>
 @stop
 
 @section('content')
-<form id="formulario-lista" method="POST" role="form" action="{{ route('orcamentos.store') }}" novalidate>
-    <div id="app" class="row">
+    <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <p class="mb-0">You are logged in!</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
+            <div class="card card-primary">
+                {{-- <div class="card-header">
+                    <h3 class="card-title">Cliente</h3>
+                </div> --}}
+                <!-- form start -->
+                <form id="formulario-lista" method="POST" role="form" action="{{ route('pedidos.store') }}" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="pedido-cliente">Cliente</label>
+                                    <input type="text" name="cliente" id="cliente" value="{{ $cliente->nome }}" class="form-control" readonly aria-readonly="true">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <a href="" class="btn btn-success">Salvar</a>
-                </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <a href="{{ route('pedidos.index') }}" class="btn btn-info">
+                            Voltar
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                        </a>
+
+                        <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success">
+                            Salvar
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
 @stop
 @section('js')
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/orcamento/index.js') }}"></script>
+    <script src="{{ asset('js/pedido/index.js') }}"></script>
 @stop
