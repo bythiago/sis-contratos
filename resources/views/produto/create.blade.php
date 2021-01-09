@@ -26,7 +26,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="id_categoria">Categoria</label>
-                                    <select name="produto[id_categoria]" class="form-control">
+                                    <select name="produto[id_categoria]" class="form-control" required>
                                         <option value="">Selecione uma categoria</option>
                                         @foreach ($dados['categorias'] as $categoria)
                                             <option value="{{ $categoria->id }}">{{ $categoria->descricao }}</option>

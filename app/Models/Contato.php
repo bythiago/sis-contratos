@@ -15,7 +15,7 @@ class Contato extends Model
     protected $fillable = [
         'id_cliente',
         'id_tipo_contato',
-        'numero',
+        'contato',
         'descricao',
     ];
 

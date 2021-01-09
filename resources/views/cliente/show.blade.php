@@ -28,7 +28,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente-rg">RG</label>
-                                    <input type="text" class="form-control" name="cliente[rg]" data-inputmask="&quot;mask&quot;: &quot;99999999-9&quot;" data-mask="" im-insert="true" required="true">
+                                    <input type="text" class="form-control" name="cliente[rg]" value="{{ $cliente->rg }}" data-inputmask="&quot;mask&quot;: &quot;99999999-9&quot;" data-mask="" im-insert="true" required="true">
                                 </div>
                             </div>
                         </div>

@@ -101,7 +101,7 @@ class ClienteController extends Controller
 
             $cliente = $this->find($id);
             $cliente->update($dados['cliente']);
-            $cliente->contatos()->update($dados['contato']);
+            //$cliente->contatos()->update($dados['contato']);
 
             DB::commit();
             return response()->json([

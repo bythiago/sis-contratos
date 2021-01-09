@@ -46,7 +46,7 @@ class ProdutoController extends Controller
             parse_str($request->get('dados'), $dados);
             
             $produto = new $this->produto;
-            $produto->create($dados['produto']);
+            $produto = $produto->create($dados['produto']);
 
             DB::beginTransaction();
             //

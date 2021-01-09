@@ -114,7 +114,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="cliente-contato">Contato</label>
-                                    <input type="text" class="form-control" id="contato" name="contato[numero]" minlength="10" data-inputmask="'mask': '(99)99999999[9]', 'greedy' : true" required>
+                                    <input type="text" class="form-control" id="contato" name="contato[contato]" minlength="10" data-inputmask="'mask': '(99)99999999[9]', 'greedy' : true" required>
                                 </div>
                             </div>
                         </div>
