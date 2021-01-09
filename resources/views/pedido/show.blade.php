@@ -23,10 +23,6 @@
                                 <div class="form-group">
                                     <label for="pedido-id-produto">Produtos</label>
                                     <select name="pedido[id-produto]" id="pedido-id-produto" class="form-control" data-placeholder="Selecione um produto" data-href="{{ route('api.autocomplete.produtos') }}" required>
-                                        <option value="">Selecione uma produto</option>
-                                        @foreach ($dados['produtos'] as $produto)
-                                            <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -45,9 +41,14 @@
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a> --}}
 
-                        <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success">
+                        <button type="submit" id="btn-salvar" value="salvar" class="btn btn-info">
                             Adicionar Produto
                             <i class="fa fa-plus"></i>
+                        </button>
+
+                        <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success float-right">
+                            Concluir orçamento
+                            <i class="fa fa-money-bill"></i>
                         </button>
                     </div>
                 </form>
@@ -59,9 +60,9 @@
                         <thead>
                             <tr>
                                 <th>@</th>
-                                <th>Cliente</th>
-                                <th>Data</th>
-                                <th>Status</th>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Total</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>

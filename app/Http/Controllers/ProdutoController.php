@@ -138,7 +138,7 @@ class ProdutoController extends Controller
         $data['results'] = $produtos->map(function($produto){
             return [
                 'id' => $produto->id,
-                'text' => $produto->nome
+                'text' => "({$produto->nome}) R$ {$produto->preco}"
             ];
         });
 
