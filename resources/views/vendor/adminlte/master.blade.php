@@ -78,6 +78,8 @@
     {{-- Base Scripts --}}
     <script>var BASE_HREF = "{{ url('/') }}/";</script>
     @if(!config('adminlte.enabled_laravel_mix'))
+
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
@@ -89,10 +91,6 @@
         
         <script src="{{ asset('vendor/select2/js/select2.js') }}" defer></script>
         <script src="{{ asset('vendor/select2/js/i18n/pt-BR.js') }}" defer></script>
-
-        <script src="{{ asset('js/cep.js') }}"></script>
-        <script src="{{ asset('js/form.js') }}"></script>
-        <script src="{{ asset('js/util.js') }}"></script>
 
         <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">

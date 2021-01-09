@@ -29,16 +29,26 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @foreach ($dados['pedidos'] as $pedido)
-                                <tr>
+
+                                <tr class="{{ now()->diff($pedido->created_at)->days > 5 ? 'table-warning' : '' }}" >
                                     <td>{{ $pedido->id }}</td>
                                     <td>{{ $pedido->cliente->nome }}</td>
                                     <td>{{ $pedido->created_at->format('d/m/Y H:i:s') }}</td>
                                     <td>{{ $pedido->status->descricao }}</td>
                                     <td>
                                         @if ($pedido->anotacao)
-                                            <a style="cursor: help;" class="fas fa-info-circle text-success" title="{{ $pedido->anotacao->descricao }}"></a>
+                                            <a style="cursor: help;" class="fas fa-2x fa-info-circle text-success" title="{{ $pedido->anotacao->descricao }}"></a>
+                                        @endif
+                                        
+                                        @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_SOLICITADO)
+                                            <a href="{{ route('orcamentos.index') }}" class="fas fa-2x fa-user-plus"></a>
+                                        @endif
+
+                                        @if($pedido->status->tipo === App\Models\Pedido::CONTRATO_SOLICITADO)
+                                            <a href="" class="fas fa-2x fa-credit-card text-success"></a>
                                         @endif
                                     </td>
                                 </tr>
@@ -51,5 +61,9 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/pedido/index.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            Pedido.default.iniciar();
+        });
+    </script>
 @stop

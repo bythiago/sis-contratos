@@ -1,4 +1,4 @@
-Util = {
+export default {
     processing: function(){
         bootbox.dialog({
             message:    '<div class="text-center"><i class="fas fa-cog fa-spin"></i> Processando</div>',
@@ -8,14 +8,14 @@ Util = {
     hideAll: function () {
         return new Promise(resolve => {
             setTimeout(() => {
-              resolve(bootbox.hideAll());
+            resolve(bootbox.hideAll());
             }, 100);
         });
     },
     formatarPalavras:function (input) {
         $(input).on("keyup",function () {
             var palavra =  input.val();
-            palavra = Util.retirarCaracteresEspeciais(palavra);
+            palavra = Util.default.retirarCaracteresEspeciais(palavra);
             input.val(palavra);
         });
     },

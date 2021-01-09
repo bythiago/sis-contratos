@@ -67,6 +67,6 @@
 @section('js')
     <script>
         var readonly = "{{ $dados['readonly'] }}"
+        Produto.default.iniciar();
     </script>
-    <script src="{{ asset('js/produto/index.js') }}"></script>
 @stop

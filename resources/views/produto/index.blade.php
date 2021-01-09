@@ -56,5 +56,7 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/produto/index.js') }}"></script>
+    <script>
+        Produto.default.iniciar();
+    </script>
 @stop

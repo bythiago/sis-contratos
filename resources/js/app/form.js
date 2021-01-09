@@ -1,8 +1,4 @@
-$(function () {
-    Form.iniciar();
-});
-
-Form = {
+export default {
     autocomplete: function (input) {
         input.select2({
             ajax: {
@@ -47,6 +43,6 @@ Form = {
         } 
     },
     iniciar: function(){
-        Form.readonly();      
+        Form.default.readonly();      
     }
 }

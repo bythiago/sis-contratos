@@ -1,36 +1,32 @@
-$(function () {
-    setTimeout(function () {
-        App.iniciar();
-    }, 100);
-});
+export default {
 
-App = {
     formulario: null,
     campos: [],
     botoes: [],
     elementos: [],
-
+    clienteDatatable: null,
+    
     iniciarCampos: function () {
 
         //
-        App._token = $('meta[name="csrf-token"]').attr('content');
-        App.campos.nome = $("#cliente-nome");
-        App.campos.cep = $("#cep");
+        Cliente.default._token = $('meta[name="csrf-token"]').attr('content');
+        Cliente.default.campos.nome = $("#cliente-nome");
+        Cliente.default.campos.cep = $("#cep");
 
         //
-        App.clienteDatatable = $("#cliente-table");
+        Cliente.default.clienteDatatable = $("#cliente-table");
 
         //
-        App.formulario = $("#formulario-lista");
+        Cliente.default.formulario = $("#formulario-lista");
 
         //
-        App.botoes.btnSalvar = $("#btn-salvar");
+        Cliente.default.botoes.btnSalvar = $("#btn-salvar");
 
         //
-        Util.formatarPalavras();
+        Util.default.formatarPalavras();
 
         //
-        CEP.consulta(App.campos.cep);
+        CEP.default.consulta(Cliente.default.campos.cep);
     },
     salvar: function(event){
 
@@ -39,19 +35,19 @@ App = {
         }
 
         $.ajax({
-            url: App.formulario.attr('action'),
-            method: App.formulario.attr('method'),
+            url: Cliente.default.formulario.attr('action'),
+            method: Cliente.default.formulario.attr('method'),
             dataType: "json",
             data: { 
-                _token : App._token,
-                dados : App.formulario.serialize(),
+                _token : Cliente.default._token,
+                dados : Cliente.default.formulario.serialize(),
             },
             beforeSend: function () {
-                Util.processing();
+                Util.default.processing();
             },
             success: function (data) {
                 setTimeout(() => { 
-                    Util.hideAll();
+                    Util.default.hideAll();
                     bootbox.alert(data.message, function(){ 
                         window.location.href = window.BASE_HREF + 'admin/clientes';
                     });
@@ -65,23 +61,23 @@ App = {
         });
     },
     iniciarBotoes: function() {
-        App.botoes.btnSalvar.on('click', function (event) {
+        Cliente.default.botoes.btnSalvar.on('click', function (event) {
             event.preventDefault();
-            Form.validation(App.formulario);
-            App.salvar(App.formulario);
+            Form.default.validation(Cliente.default.formulario);
+            Cliente.default.salvar(Cliente.default.formulario);
         });
 
-        App.clienteDatatable.on('click', '.btn-show', function (event) {
+        Cliente.default.clienteDatatable.on('click', '.btn-show', function (event) {
             event.preventDefault();            
             window.location.href = $(this).data('href');
         });
 
-        App.clienteDatatable.on('click', '.btn-edit', function (event) { 
+        Cliente.default.clienteDatatable.on('click', '.btn-edit', function (event) { 
             event.preventDefault();
             window.location.href = $(this).data('href');
         });
 
-        App.clienteDatatable.on('click', '.btn-destroy', function (event) { 
+        Cliente.default.clienteDatatable.on('click', '.btn-destroy', function (event) { 
             event.preventDefault();
 
             const data = {
@@ -103,7 +99,7 @@ App = {
                 },
                 callback: function (result) {
                     if(result === true){
-                        App.enviarDeleteCliente(data);
+                        Cliente.default.enviarDeleteCliente(data);
                     }
                 }
             });
@@ -114,21 +110,21 @@ App = {
             url: `${dados.href}`,
             method: "DELETE",
             data: { 
-                _token : App._token,
+                _token : Cliente.default._token,
                 clienteId : dados.cliente.id
             },
             beforeSend: function () {
-                //Util.processing();
+                //Util.default.processing();
             },
             success: function (success) {
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(success.message, function(){
                     window.location.reload();
                 });
             },
             error: function (error) {
                 console.log(error);
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(error.statusText, function(){
                     window.location.reload();
                 });
@@ -139,7 +135,7 @@ App = {
         return ``;
     },
     iniciarClienteDatatable: function () {
-        App.clienteDatatable.DataTable(
+        Cliente.default.clienteDatatable.DataTable(
             {
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
@@ -151,9 +147,9 @@ App = {
         Inputmask().mask(document.querySelectorAll("input"));
     },
     iniciar: function () {
-        App.iniciarCampos();
-        App.iniciarBotoes();
-        App.iniciarClienteDatatable();
-        App.iniciarMascaras();
+        Cliente.default.iniciarCampos();
+        Cliente.default.iniciarBotoes();
+        Cliente.default.iniciarClienteDatatable();
+        Cliente.default.iniciarMascaras();
     }
-};
+}

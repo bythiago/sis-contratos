@@ -53981,33 +53981,10 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-window.CEP = __webpack_require__(/*! ./app/cep */ "./resources/js/app/cep.js");
-window.Form = __webpack_require__(/*! ./app/form */ "./resources/js/app/form.js");
-window.Util = __webpack_require__(/*! ./app/util */ "./resources/js/app/util.js");
-window.Cliente = __webpack_require__(/*! ./app/cliente */ "./resources/js/app/cliente/index.js");
-window.Produto = __webpack_require__(/*! ./app/produto */ "./resources/js/app/produto/index.js");
-window.Pedido = __webpack_require__(/*! ./app/pedido */ "./resources/js/app/pedido/index.js");
-window.$(document).ready(function () {
-  Form["default"].iniciar();
-});
-
-/***/ }),
-
-/***/ "./resources/js/app/cep.js":
-/*!*********************************!*\
-  !*** ./resources/js/app/cep.js ***!
-  \*********************************/
+/***/ "./public/js/cep.js":
+/*!**************************!*\
+  !*** ./public/js/cep.js ***!
+  \**************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54111,166 +54088,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./resources/js/app/cliente/index.js":
-/*!*******************************************!*\
-  !*** ./resources/js/app/cliente/index.js ***!
-  \*******************************************/
+/***/ "./public/js/form.js":
+/*!***************************!*\
+  !*** ./public/js/form.js ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  formulario: null,
-  campos: [],
-  botoes: [],
-  elementos: [],
-  clienteDatatable: null,
-  iniciarCampos: function iniciarCampos() {
-    //
-    Cliente["default"]._token = $('meta[name="csrf-token"]').attr('content');
-    Cliente["default"].campos.nome = $("#cliente-nome");
-    Cliente["default"].campos.cep = $("#cep"); //
-
-    Cliente["default"].clienteDatatable = $("#cliente-table"); //
-
-    Cliente["default"].formulario = $("#formulario-lista"); //
-
-    Cliente["default"].botoes.btnSalvar = $("#btn-salvar"); //
-
-    Util["default"].formatarPalavras(); //
-
-    CEP["default"].consulta(Cliente["default"].campos.cep);
+  constructor: function constructor() {
+    Form["default"].iniciar();
   },
-  salvar: function salvar(event) {
-    if (!event.valid()) {
-      return false;
-    }
-
-    $.ajax({
-      url: Cliente["default"].formulario.attr('action'),
-      method: Cliente["default"].formulario.attr('method'),
-      dataType: "json",
-      data: {
-        _token: Cliente["default"]._token,
-        dados: Cliente["default"].formulario.serialize()
-      },
-      beforeSend: function beforeSend() {
-        Util["default"].processing();
-      },
-      success: function success(data) {
-        setTimeout(function () {
-          Util["default"].hideAll();
-          bootbox.alert(data.message, function () {
-            window.location.href = window.BASE_HREF + 'admin/clientes';
-          });
-        }, 250);
-      },
-      error: function error(_error) {
-        bootbox.alert(_error.responseJSON.message, function () {
-          window.location.reload();
-        });
-      }
-    });
-  },
-  iniciarBotoes: function iniciarBotoes() {
-    Cliente["default"].botoes.btnSalvar.on('click', function (event) {
-      event.preventDefault();
-      Form["default"].validation(Cliente["default"].formulario);
-      Cliente["default"].salvar(Cliente["default"].formulario);
-    });
-    Cliente["default"].clienteDatatable.on('click', '.btn-show', function (event) {
-      event.preventDefault();
-      window.location.href = $(this).data('href');
-    });
-    Cliente["default"].clienteDatatable.on('click', '.btn-edit', function (event) {
-      event.preventDefault();
-      window.location.href = $(this).data('href');
-    });
-    Cliente["default"].clienteDatatable.on('click', '.btn-destroy', function (event) {
-      event.preventDefault();
-      var data = {
-        cliente: $(this).data('cliente'),
-        href: $(this).data('href')
-      };
-      bootbox.confirm({
-        message: "Voc\xEA tem certeza que deseja excluir o cliente <strong>".concat(data.cliente.nome, "</strong>?"),
-        buttons: {
-          confirm: {
-            label: 'Sim',
-            className: 'btn-success'
-          },
-          cancel: {
-            label: 'Não',
-            className: 'btn-danger'
-          }
-        },
-        callback: function callback(result) {
-          if (result === true) {
-            Cliente["default"].enviarDeleteCliente(data);
-          }
-        }
-      });
-    });
-  },
-  enviarDeleteCliente: function enviarDeleteCliente(dados) {
-    $.ajax({
-      url: "".concat(dados.href),
-      method: "DELETE",
-      data: {
-        _token: Cliente["default"]._token,
-        clienteId: dados.cliente.id
-      },
-      beforeSend: function beforeSend() {//Util.default.processing();
-      },
-      success: function success(_success) {
-        Util["default"].hideAll();
-        bootbox.alert(_success.message, function () {
-          window.location.reload();
-        });
-      },
-      error: function error(_error2) {
-        console.log(_error2);
-        Util["default"].hideAll();
-        bootbox.alert(_error2.statusText, function () {
-          window.location.reload();
-        });
-      }
-    });
-  },
-  iniciarDadosCliente: function iniciarDadosCliente(dados) {
-    return "";
-  },
-  iniciarClienteDatatable: function iniciarClienteDatatable() {
-    Cliente["default"].clienteDatatable.DataTable({
-      "language": {
-        "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-      }
-    });
-  },
-  iniciarMascaras: function iniciarMascaras() {
-    Inputmask().mask(document.querySelectorAll("input"));
-  },
-  iniciar: function iniciar() {
-    Cliente["default"].iniciarCampos();
-    Cliente["default"].iniciarBotoes();
-    Cliente["default"].iniciarClienteDatatable();
-    Cliente["default"].iniciarMascaras();
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/app/form.js":
-/*!**********************************!*\
-  !*** ./resources/js/app/form.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
   autocomplete: function autocomplete(input) {
     input.select2({
       ajax: {
@@ -54330,302 +54160,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/app/pedido/index.js":
-/*!******************************************!*\
-  !*** ./resources/js/app/pedido/index.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  formulario: null,
-  campos: {
-    cliente: null
-  },
-  botoes: [],
-  elementos: [],
-  iniciarCampos: function iniciarCampos() {
-    //token
-    Pedido["default"]._token = $('meta[name="csrf-token"]').attr('content'); //table
-
-    Pedido["default"].datatable = $("#pedido-table"); //formulario
-
-    Pedido["default"].formulario = $("#formulario-lista"); //campos
-
-    Pedido["default"].campos.cliente = $("#pedido-cliente");
-    Pedido["default"].campos.produto = $("#pedido-produto"); //botoes
-
-    Pedido["default"].botoes.btnSalvar = $("#btn-salvar"); //utils
-
-    Util["default"].formatarPalavras();
-    Form["default"].select2(Pedido["default"].campos.cliente);
-    Form["default"].select2(Pedido["default"].campos.produto);
-  },
-  salvar: function salvar(event) {
-    if (!event.valid()) {
-      return false;
-    }
-
-    $.ajax({
-      url: Pedido["default"].formulario.attr('action'),
-      method: Pedido["default"].formulario.attr('method'),
-      dataType: "json",
-      data: {
-        _token: Pedido["default"]._token,
-        dados: Pedido["default"].formulario.serialize()
-      },
-      beforeSend: function beforeSend() {
-        Util["default"].processing();
-      },
-      success: function success(data) {
-        setTimeout(function () {
-          Util["default"].hideAll();
-          bootbox.alert(data.message, function () {
-            window.location.href = window.BASE_HREF + 'admin/pedidos';
-          });
-        }, 250);
-      },
-      error: function error(_error) {
-        bootbox.alert(_error.responseJSON.message, function () {
-          window.location.reload();
-        });
-      }
-    });
-  },
-  iniciarBotoes: function iniciarBotoes() {
-    Pedido["default"].botoes.btnSalvar.on('click', function (event) {
-      event.preventDefault();
-      Form["default"].validation(Pedido["default"].formulario);
-      Pedido["default"].salvar(Pedido["default"].formulario);
-    });
-    Pedido["default"].datatable.on('click', '.btn-show', function (event) {
-      event.preventDefault();
-      window.location.href = $(this).data('href');
-    });
-    Pedido["default"].datatable.on('click', '.btn-edit', function (event) {
-      event.preventDefault();
-      window.location.href = $(this).data('href');
-    });
-    Pedido["default"].datatable.on('click', '.btn-destroy', function (event) {
-      event.preventDefault();
-      var data = {
-        pedido: $(this).data('pedido'),
-        href: $(this).data('href')
-      };
-      bootbox.confirm({
-        message: "Voc\xEA tem certeza que deseja cancelar o <strong>Pedido ".concat(data.Pedido["default"].id, "</strong>?"),
-        buttons: {
-          confirm: {
-            label: 'Sim',
-            className: 'btn-success'
-          },
-          cancel: {
-            label: 'Não',
-            className: 'btn-danger'
-          }
-        },
-        callback: function callback(result) {
-          if (result === true) {
-            Pedido["default"].deletar(data);
-          }
-        }
-      });
-    });
-  },
-  deletar: function deletar(dados) {
-    $.ajax({
-      url: "".concat(dados.href),
-      method: "DELETE",
-      data: {
-        _token: Pedido["default"]._token,
-        id: dados.Pedido["default"].id
-      },
-      beforeSend: function beforeSend() {//Util.default.processing();
-      },
-      success: function success(_success) {
-        Util["default"].hideAll();
-        bootbox.alert(_success.message, function () {
-          window.location.reload();
-        });
-      },
-      error: function error(_error2) {
-        console.log(_error2);
-        Util["default"].hideAll();
-        bootbox.alert(_error2.statusText, function () {
-          window.location.reload();
-        });
-      }
-    });
-  },
-  iniciarDatatable: function iniciarDatatable() {
-    Pedido["default"].datatable.DataTable({
-      "order": [[0, "desc"]],
-      "language": {
-        "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-      }
-    });
-  },
-  iniciarMascaras: function iniciarMascaras() {
-    Inputmask().mask(document.querySelectorAll("input"));
-  },
-  iniciar: function iniciar() {
-    Pedido["default"].iniciarCampos();
-    Pedido["default"].iniciarBotoes();
-    Pedido["default"].iniciarDatatable();
-    Pedido["default"].iniciarMascaras();
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/app/produto/index.js":
-/*!*******************************************!*\
-  !*** ./resources/js/app/produto/index.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  formulario: null,
-  campos: [],
-  botoes: [],
-  elementos: [],
-  iniciarCampos: function iniciarCampos() {
-    //token
-    Produto["default"]._token = $('meta[name="csrf-token"]').attr('content'); //table
-
-    Produto["default"].datatable = $("#produto-table"); //formulario
-
-    Produto["default"].formulario = $("#formulario-lista"); //botoes
-
-    Produto["default"].botoes.btnSalvar = $("#btn-salvar"); //utils
-
-    Util["default"].formatarPalavras();
-  },
-  salvar: function salvar(event) {
-    if (!event.valid()) {
-      return false;
-    }
-
-    $.ajax({
-      url: Produto["default"].formulario.attr('action'),
-      method: Produto["default"].formulario.attr('method'),
-      dataType: "json",
-      data: {
-        _token: Produto["default"]._token,
-        dados: Produto["default"].formulario.serialize()
-      },
-      beforeSend: function beforeSend() {
-        Util["default"].processing();
-      },
-      success: function success(data) {
-        setTimeout(function () {
-          Util["default"].hideAll();
-          bootbox.alert(data.message, function () {
-            window.location.href = window.BASE_HREF + 'admin/produtos';
-          });
-        }, 250);
-      },
-      error: function error(_error) {
-        bootbox.alert(_error.responseJSON.message, function () {
-          window.location.reload();
-        });
-      }
-    });
-  },
-  iniciarBotoes: function iniciarBotoes() {
-    Produto["default"].botoes.btnSalvar.on('click', function (event) {
-      event.preventDefault();
-      Form["default"].validation(Produto["default"].formulario);
-      Produto["default"].salvar(Produto["default"].formulario);
-    });
-    Produto["default"].datatable.on('click', '.btn-show', function (event) {
-      event.preventDefault();
-      window.location.href = $(this).data('href');
-    });
-    Produto["default"].datatable.on('click', '.btn-edit', function (event) {
-      event.preventDefault();
-      window.location.href = $(this).data('href');
-    });
-    Produto["default"].datatable.on('click', '.btn-destroy', function (event) {
-      event.preventDefault();
-      var data = {
-        produto: $(this).data('produto'),
-        href: $(this).data('href')
-      };
-      bootbox.confirm({
-        message: "Voc\xEA tem certeza que deseja excluir o produto <strong>".concat(data.Produto["default"].nome, "</strong>?"),
-        buttons: {
-          confirm: {
-            label: 'Sim',
-            className: 'btn-success'
-          },
-          cancel: {
-            label: 'Não',
-            className: 'btn-danger'
-          }
-        },
-        callback: function callback(result) {
-          if (result === true) {
-            Produto["default"].deletar(data);
-          }
-        }
-      });
-    });
-  },
-  deletar: function deletar(dados) {
-    $.ajax({
-      url: "".concat(dados.href),
-      method: "DELETE",
-      data: {
-        _token: Produto["default"]._token,
-        id: dados.Produto["default"].id
-      },
-      beforeSend: function beforeSend() {//Util.default.processing();
-      },
-      success: function success(_success) {
-        Util["default"].hideAll();
-        bootbox.alert(_success.message, function () {
-          window.location.reload();
-        });
-      },
-      error: function error(_error2) {
-        console.log(_error2);
-        Util["default"].hideAll();
-        bootbox.alert(_error2.statusText, function () {
-          window.location.reload();
-        });
-      }
-    });
-  },
-  iniciarDatatable: function iniciarDatatable() {
-    Produto["default"].datatable.DataTable({
-      "language": {
-        "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-      }
-    });
-  },
-  iniciarMascaras: function iniciarMascaras() {
-    Inputmask().mask(document.querySelectorAll("input"));
-  },
-  iniciar: function iniciar() {
-    Produto["default"].iniciarCampos();
-    Produto["default"].iniciarBotoes();
-    Produto["default"].iniciarDatatable();
-    Produto["default"].iniciarMascaras();
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/app/util.js":
-/*!**********************************!*\
-  !*** ./resources/js/app/util.js ***!
-  \**********************************/
+/***/ "./public/js/util.js":
+/*!***************************!*\
+  !*** ./public/js/util.js ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54673,6 +54211,26 @@ __webpack_require__.r(__webpack_exports__);
     return nova;
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/app.js":
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+window.CEP = __webpack_require__(/*! ../../public/js/cep */ "./public/js/cep.js");
+window.Form = __webpack_require__(/*! ../../public/js/form */ "./public/js/form.js");
+window.Util = __webpack_require__(/*! ../../public/js/util */ "./public/js/util.js"); // Vue.component('produtos-table-component', require('./components/ProdutoComponent.vue').default);
+// const app = new Vue({
+//     el: '#app',
+// });
 
 /***/ }),
 

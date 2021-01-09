@@ -144,6 +144,6 @@
 @section('js')
     <script>
         var readonly = "{{ $readonly }}"
+        Cliente.default.iniciar();
     </script>
-    <script src="{{ asset('js/cliente/lista.js') }}"></script>
 @stop

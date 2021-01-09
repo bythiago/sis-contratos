@@ -1,10 +1,5 @@
-$(function () {
-    setTimeout(function () {
-        Produto.iniciar();
-    }, 100);
-});
-
-Produto = {
+export default {
+    
     formulario: null,
     campos: [],
     botoes: [],
@@ -13,19 +8,19 @@ Produto = {
     iniciarCampos: function () {
 
         //token
-        Produto._token = $('meta[name="csrf-token"]').attr('content');
+        Produto.default._token = $('meta[name="csrf-token"]').attr('content');
 
         //table
-        Produto.datatable = $("#produto-table");
+        Produto.default.datatable = $("#produto-table");
 
         //formulario
-        Produto.formulario = $("#formulario-lista");
+        Produto.default.formulario = $("#formulario-lista");
 
         //botoes
-        Produto.botoes.btnSalvar = $("#btn-salvar");
+        Produto.default.botoes.btnSalvar = $("#btn-salvar");
 
         //utils
-        Util.formatarPalavras();
+        Util.default.formatarPalavras();
     },
     salvar: function(event){
 
@@ -34,19 +29,19 @@ Produto = {
         }
 
         $.ajax({
-            url: Produto.formulario.attr('action'),
-            method: Produto.formulario.attr('method'),
+            url: Produto.default.formulario.attr('action'),
+            method: Produto.default.formulario.attr('method'),
             dataType: "json",
             data: { 
-                _token : Produto._token,
-                dados : Produto.formulario.serialize(),
+                _token : Produto.default._token,
+                dados : Produto.default.formulario.serialize(),
             },
             beforeSend: function () {
-                Util.processing();
+                Util.default.processing();
             },
             success: function (data) {
                 setTimeout(() => { 
-                    Util.hideAll();
+                    Util.default.hideAll();
                     bootbox.alert(data.message, function(){ 
                         window.location.href = window.BASE_HREF + 'admin/produtos';
                     });
@@ -60,23 +55,23 @@ Produto = {
         });
     },
     iniciarBotoes: function() {
-        Produto.botoes.btnSalvar.on('click', function (event) {
+        Produto.default.botoes.btnSalvar.on('click', function (event) {
             event.preventDefault();
-            Form.validation(Produto.formulario);
-            Produto.salvar(Produto.formulario);
+            Form.default.validation(Produto.default.formulario);
+            Produto.default.salvar(Produto.default.formulario);
         });
 
-        Produto.datatable.on('click', '.btn-show', function (event) {
+        Produto.default.datatable.on('click', '.btn-show', function (event) {
             event.preventDefault();            
             window.location.href = $(this).data('href');
         });
 
-        Produto.datatable.on('click', '.btn-edit', function (event) { 
+        Produto.default.datatable.on('click', '.btn-edit', function (event) { 
             event.preventDefault();
             window.location.href = $(this).data('href');
         });
 
-        Produto.datatable.on('click', '.btn-destroy', function (event) { 
+        Produto.default.datatable.on('click', '.btn-destroy', function (event) { 
             event.preventDefault();
 
             const data = {
@@ -85,7 +80,7 @@ Produto = {
             };
 
             bootbox.confirm({
-                message: `Você tem certeza que deseja excluir o produto <strong>${data.produto.nome}</strong>?`,
+                message: `Você tem certeza que deseja excluir o produto <strong>${data.Produto.default.nome}</strong>?`,
                 buttons: {
                     confirm: {
                         label: 'Sim',
@@ -98,7 +93,7 @@ Produto = {
                 },
                 callback: function (result) {
                     if(result === true){
-                        Produto.deletar(data);
+                        Produto.default.deletar(data);
                     }
                 }
             });
@@ -109,21 +104,21 @@ Produto = {
             url: `${dados.href}`,
             method: "DELETE",
             data: { 
-                _token : Produto._token,
-                id : dados.produto.id
+                _token : Produto.default._token,
+                id : dados.Produto.default.id
             },
             beforeSend: function () {
-                //Util.processing();
+                //Util.default.processing();
             },
             success: function (success) {
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(success.message, function(){
                     window.location.reload();
                 });
             },
             error: function (error) {
                 console.log(error);
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(error.statusText, function(){
                     window.location.reload();
                 });
@@ -131,7 +126,7 @@ Produto = {
         })
     },
     iniciarDatatable: function () {
-        Produto.datatable.DataTable(
+        Produto.default.datatable.DataTable(
             {
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
@@ -143,9 +138,9 @@ Produto = {
         Inputmask().mask(document.querySelectorAll("input"));
     },
     iniciar: function () {
-        Produto.iniciarCampos();
-        Produto.iniciarBotoes();
-        Produto.iniciarDatatable();
-        Produto.iniciarMascaras();
+        Produto.default.iniciarCampos();
+        Produto.default.iniciarBotoes();
+        Produto.default.iniciarDatatable();
+        Produto.default.iniciarMascaras();
     }
 };

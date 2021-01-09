@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pedido extends Model
 {
+    
     use HasFactory, SoftDeletes;
+
+    const ORCAMENTO_SOLICITADO = 'orcamento_solicitado';
+    const CONTRATO_SOLICITADO = 'contrato_solicitado';
 
     protected $table = "pedidos";
 

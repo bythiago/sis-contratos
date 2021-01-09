@@ -1,10 +1,5 @@
-$(function () {
-    setTimeout(function () {
-        Pedido.iniciar();
-    }, 100);
-});
+export default {
 
-Pedido = {
     formulario: null,
     campos: {
         cliente: null
@@ -15,25 +10,25 @@ Pedido = {
     iniciarCampos: function () {
 
         //token
-        Pedido._token = $('meta[name="csrf-token"]').attr('content');
+        Pedido.default._token = $('meta[name="csrf-token"]').attr('content');
 
         //table
-        Pedido.datatable = $("#pedido-table");
+        Pedido.default.datatable = $("#pedido-table");
 
         //formulario
-        Pedido.formulario = $("#formulario-lista");
+        Pedido.default.formulario = $("#formulario-lista");
 
         //campos
-        Pedido.campos.cliente = $("#pedido-cliente");
-        Pedido.campos.produto = $("#pedido-produto");
+        Pedido.default.campos.cliente = $("#pedido-cliente");
+        Pedido.default.campos.produto = $("#pedido-produto");
 
         //botoes
-        Pedido.botoes.btnSalvar = $("#btn-salvar");
+        Pedido.default.botoes.btnSalvar = $("#btn-salvar");
 
         //utils
-        Util.formatarPalavras();
-        Form.select2(Pedido.campos.cliente);
-        Form.select2(Pedido.campos.produto);
+        Util.default.formatarPalavras();
+        Form.default.select2(Pedido.default.campos.cliente);
+        Form.default.select2(Pedido.default.campos.produto);
     },
     salvar: function(event){
 
@@ -42,19 +37,19 @@ Pedido = {
         }
 
         $.ajax({
-            url: Pedido.formulario.attr('action'),
-            method: Pedido.formulario.attr('method'),
+            url: Pedido.default.formulario.attr('action'),
+            method: Pedido.default.formulario.attr('method'),
             dataType: "json",
             data: { 
-                _token : Pedido._token,
-                dados : Pedido.formulario.serialize(),
+                _token : Pedido.default._token,
+                dados : Pedido.default.formulario.serialize(),
             },
             beforeSend: function () {
-                Util.processing();
+                Util.default.processing();
             },
             success: function (data) {
                 setTimeout(() => { 
-                    Util.hideAll();
+                    Util.default.hideAll();
                     bootbox.alert(data.message, function(){ 
                         window.location.href = window.BASE_HREF + 'admin/pedidos';
                     });
@@ -68,23 +63,23 @@ Pedido = {
         });
     },
     iniciarBotoes: function() {
-        Pedido.botoes.btnSalvar.on('click', function (event) {
+        Pedido.default.botoes.btnSalvar.on('click', function (event) {
             event.preventDefault();
-            Form.validation(Pedido.formulario);
-            Pedido.salvar(Pedido.formulario);
+            Form.default.validation(Pedido.default.formulario);
+            Pedido.default.salvar(Pedido.default.formulario);
         });
 
-        Pedido.datatable.on('click', '.btn-show', function (event) {
+        Pedido.default.datatable.on('click', '.btn-show', function (event) {
             event.preventDefault();            
             window.location.href = $(this).data('href');
         });
 
-        Pedido.datatable.on('click', '.btn-edit', function (event) { 
+        Pedido.default.datatable.on('click', '.btn-edit', function (event) { 
             event.preventDefault();
             window.location.href = $(this).data('href');
         });
 
-        Pedido.datatable.on('click', '.btn-destroy', function (event) { 
+        Pedido.default.datatable.on('click', '.btn-destroy', function (event) { 
             event.preventDefault();
 
             const data = {
@@ -93,7 +88,7 @@ Pedido = {
             };
 
             bootbox.confirm({
-                message: `Você tem certeza que deseja cancelar o <strong>Pedido ${data.pedido.id}</strong>?`,
+                message: `Você tem certeza que deseja cancelar o <strong>Pedido ${data.Pedido.default.id}</strong>?`,
                 buttons: {
                     confirm: {
                         label: 'Sim',
@@ -106,7 +101,7 @@ Pedido = {
                 },
                 callback: function (result) {
                     if(result === true){
-                        Pedido.deletar(data);
+                        Pedido.default.deletar(data);
                     }
                 }
             });
@@ -117,21 +112,21 @@ Pedido = {
             url: `${dados.href}`,
             method: "DELETE",
             data: { 
-                _token : Pedido._token,
-                id : dados.pedido.id
+                _token : Pedido.default._token,
+                id : dados.Pedido.default.id
             },
             beforeSend: function () {
-                //Util.processing();
+                //Util.default.processing();
             },
             success: function (success) {
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(success.message, function(){
                     window.location.reload();
                 });
             },
             error: function (error) {
                 console.log(error);
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(error.statusText, function(){
                     window.location.reload();
                 });
@@ -139,7 +134,7 @@ Pedido = {
         })
     },
     iniciarDatatable: function () {
-        Pedido.datatable.DataTable(
+        Pedido.default.datatable.DataTable(
             {
                 "order": [[ 0, "desc" ]],
                 "language": {
@@ -152,9 +147,9 @@ Pedido = {
         Inputmask().mask(document.querySelectorAll("input"));
     },
     iniciar: function () {
-        Pedido.iniciarCampos();
-        Pedido.iniciarBotoes();
-        Pedido.iniciarDatatable();
-        Pedido.iniciarMascaras();
+        Pedido.default.iniciarCampos();
+        Pedido.default.iniciarBotoes();
+        Pedido.default.iniciarDatatable();
+        Pedido.default.iniciarMascaras();
     }
 };

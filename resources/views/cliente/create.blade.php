@@ -143,5 +143,7 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/cliente/lista.js') }}"></script>
+<script>
+    Cliente.default.iniciar();
+</script>
 @stop

@@ -1,9 +1,16 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.Swal = require('sweetalert2');
 
-Vue.component('produtos-table-component', require('./components/ProdutoComponent.vue').default);
+window.CEP = require('./app/cep');
+window.Form = require('./app/form');
+window.Util = require('./app/util');
 
-const app = new Vue({
-    el: '#app',
+window.Cliente = require('./app/cliente');
+window.Produto = require('./app/produto');
+window.Pedido = require('./app/pedido');
+
+window.$(document).ready(function(){
+    Form.default.iniciar();
 });

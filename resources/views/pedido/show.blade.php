@@ -66,7 +66,10 @@
 @stop
 @section('js')
     <script>
-        var readonly = "{{ $dados['readonly'] }}"
+        var readonly = "{{ $dados['readonly'] }}";
+
+        $(document).ready(function(){
+            Pedido.default.iniciar();
+        }
     </script>
-    <script src="{{ asset('js/pedido/index.js') }}"></script>
 @stop

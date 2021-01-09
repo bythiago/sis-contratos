@@ -1,8 +1,9 @@
-CEP = {
+export default {
+    
     consulta: async function (input)
     {
         input.on('blur', function(event){
-            CEP.valida($(this).val().replace(/\D/g, ''));
+            CEP.default.valida($(this).val().replace(/\D/g, ''));
         });
     },
     valida: function(cep)
@@ -10,7 +11,7 @@ CEP = {
         let validacep = /^[0-9]{8}$/;
 
         if(validacep.test(cep)){
-            CEP.popula(cep);
+            CEP.default.popula(cep);
         }
 
         return false;
@@ -35,16 +36,16 @@ CEP = {
     },
     popula: async function(cep)
     {
-        Util.processing();
-        return await CEP.busca(cep).then(response => {
+        Util.default.processing();
+        return await CEP.default.busca(cep).then(response => {
             response.json().then(data => {
-                CEP.objeto().rua.val(data.logradouro);
-                CEP.objeto().bairro.val(data.bairro);
-                CEP.objeto().cidade.val(data.localidade);
-                CEP.objeto().uf.val(data.uf);
+                CEP.default.objeto().rua.val(data.logradouro);
+                CEP.default.objeto().bairro.val(data.bairro);
+                CEP.default.objeto().cidade.val(data.localidade);
+                CEP.default.objeto().uf.val(data.uf);
             });
         }).then(() => {
-            Util.hideAll();
+            Util.default.hideAll();
         });
     },
 }

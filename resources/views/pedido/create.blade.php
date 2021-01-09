@@ -56,5 +56,9 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/pedido/index.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            Pedido.default.iniciar();
+        });
+    </script>
 @stop

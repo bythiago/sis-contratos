@@ -1,10 +1,7 @@
-$(function () {
-    //setTimeout(function () {
-        Orcamento.iniciar();
-    //}, 500);
-});
+export default Orcamento;
 
 Orcamento = {
+    
     formulario: null,
     campos: [],
     botoes: [],
@@ -17,7 +14,7 @@ Orcamento = {
 
         //campos
         Orcamento.campos.autocomplete = $("#pedido-id-produto");
-        Form.autocomplete(Orcamento.campos.autocomplete);
+        Form.default.autocomplete(Orcamento.campos.autocomplete);
 
         // //table
         // Orcamento.datatable = $("#produto-table");
@@ -31,12 +28,12 @@ Orcamento = {
         // Orcamento.botoes.btnProdutoRemover = $("btnProdutoRemover");
 
         //utils
-        Util.formatarPalavras();
+        Util.default.formatarPalavras();
     },
     adicionarProduto: function(){
         Orcamento.botoes.btnProdutoAdicionar.on('click', function(event){
             event.preventDefault();
-            Form.validation(Orcamento.formulario);
+            Form.default.validation(Orcamento.formulario);
             
             if(!Orcamento.formulario.valid()){
                 return false;
@@ -51,12 +48,12 @@ Orcamento = {
                     dados : Orcamento.formulario.serialize(),
                 },
                 beforeSend: function () {
-                    // Util.processing();
+                    // Util.default.processing();
                 },
                 success: function (data) {
                     console.log(data);
                     // setTimeout(() => { 
-                    //     Util.hideAll();
+                    //     Util.default.hideAll();
                     //     bootbox.alert(data.message, function(){ 
                     //         window.location.href = window.BASE_HREF + 'pedidos';
                     //     });
@@ -85,11 +82,11 @@ Orcamento = {
                 dados : Orcamento.formulario.serialize(),
             },
             beforeSend: function () {
-                Util.processing();
+                Util.default.processing();
             },
             success: function (data) {
                 setTimeout(() => { 
-                    Util.hideAll();
+                    Util.default.hideAll();
                     bootbox.alert(data.message, function(){ 
                         window.location.href = window.BASE_HREF + 'pedidos';
                     });
@@ -105,7 +102,7 @@ Orcamento = {
     iniciarBotoes: function() {
         Orcamento.botoes.btnSalvar.on('click', function (event) {
             event.preventDefault();
-            Form.validation(Orcamento.formulario);
+            Form.default.validation(Orcamento.formulario);
             Orcamento.salvar(Orcamento.formulario);
         });
 
@@ -156,17 +153,17 @@ Orcamento = {
                 id : dados.produto.id
             },
             beforeSend: function () {
-                //Util.processing();
+                //Util.default.processing();
             },
             success: function (success) {
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(success.message, function(){
                     window.location.reload();
                 });
             },
             error: function (error) {
                 console.log(error);
-                Util.hideAll();
+                Util.default.hideAll();
                 bootbox.alert(error.statusText, function(){
                     window.location.reload();
                 });
