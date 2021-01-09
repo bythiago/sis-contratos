@@ -24,7 +24,12 @@ class DatabaseSeeder extends Seeder
         ]);
         
         \App\Models\User::factory(2)->create();
-        \App\Models\Cliente::factory(2)->create();
+        \App\Models\Cliente::factory(2)->create()->each(function($cliente){
+            $cliente->contatos()->create([
+                'id_tipo_contato' => rand(1, 2),
+                'contato' => rand(1111111111, 9999999999)
+            ]);
+        });
         \App\Models\Produto::factory(10)->create();
     }
 }
