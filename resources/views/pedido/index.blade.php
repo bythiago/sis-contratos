@@ -19,7 +19,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="pedido-table" class="table table-bordered">
+                    <table id="pedido-table" class="table table-bordered" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>@</th>
@@ -41,15 +41,13 @@
                                     <td>{{ $pedido->status->descricao }}</td>
                                     <td>
                                         @if ($pedido->anotacao)
-                                            <a style="cursor: help;" class="fas fa-2x fa-info-circle text-success" title="{{ $pedido->anotacao->descricao }}"></a>
+                                            <a href="#" style="cursor: help;" class="fas fa-2x fa-info-circle" title="{{ $pedido->anotacao->descricao }}"></a>
                                         @endif
                                         
-                                        {{-- @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_SOLICITADO) --}}
-                                            <a href="{{ route('pedidos.show', ['pedido' => $pedido]) }}" class="fas fa-2x fa-user-plus"></a>
-                                        {{-- @endif --}}
+                                        <a href="{{ route('pedidos.show', ['pedido' => $pedido]) }}" class="fa fa-2x fa-cart-plus text-warning"></a>
 
                                         @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_REALIZADO)
-                                            <a href="" class="fas fa-2x fa-print text-warning"></a>
+                                            <a href="#" class="fas fa-2x fa-print text-info"></a>
                                         @endif
                                     </td>
                                 </tr>

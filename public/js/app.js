@@ -54521,6 +54521,7 @@ __webpack_require__.r(__webpack_exports__);
   iniciarDatatable: function iniciarDatatable() {
     Pedido["default"].datatable.DataTable({
       "order": [[0, "asc"]],
+      "scrollX": true,
       "language": {
         "url": window.BASE_HREF + 'js/Portuguese-Brasil.json'
       }

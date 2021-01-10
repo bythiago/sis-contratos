@@ -21,14 +21,14 @@
                                     <input type="hidden" name="orcamento[status]" value="1">
                                 </div>
                             </div>
-                            <div class="col-10">
+                            <div class="col-8">
                                 <div class="form-group">
                                     <label for="pedido-id-produto">Produtos</label>
                                     <select name="produto[id_produto]" id="pedido-id-produto" class="form-control" data-placeholder="Selecione um produto" data-href="{{ route('api.autocomplete.produtos') }}" required>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="cliente">Quantidade</label>
                                     <input type="number" class="form-control" name="produto[quantidade]" max="999" min="0" required>
@@ -61,7 +61,7 @@
             @if($dados['pedido']->orcamento)
                 <div class="card">
                     <div class="card-body">
-                        <table id="pedido-table" class="table table-bordered">
+                        <table id="pedido-table" class="table table-bordered" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>@</th>
@@ -93,7 +93,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfooter>
+                            <tfoot>
                                 <tr>
                                     <th></th>
                                     <th>Total</th>
@@ -101,7 +101,7 @@
                                     <th>{{  'R$ '.number_format($total, 2, ',', '.') }}</th>
                                     <th></th>
                                 </tr>
-                            </tfooter>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
