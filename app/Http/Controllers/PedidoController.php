@@ -112,7 +112,9 @@ class PedidoController extends Controller
             DB::beginTransaction();
             $pedido = $this->pedido::findOrFail($id);
             $pedido->update($dados['pedido']);
-            $orcamento = $pedido->orcamento()->updateOrCreate($dados['orcamento']);
+
+            $orcamento = $pedido->orcamento;
+            $orcamento->updateOrCreate($dados['orcamento']);
 
             $orcamento->produtos()->attach($orcamento->id, $dados['produto']);           
             //
