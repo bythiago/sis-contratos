@@ -23,8 +23,8 @@ class StatusSeeder extends Seeder
         ]);
 
         DB::table('status')->insert([
-            'tipo' => 'contrato_solicitado',
-            'descricao' => 'contrato solicitado',
+            'tipo' => 'orcamento_realizado',
+            'descricao' => 'orcamento realizado',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

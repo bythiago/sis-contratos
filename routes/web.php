@@ -20,13 +20,17 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-//
+Route::resource('/', ClienteController::class)->middleware('auth');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['web'])->group(function () {
     Route::group(['prefix' => 'admin'], function(){
         Route::resource('clientes', ClienteController::class);
         Route::resource('produtos', ProdutoController::class);
+        
         Route::resource('pedidos', PedidoController::class);
-        Route::resource('orcamentos', OrcamentoController::class);
+        Route::group(['prefix' => 'pedidos'], function(){
+            Route::delete('destroy2/{id}/{produto}', [PedidoController::class, 'destroy2'])->name('pedidos.destroy2');
+            Route::put('update2/{id}', [PedidoController::class, 'update2'])->name('pedidos.update2');
+        });
     });
 });

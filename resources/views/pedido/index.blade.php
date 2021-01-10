@@ -33,7 +33,8 @@
                         <tbody>
                             @foreach ($dados['pedidos'] as $pedido)
 
-                                <tr class="{{ now()->diff($pedido->created_at)->days > 5 ? 'table-warning' : '' }}" >
+                                {{-- <tr class="{{ now()->diff($pedido->created_at)->days > 5 ? 'table-warning' : '' }}" > --}}
+                                <tr>
                                     <td>{{ $pedido->id }}</td>
                                     <td>{{ $pedido->cliente->nome }}</td>
                                     <td>{{ $pedido->created_at->format('d/m/Y H:i:s') }}</td>
@@ -43,12 +44,12 @@
                                             <a style="cursor: help;" class="fas fa-2x fa-info-circle text-success" title="{{ $pedido->anotacao->descricao }}"></a>
                                         @endif
                                         
-                                        @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_SOLICITADO)
+                                        {{-- @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_SOLICITADO) --}}
                                             <a href="{{ route('pedidos.show', ['pedido' => $pedido]) }}" class="fas fa-2x fa-user-plus"></a>
-                                        @endif
+                                        {{-- @endif --}}
 
-                                        @if($pedido->status->tipo === App\Models\Pedido::CONTRATO_SOLICITADO)
-                                            <a href="" class="fas fa-2x fa-credit-card text-success"></a>
+                                        @if($pedido->status->tipo === App\Models\Pedido::ORCAMENTO_REALIZADO)
+                                            <a href="" class="fas fa-2x fa-print text-warning"></a>
                                         @endif
                                     </td>
                                 </tr>

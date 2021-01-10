@@ -76,9 +76,14 @@ class PedidoController extends Controller
 
     public function show($id)
     {
+        $pedido = $this->pedido::find($id);
         
+        // $orcamento = $pedido->orcamento;
+
+        // dd($orcamento->produtos());
+
         $dados = [
-            'pedido' => $this->pedido::find($id),
+            'pedido' => $pedido,
             'produtos' => $this->produto::all()
         ];
 
@@ -87,10 +92,7 @@ class PedidoController extends Controller
 
     public function edit($id)
     {
-        $this->forget();
-
         $dados = [
-            'readonly' => false,
             'pedido' => $this->find($id),
             'categorias' => $this->findAllCategoria()
         ];
@@ -100,21 +102,24 @@ class PedidoController extends Controller
 
     public function update(Request $request, $id){
 
-        $this->forget();
-
         try {
+            
             $dados = [];
             parse_str($request->get('dados'), $dados);
 
-            DB::beginTransaction();
-            //
-            $pedido = $this->find($id);
-            $pedido->update($dados['pedido']);
-            $pedido->anotacao()->update($dados['anotacao']);
+            $dados['produto']['total'] = $this->calculaValorTotalProduto($dados['produto']);
 
+            DB::beginTransaction();
+            $pedido = $this->pedido::findOrFail($id);
+            $pedido->update($dados['pedido']);
+            $orcamento = $pedido->orcamento()->updateOrCreate($dados['orcamento']);
+
+            $orcamento->produtos()->attach($orcamento->id, $dados['produto']);           
+            //
             DB::commit();
+
             return response()->json([
-                'message' => "<strong>{$pedido->nome}</strong> foi alterado com sucesso"
+                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -123,15 +128,44 @@ class PedidoController extends Controller
                 'message' => $exception->getMessage()
             ], 500);
         }
+
+    }
+
+    public function update2(Request $request, $id){
+
+        try {
+
+            $dados = [
+                'orcamento' => $request->get('orcamento'),
+                'pedido' => $request->get('pedido')
+            ];
+
+            DB::beginTransaction();
+            $pedido = $this->pedido::findOrFail($id);
+            $pedido->update($dados['pedido']);
+            $pedido->orcamento()->update($dados['orcamento']);
+
+            //
+            DB::commit();
+
+            return response()->json([
+                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
+            ], 200);
+
+        } catch(\Exception $exception){
+            DB::rollBack();
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 500);
+        }
+
     }
 
 
     public function destroy(Request $request)
-    {
-        $this->forget();
-        
+    {       
         try {
-            
+
             DB::beginTransaction();
             $pedido = $this->find($request->get('id'));
             $pedido->delete();
@@ -147,6 +181,24 @@ class PedidoController extends Controller
                 'message' => $exception->getMessage()
             ], 500);
         }
+    }
+
+    public function destroy2($id, $produto)
+    {
+        DB::beginTransaction();
+        
+        $this
+            ->pedido::findOrFail($id)
+            ->orcamento
+            ->produtos()
+            ->detach($produto);
+        
+            //
+        DB::commit();
+
+        return response()->json([
+            'message' => "Produto foi removido com sucesso"
+        ], 200);
     }
 
     //--------------------------------------------------------------------------------//
@@ -176,6 +228,10 @@ class PedidoController extends Controller
 
     private function all(){
         return Pedido::all();
+    }
+
+    private function calculaValorTotalProduto($produto){
+        return $this->produto::find($produto['id_produto'])->preco * floatval($produto['quantidade']);
     }
 
     //--------------------------------------------------------------------------------//

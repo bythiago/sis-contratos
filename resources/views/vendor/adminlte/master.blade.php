@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')
@@ -89,12 +89,12 @@
         <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
         <script src="{{ asset('vendor/jquery-validation/localization/messages_pt_BR.min.js') }}"></script>
         
-        <script src="{{ asset('vendor/select2/js/select2.js') }}" defer></script>
-        <script src="{{ asset('vendor/select2/js/i18n/pt-BR.js') }}" defer></script>
+        <script src="{{ asset('vendor/select2/js/select2.js') }}"></script>
+        <script src="{{ asset('vendor/select2/js/i18n/pt-BR.js') }}"></script>
 
         <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-        {{-- <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css"> --}}
+        <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

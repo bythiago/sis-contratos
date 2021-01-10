@@ -14,7 +14,7 @@
                     <h3 class="card-title">Cliente</h3>
                 </div> --}}
                 <!-- form start -->
-                <form id="formulario-lista" method="POST" role="form" action="{{ route('pedidos.store') }}" novalidate>
+                <form id="formulario-pedido" method="POST" role="form" action="{{ route('pedidos.store') }}" novalidate>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -42,7 +42,7 @@
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </a>
 
-                        <button type="submit" id="btn-salvar" value="salvar" class="btn btn-success">
+                        <button type="submit" id="btn-salvar" data-redirect={{ route('pedidos.index') }} value="salvar" class="btn btn-success">
                             Salvar
                             <i class="fa fa-save"></i>
                         </button>
@@ -57,8 +57,8 @@
 @stop
 @section('js')
     <script>
-        $(document).ready(function(){
+        //$(document).ready(function(){
             Pedido.default.iniciar();
-        });
+        //});
     </script>
 @stop

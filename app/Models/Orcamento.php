@@ -13,15 +13,20 @@ class Orcamento extends Model
     protected $table = "orcamentos";
 
     protected $fillable = [
-        'id_pedido',
-        'assessora',
-        'cerimonia',
-        'valido_contrato',
-        'quantidade_convidados',
+        'status'
+        // 'id_pedido',
+        // 'assessora',
+        // 'cerimonia',
+        // 'valido_contrato',
+        // 'quantidade_convidados',
     ];
 
     public function produtos(){
         return $this->belongsToMany(Produto::class, 'orcamento_has_produtos', 'id_orcamento', 'id_produto')
-                    ->withPivot('quantidade', 'total');
+                    ->withPivot('id', 'quantidade', 'total', 'created_at', 'updated_at');
+    }
+
+    public function pedido(){
+        return $this->belongsTo(Pedido::class, 'id_pedido');
     }
 }

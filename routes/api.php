@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'produtos'], function(){
     Route::get('/', [ProdutoController::class, 'autocompleteProdutoByName'])
-    ->name('api.autocomplete.produtos')
-    ->middleware('web');
+    ->name('api.autocomplete.produtos');
 });
 

@@ -12,7 +12,10 @@ class Pedido extends Model
     use HasFactory, SoftDeletes;
 
     const ORCAMENTO_SOLICITADO = 'orcamento_solicitado';
-    const CONTRATO_SOLICITADO = 'contrato_solicitado';
+    const ORCAMENTO_PARCIAL = 'orcamento_parcial';
+    const ORCAMENTO_REALIZADO = 'orcamento_realizado';
+
+
 
     protected $table = "pedidos";
 
@@ -31,5 +34,9 @@ class Pedido extends Model
 
     public function anotacao(){
         return $this->hasOne(Anotacao::class, 'id_pedido');
+    }
+    
+    public function orcamento(){
+        return $this->hasOne(Orcamento::class, 'id_pedido');
     }
 }

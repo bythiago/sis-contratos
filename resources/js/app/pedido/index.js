@@ -1,9 +1,7 @@
 export default {
 
     formulario: null,
-    campos: {
-        cliente: null
-    },
+    campos: [],
     botoes: [],
     elementos: [],
 
@@ -16,7 +14,7 @@ export default {
         Pedido.default.datatable = $("#pedido-table");
 
         //formulario
-        Pedido.default.formulario = $("#formulario-lista");
+        Pedido.default.formulario = $("#formulario-pedido");
 
         //campos
         Pedido.default.campos.cliente = $("#pedido-cliente");
@@ -25,11 +23,9 @@ export default {
 
         //botoes
         Pedido.default.botoes.btnSalvar = $("#btn-salvar");
+        Pedido.default.botoes.btnAtualizar = $("#btn-update");
 
         //utils
-        Util.default.formatarPalavras();
-        Form.default.select2(Pedido.default.campos.cliente);
-        Form.default.select2(Pedido.default.campos.produto);
         Form.default.autocomplete(Pedido.default.campos.autocomplete);
     },
     salvar: function(event){
@@ -37,7 +33,7 @@ export default {
         if(!event.valid()){
             return false;
         }
-
+    
         $.ajax({
             url: Pedido.default.formulario.attr('action'),
             method: Pedido.default.formulario.attr('method'),
@@ -50,10 +46,11 @@ export default {
                 Util.default.processing();
             },
             success: function (data) {
+                Util.default.hideAll();
                 setTimeout(() => { 
                     Util.default.hideAll();
                     bootbox.alert(data.message, function(){ 
-                        window.location.href = window.BASE_HREF + 'admin/pedidos';
+                        window.location.href = $('#btn-salvar').data('redirect');
                     });
                 }, 250);
             },
@@ -81,6 +78,37 @@ export default {
             window.location.href = $(this).data('href');
         });
 
+        Pedido.default.botoes.btnAtualizar.on('click', function (event) {
+            event.preventDefault();
+
+            const data = {
+                pedido: $(this).data('pedido'),
+                href: $(this).data('href'),
+                redirect: $(this).data('redirect')
+            };
+
+            console.log(data);
+
+            bootbox.confirm({
+                message: `Você deseja concluir o orçamento do cliente <strong>${data.pedido.cliente.nome}</strong>?`,
+                buttons: {
+                    confirm: {
+                        label: 'Sim',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Não',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if(result === true){
+                        Pedido.default.atualizar(data);
+                    }
+                }
+            });
+        })
+
         Pedido.default.datatable.on('click', '.btn-destroy', function (event) { 
             event.preventDefault();
 
@@ -90,7 +118,7 @@ export default {
             };
 
             bootbox.confirm({
-                message: `Você tem certeza que deseja cancelar o <strong>Pedido ${data.Pedido.default.id}</strong>?`,
+                message: `Você deseja remover o produto <strong>Pedido ${data.pedido.nome}</strong>?`,
                 buttons: {
                     confirm: {
                         label: 'Sim',
@@ -115,7 +143,8 @@ export default {
             method: "DELETE",
             data: { 
                 _token : Pedido.default._token,
-                id : dados.Pedido.default.id
+                pedido : dados.pedido.id,
+                orcamentoProduto: dados.orcamentoProduto,
             },
             beforeSend: function () {
                 //Util.default.processing();
@@ -135,12 +164,44 @@ export default {
             }
         })
     },
+    atualizar: function(dados){
+        console.log(dados);
+        $.ajax({
+            url: `${dados.href}`,
+            method: "PUT",
+            data: { 
+                _token : Pedido.default._token,
+                pedido: {
+                    id_status: 3
+                },
+                orcamento: {
+                    status: 2
+                }
+            },
+            beforeSend: function () {
+                //Util.default.processing();
+            },
+            success: function (success) {
+                Util.default.hideAll();
+                bootbox.alert(success.message, function(){
+                    window.location.href = `${dados.redirect}`;
+                });
+            },
+            error: function (error) {
+                console.log(error);
+                Util.default.hideAll();
+                bootbox.alert(error.statusText, function(){
+                    window.location.reload();
+                });
+            }
+        })
+    },
     iniciarDatatable: function () {
         Pedido.default.datatable.DataTable(
             {
-                "order": [[ 0, "desc" ]],
+                "order": [[ 0, "asc" ]],
                 "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                    "url": window.BASE_HREF + 'js/Portuguese-Brasil.json'
                 }
             }
         );
