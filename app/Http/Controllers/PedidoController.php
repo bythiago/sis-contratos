@@ -185,17 +185,20 @@ class PedidoController extends Controller
         }
     }
 
-    public function destroy2($id, $produto)
+    public function destroy2(Request $request, $id, $produto)
     {
+        $dados = [
+            'pedido' => $request->get('pedido')
+        ];
+
         DB::beginTransaction();
         
-        $this
-            ->pedido::findOrFail($id)
-            ->orcamento
-            ->produtos()
-            ->detach($produto);
+        $pedido = $this->pedido::findOrFail($id);
+        $pedido->update($dados['pedido']);
         
-            //
+        $pedido->orcamento->produtos()->detach($produto);
+        
+        //
         DB::commit();
 
         return response()->json([

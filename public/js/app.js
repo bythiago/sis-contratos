@@ -54466,8 +54466,9 @@ __webpack_require__.r(__webpack_exports__);
       method: "DELETE",
       data: {
         _token: Pedido["default"]._token,
-        pedido: dados.pedido.id,
-        orcamentoProduto: dados.orcamentoProduto
+        pedido: {
+          id_status: 2
+        }
       },
       beforeSend: function beforeSend() {//Util.default.processing();
       },
