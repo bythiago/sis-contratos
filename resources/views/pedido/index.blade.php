@@ -32,8 +32,6 @@
 
                         <tbody>
                             @foreach ($dados['pedidos'] as $pedido)
-
-                                {{-- <tr class="{{ now()->diff($pedido->created_at)->days > 5 ? 'table-warning' : '' }}" > --}}
                                 <tr>
                                     <td>{{ $pedido->id }}</td>
                                     <td>{{ $pedido->cliente->nome }}</td>

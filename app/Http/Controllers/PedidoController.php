@@ -76,15 +76,10 @@ class PedidoController extends Controller
 
     public function show($id)
     {
-        $pedido = $this->pedido::find($id);
+        $pedido = $this->pedido::with('orcamento')->with('cliente')->where('id', $id)->first();
         
-        // $orcamento = $pedido->orcamento;
-
-        // dd($orcamento->produtos());
-
         $dados = [
             'pedido' => $pedido,
-            'produtos' => $this->produto::all()
         ];
 
         return view('pedido.show', compact('dados'));
@@ -113,8 +108,7 @@ class PedidoController extends Controller
             $pedido = $this->pedido::findOrFail($id);
             $pedido->update($dados['pedido']);
 
-            $orcamento = $pedido->orcamento;
-            $orcamento->updateOrCreate($dados['orcamento']);
+            $orcamento = $pedido->orcamento()->updateOrCreate(['id_pedido' => $pedido->id], $dados['orcamento']);
             
             $orcamento->produtos()->attach($orcamento->id, $dados['produto']);           
             //
@@ -213,26 +207,12 @@ class PedidoController extends Controller
         return Cliente::all(['id', 'cpf', 'nome']);
     }
 
-    private function findAllProduto(){
-        return Produto::all();
-    }
-
-    private function findAllCategoria()
-    {
-        return;// CategoriaProduto::all();
-    }
-
     private function find($id){
-        return Pedido::where('id', $id)->with('cliente');
+        return Pedido::where('id', $id)->with('cliente')->get();
     }
     
-    private function findByTipoAnotacao($tipo)
-    {
-        return TipoAnotacao::where('tipo', $tipo)->first()->id;
-    }
-
     private function all(){
-        return Pedido::all();
+        return Pedido::with('status')->get();
     }
 
     private function calculaValorTotalProduto($produto){
