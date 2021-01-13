@@ -23,6 +23,13 @@ class StatusSeeder extends Seeder
         ]);
 
         DB::table('status')->insert([
+            'tipo' => 'orcamento_parcial',
+            'descricao' => 'orcamento parcial',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('status')->insert([
             'tipo' => 'orcamento_realizado',
             'descricao' => 'orcamento realizado',
             'created_at' => Carbon::now(),

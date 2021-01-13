@@ -8,21 +8,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pedido extends Model
 {
-    
     use HasFactory, SoftDeletes;
 
     const ORCAMENTO_SOLICITADO = 'orcamento_solicitado';
     const ORCAMENTO_PARCIAL = 'orcamento_parcial';
     const ORCAMENTO_REALIZADO = 'orcamento_realizado';
 
-
-
     protected $table = "pedidos";
 
     protected $fillable = [
+        'id_user',
         'id_cliente',
         'id_status'
     ];
+
+    public function usuario(){
+        return $this->belongsTo(User::class, 'id_user');
+    }
 
     public function cliente(){
         return $this->belongsTo(Cliente::class, 'id_cliente');

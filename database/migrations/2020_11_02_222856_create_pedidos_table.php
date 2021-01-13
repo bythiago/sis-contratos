@@ -15,6 +15,8 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->string('numero')->nullable();
+            $table->foreignId('id_user')->nullable()->constrained('users');
             $table->foreignId('id_cliente')->constrained('clientes');
             $table->foreignId('id_status')->constrained('status');
             $table->dateTime('deleted_at')->nullable();
