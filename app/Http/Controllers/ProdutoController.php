@@ -43,10 +43,11 @@ class ProdutoController extends Controller
         try {
 
             $dados = [];
-            parse_str($request->get('dados'), $dados);
+            $dados = $request->get('produto');
+            $dados['imagem'] = $request->file('imagem')->store('produtos', ['disk' => 'public']);
             
             $produto = new $this->produto;
-            $produto = $produto->create($dados['produto']);
+            $produto = $produto->create($dados);
 
             DB::beginTransaction();
             //
@@ -130,6 +131,8 @@ class ProdutoController extends Controller
             ], 500);
         }
     }
+    
+    //--------------------------------------------------------------------------------//
 
     protected function autocompleteProdutoByName(Request $request)
     {

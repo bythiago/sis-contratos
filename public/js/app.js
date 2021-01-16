@@ -2445,13 +2445,15 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
       url: Produto["default"].formulario.attr('action'),
       method: Produto["default"].formulario.attr('method'),
-      dataType: "json",
-      data: {
-        _token: Produto["default"]._token,
-        dados: Produto["default"].formulario.serialize()
-      },
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      data: new FormData(Produto["default"].formulario[0]),
       beforeSend: function beforeSend() {
         Util["default"].processing();
       },

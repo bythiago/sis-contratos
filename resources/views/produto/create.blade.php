@@ -47,6 +47,18 @@
                                     <input type="text" class="form-control" name="produto[preco]" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label>
+                                    <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" name="imagem" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
