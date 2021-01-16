@@ -16,7 +16,6 @@ class Contato extends Model
         'id_cliente',
         'id_tipo_contato',
         'contato',
-        'descricao',
     ];
 
     public function cliente()

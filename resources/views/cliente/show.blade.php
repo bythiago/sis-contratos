@@ -92,29 +92,24 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
+                        
                         <div class="row">
+
                             @foreach ($cliente->contatos as $contato)
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="form-group">
-                                        <label for="cliente-tipo-contato">Tipo</label>
-                                        <select class="form-control" name="contato[id_tipo_contato]" required>
-                                            <option value="">Selecione o tipo</option>
-                                            @foreach ($tipoContato as $tipo)
-                                                <option value="{{ $tipo->id }}" {{ $tipo->id == $contato->id_tipo_contato ? 'selected' : ''}}>{{ $tipo->descricao }}</option>    
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="cliente-contato">Contato</label>
-                                        <input type="text" class="form-control" id="contato" name="contato[contato]" value="{{ $contato->contato }}" minlength="10" data-inputmask="'mask': '(99)99999999[9]', 'greedy' : true" required>
+                                        <label for="cliente-contato">{{$contato->tipoContato->descricao}}</label>
+                                        <input type="hidden" class="form-control" name="contato[{{$contato->id}}][id_tipo_contato]" value="{{$contato->id_tipo_contato}}" required>
+                                        
+                                        @if ($contato->tipoContato->tipo === "email")
+                                            <input type="email" class="form-control" name="contato[{{$contato->id}}][contato]" value="{{ $contato->contato }}" required>
+                                        @else
+                                            <input type="text" class="form-control" name="contato[{{$contato->id}}][contato]" value="{{ $contato->contato }}" minlength="10" data-inputmask="'mask': '(99)99999999[9]', 'greedy' : true" required>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        <hr>
                     
                         <div class="form-group">
                             <label for="cliente-observacao">Observação</label>

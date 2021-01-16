@@ -53,7 +53,10 @@ class ClienteController extends Controller
            
             $cliente = new $this->cliente();
             $cliente = $cliente->create($dados['cliente']);
-            $cliente->contatos()->create($dados['contato']);
+
+            foreach($dados['contato'] as $contato){
+                $cliente->contatos()->create($contato);
+            }
 
             DB::commit();
 
@@ -101,7 +104,10 @@ class ClienteController extends Controller
 
             $cliente = $this->find($id);
             $cliente->update($dados['cliente']);
-            $cliente->contatos()->update($dados['contato']);
+
+            foreach($dados['contato'] as $i => $contato){
+                $cliente->contatos()->find($i)->update($contato);
+            }
 
             DB::commit();
             return response()->json([
