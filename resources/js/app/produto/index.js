@@ -29,13 +29,15 @@ export default {
         }
 
         $.ajax({
-            url: Produto.default.formulario.attr('action'),
-            method: Produto.default.formulario.attr('method'),
-            dataType: "json",
-            data: { 
-                _token : Produto.default._token,
-                dados : Produto.default.formulario.serialize(),
+            headers: {
+                'X-CSRF-TOKEN' : Produto.default._token
             },
+            url: Produto.default.formulario.attr('action'),
+            method: "POST",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            data: new FormData(Produto.default.formulario[0]),
             beforeSend: function () {
                 Util.default.processing();
             },
@@ -80,7 +82,7 @@ export default {
             };
 
             bootbox.confirm({
-                message: `Você tem certeza que deseja excluir o produto <strong>${data.Produto.default.nome}</strong>?`,
+                message: `Você tem certeza que deseja excluir o produto <strong>${data.produto.nome}</strong>?`,
                 buttons: {
                     confirm: {
                         label: 'Sim',

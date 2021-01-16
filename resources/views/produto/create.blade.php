@@ -40,12 +40,22 @@
                                     <textarea name="produto[descricao]" class="form-control" rows="3" required="true"></textarea>
                                 </div>
                             </div>
-
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="preco">Preço</label>
                                     <input type="text" class="form-control" name="produto[preco]" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
                                 </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="foto">Foto</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="produto[foto]" class="custom-file-input">
+                                            <label class="custom-file-label" for="foto">Escolher arquivo</label>
+                                        </div>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>

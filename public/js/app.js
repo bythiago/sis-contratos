@@ -2445,13 +2445,15 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     $.ajax({
-      url: Produto["default"].formulario.attr('action'),
-      method: Produto["default"].formulario.attr('method'),
-      dataType: "json",
-      data: {
-        _token: Produto["default"]._token,
-        dados: Produto["default"].formulario.serialize()
+      headers: {
+        'X-CSRF-TOKEN': Produto["default"]._token
       },
+      url: Produto["default"].formulario.attr('action'),
+      method: "POST",
+      dataType: "json",
+      processData: false,
+      contentType: false,
+      data: new FormData(Produto["default"].formulario[0]),
       beforeSend: function beforeSend() {
         Util["default"].processing();
       },
@@ -2491,7 +2493,7 @@ __webpack_require__.r(__webpack_exports__);
         href: $(this).data('href')
       };
       bootbox.confirm({
-        message: "Voc\xEA tem certeza que deseja excluir o produto <strong>".concat(data.Produto["default"].nome, "</strong>?"),
+        message: "Voc\xEA tem certeza que deseja excluir o produto <strong>".concat(data.produto.nome, "</strong>?"),
         buttons: {
           confirm: {
             label: 'Sim',

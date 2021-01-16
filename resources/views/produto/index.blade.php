@@ -21,20 +21,22 @@
                     <table id="produto-table" class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>@</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>Preço</th>
-                                <th>Status</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($dados['produtos'] as $produto)
                                 <tr>
+                                    <td>
+                                        <img class="img-circle img-size-64 mr-2" src="{{ asset('storage/' . $produto->imagem )}}">
+                                    </td>
                                     <td>{{ $produto->nome }}</td>
                                     <td>{{ $produto->descricao }}</td>
                                     <td>{{ $produto->preco }}</td>
-                                    <td>{{ $produto->status }}</td>
                                     <td>
                                     <button class="btn btn-info btn-sm btn-show" data-href="{{ route('produtos.show', $produto->id) }}">
                                             <i class="fa fa-search"></i>

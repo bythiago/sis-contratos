@@ -43,10 +43,14 @@ class ProdutoController extends Controller
         try {
 
             $dados = [];
-            parse_str($request->get('dados'), $dados);
+            $dados = $request->all();
             
+            if($request->hasFile('produto')){
+                $dados['produto']['imagem'] = $dados['produto']['foto']->store('produtos', ['disk' => 'public']);
+            }
+
             $produto = new $this->produto;
-            $produto = $produto->create($dados['produto']);
+            $produto = $produto->create($dados);
 
             DB::beginTransaction();
             //
@@ -90,11 +94,18 @@ class ProdutoController extends Controller
 
         try {
             $dados = [];
-            parse_str($request->get('dados'), $dados);
-
+            $dados = $request->all();
+            
             DB::beginTransaction();
+            
             //
             $produto = $this->find($id);
+
+            if($request->hasFile('produto')){
+                $dados['produto']['imagem'] = $dados['produto']['foto']->storeAs(null, $produto->imagem, ['disk' => 'public']);
+            }
+
+            //
             $produto->update($dados['produto']);
 
             DB::commit();

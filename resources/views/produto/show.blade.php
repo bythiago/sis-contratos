@@ -10,7 +10,8 @@
         <div class="col-12">
             <div class="card card-primary">
                 <!-- form start -->
-                <form id="formulario-lista" role="form" method="PUT" action="{{ route('produtos.update', $dados['produto']->id) }}" novalidate>
+                <form id="formulario-lista" role="form" method="POST" action="{{ route('produtos.update', $dados['produto']->id) }}" novalidate>
+                    @method("PUT")
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -36,11 +37,21 @@
                                     <textarea name="produto[descricao]" class="form-control" rows="3" required="true">{{ $dados['produto']->descricao }}</textarea>
                                 </div>
                             </div>
-
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="produto-preco">Preço</label>
                                     <input type="text" class="form-control" name="produto[preco]" value="{{ $dados['produto']->preco }}" required="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'rightAlign': false">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="foto">Foto</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="produto[foto]" class="custom-file-input">
+                                            <label class="custom-file-label" for="foto">Escolher arquivo</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
