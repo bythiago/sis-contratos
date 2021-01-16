@@ -38,7 +38,7 @@
                                     <td>{{ $cliente->cidade }}</td>
                                     <td>{{ $cliente->bairro }}</td>
                                     <td>
-                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('clientes.show', $cliente->id) }}">
+                                        <button class="btn btn-info btn-sm btn-show" data-href="{{ route('clientes.show', $cliente->id) }}">
                                             <i class="fa fa-search"></i>
                                         </button>
                                         <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('clientes.edit', $cliente->id) }}">

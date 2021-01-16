@@ -21,6 +21,7 @@
                     <table id="produto-table" class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>Preço</th>
@@ -31,6 +32,7 @@
                         <tbody>
                             @foreach ($dados['produtos'] as $produto)
                                 <tr>
+                                    <td><img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2"></td>
                                     <td>{{ $produto->nome }}</td>
                                     <td>{{ $produto->descricao }}</td>
                                     <td>{{ $produto->preco }}</td>

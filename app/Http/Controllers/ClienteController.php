@@ -144,6 +144,13 @@ class ClienteController extends Controller
         }
     }
 
+    public function calendar(){
+
+        $clientes = Cliente::all()->toJson();
+
+        return view('cliente.calendar', compact('clientes'));
+    }
+
     //--------------------------------------------------------------------------------//
 
     private function findSexo(){

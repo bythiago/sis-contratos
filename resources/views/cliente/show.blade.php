@@ -94,7 +94,6 @@
                         </div>
                         
                         <div class="row">
-
                             @foreach ($cliente->contatos as $contato)
                                 <div class="col-4">
                                     <div class="form-group">
