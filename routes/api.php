@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'produtos'], function(){
-    Route::get('/', [ProdutoController::class, 'autocompleteProdutoByName'])
-    ->name('api.autocomplete.produtos');
+    Route::get('/', [ProdutoController::class, 'autocompleteProdutoByName'])->name('api.autocomplete.produtos');
+    Route::get('/dataTableProducts', [ProdutoController::class, 'dataTableProducts'])->name('api.dataTableProducts.produtos');
 });
 

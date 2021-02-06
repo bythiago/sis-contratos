@@ -2546,6 +2546,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   iniciarDatatable: function iniciarDatatable() {
     Produto["default"].datatable.DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: Produto["default"].datatable.data('href'),
+      columns: [{
+        data: 'imagem',
+        render: function render(data, type, row) {
+          return "<img class=\"img-circle img-size-64 mr-2\" src=\"".concat(data, "\">");
+        }
+      }, {
+        data: 'nome',
+        name: 'nome'
+      }, {
+        data: 'descricao',
+        name: 'descricao'
+      }, {
+        data: 'preco',
+        name: 'preco'
+      }, {
+        data: null,
+        render: function render(data, type, row) {
+          var action = [];
+          action[0] = "\n                                <button class=\"btn btn-info btn-sm btn-show\" data-href='".concat(row.show, "'>\n                                    <i class=\"fa fa-search\"></i>\n                                </button>\n                                <button class=\"btn btn-success btn-sm btn-edit\" data-href='").concat(row.edit, "'>\n                                    <i class=\"fa fa-edit\"></i>\n                                </button>\n                                ");
+
+          if (row["delete"]) {
+            action[1] = "\n                                    <button class=\"btn btn-danger btn-sm btn-destroy\" data-href='".concat(row["delete"], "' data-produto='").concat(JSON.stringify(row), "'>\n                                        <i class=\"fa fa-trash\"></i>\n                                    </button>\n                                    ");
+          }
+
+          return action;
+        }
+      }],
       "language": {
         "url": window.BASE_HREF + 'js/Portuguese-Brasil.json'
       }

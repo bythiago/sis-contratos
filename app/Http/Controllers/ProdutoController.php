@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Contracts\DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProdutoController extends Controller
 {
@@ -158,6 +160,25 @@ class ProdutoController extends Controller
         }
     }
 
+    public function dataTableProducts(){
+        return DataTables::of($this->all())
+        ->addColumn('imagem', function ($produto) {
+            return asset('storage/'.$produto->imagem);
+        })
+        ->addColumn('show', function ($produto) {
+            return route('produtos.show', $produto->id);
+        })
+        ->addColumn('edit', function ($produto) {
+            return route('produtos.edit', $produto->id);
+        })
+        ->addColumn('delete', function ($produto) {
+            if (!$produto->orcamentos->count()){
+                return route('produtos.destroy', $produto->id);
+            }
+        })
+        ->make();
+    }
+
     protected function autocompleteProdutoByName(Request $request)
     {
         $produtos = $this->findByNameProduto($request->get('q'));
@@ -176,7 +197,7 @@ class ProdutoController extends Controller
     
     private function findAllCategoria()
     {
-        return $this->categoria::all(['id', 'descricao']);
+        return $this->categoria::select(['id', 'descricao'])->get();
     }
 
     private function find($id){
@@ -184,12 +205,12 @@ class ProdutoController extends Controller
     }
 
     private function all(){
-        return $this->produto::all();
+        return $this->produto::select('*')->get();
     }
 
     private function findByNameProduto($q)
     {
-        return $this->produto::whereRaw( 'UPPER(`nome`) LIKE ?', '%'.strtoupper($q).'%')->get();
+        return $this->produto::whereRaw( 'UPPER(`nome`) LIKE ?', '%'.mb_strtoupper($q).'%')->get();
     }
 
     //--------------------------------------------------------------------------------//

@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="produto-table" class="table table-bordered">
+                    <table id="produto-table" class="table table-bordered" data-href="{{ route('api.dataTableProducts.produtos') }}">
                         <thead>
                             <tr>
                                 <th style="width: 1px">@</th>
@@ -28,7 +28,8 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody></tbody>
+                        {{-- <tbody>
                             @foreach ($dados['produtos'] as $produto)
                                 <tr>
                                     <td>
@@ -53,7 +54,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>

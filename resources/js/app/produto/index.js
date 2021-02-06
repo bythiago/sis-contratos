@@ -136,6 +136,45 @@ export default {
     iniciarDatatable: function () {
         Produto.default.datatable.DataTable(
             {
+                processing: true,
+                serverSide: true,
+                ajax: Produto.default.datatable.data('href'),
+                columns: [
+                    {
+                        data: 'imagem',
+                        render: function(data, type, row) {
+                            return `<img class="img-circle img-size-64 mr-2" src="${data}">`;
+                        }
+                    },
+                    {data: 'nome', name: 'nome'},
+                    {data: 'descricao', name: 'descricao'},
+                    {data: 'preco', name: 'preco'},
+                    {
+                        data: null, 
+                        render: function(data, type, row) {
+                            let action = [];
+                                action[0] = `
+                                <button class="btn btn-info btn-sm btn-show" data-href='${row.show}'>
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button class="btn btn-success btn-sm btn-edit" data-href='${row.edit}'>
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                `;
+
+                                if (row.delete){
+                                    action[1] = `
+                                    <button class="btn btn-danger btn-sm btn-destroy" data-href='${row.delete}' data-produto='${JSON.stringify(row)}'>
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    `;
+                                }
+
+                            return action;
+                            
+                        }
+                    }
+                ],
                 "language": {
                     "url": window.BASE_HREF + 'js/Portuguese-Brasil.json'
                 }
