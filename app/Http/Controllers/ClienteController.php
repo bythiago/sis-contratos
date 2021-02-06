@@ -184,11 +184,11 @@ class ClienteController extends Controller
     }
 
     private function find($id){
-        return $this->cliente::where('id', $id)->with('contatos')->first();
+        return $this->cliente::whereId($id)->with(['contatos'])->first();
     }
 
     private function all(){
-        return $this->cliente::with('sexo')->get();
+        return $this->cliente::with(['sexo', 'pedidos'])->get();
     }
 
     //--------------------------------------------------------------------------------//

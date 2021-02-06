@@ -205,7 +205,7 @@ class ProdutoController extends Controller
     }
 
     private function all(){
-        return $this->produto::select('*')->get();
+        return $this->produto::with(['orcamentos'])->get();
     }
 
     private function findByNameProduto($q)
