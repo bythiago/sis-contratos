@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="cliente-table" class="table table-bordered">
+                    <table id="cliente-table" class="table table-bordered" data-href="{{ route('api.dataTableClients.clientes') }}">
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -29,28 +29,7 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($dados['cliente'] as $cliente)
-                                <tr>
-                                    <td>{{ $cliente->nome }}</td>
-                                    <td>{{ $cliente->cpf }}</td>
-                                    <td>{{ $cliente->sexo->descricao }}</td>
-                                    <td>{{ $cliente->cidade }}</td>
-                                    <td>{{ $cliente->bairro }}</td>
-                                    <td>
-                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('clientes.show', $cliente->id) }}">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('clientes.edit', $cliente->id) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('clientes.destroy', $cliente->id) }}" data-cliente="{{ $cliente }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>

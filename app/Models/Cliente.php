@@ -35,4 +35,8 @@ class Cliente extends Model
     public function sexo(){
         return $this->belongsTo(Sexo::class, 'id_sexo', 'id');
     }
+
+    public function pedidos(){
+        return $this->hasMany(Pedido::class, 'id_cliente');
+    }
 }

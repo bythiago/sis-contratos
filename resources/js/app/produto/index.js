@@ -170,7 +170,7 @@ export default {
                                     `;
                                 }
 
-                            return action;
+                            return action.join('');
                             
                         }
                     }

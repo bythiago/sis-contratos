@@ -137,6 +137,17 @@ export default {
     iniciarClienteDatatable: function () {
         Cliente.default.clienteDatatable.DataTable(
             {
+                processing: true,
+                serverSide: true,
+                ajax: Cliente.default.clienteDatatable.data('href'),
+                columns: [
+                    {data: 'nome', name: 'nome'},
+                    {data: 'cpf', name: 'cpf'},
+                    {data: 'sexo.descricao', name: 'sexo.descricao'},
+                    {data: 'cidade', name: 'cidade'},
+                    {data: 'bairro', name: 'bairro'},
+                    {data: 'action', name: 'action'},
+                ],
                 "language": {
                     "url": window.BASE_HREF + 'js/Portuguese-Brasil.json'
                 }

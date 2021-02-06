@@ -8,6 +8,7 @@ use App\Models\TipoContato;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClienteController extends Controller
 {
@@ -144,14 +145,42 @@ class ClienteController extends Controller
         }
     }
 
+    public function dataTableClients(){
+        return DataTables::of($this->all())
+        ->addColumn('action', function ($cliente) {
+            
+            $action[0] = sprintf("
+                <button class='btn btn-info btn-sm btn-show' data-href='%s'>
+                    <i class='fa fa-search'></i>
+                </button>
+                <button class='btn btn-success btn-sm btn-edit' data-href='%s'>
+                    <i class='fa fa-edit'></i>
+                </button>",
+                route('clientes.show', $cliente->id),
+                route('clientes.edit', $cliente->id),
+            );
+
+            if(!$cliente->pedidos->count()){
+                $action[1] = sprintf("
+                    <button class='btn btn-danger btn-sm btn-destroy' data-href='%s' data-cliente='%s'>
+                        <i class='fa fa-trash'></i>
+                    </button>", route('clientes.destroy', $cliente->id), $cliente
+                );
+            }
+
+            return implode($action);
+        })
+        ->make();
+    }
+
     //--------------------------------------------------------------------------------//
 
     private function findSexo(){
-        return $this->sexo::all();
+        return $this->sexo::select(['id', 'descricao'])->get();
     }
 
     private function findTipoContato(){
-        return $this->tipoContato::all();
+        return $this->tipoContato::select(['id', 'tipo', 'descricao'])->get();
     }
 
     private function find($id){
@@ -159,7 +188,7 @@ class ClienteController extends Controller
     }
 
     private function all(){
-        return $this->cliente::all();
+        return $this->cliente::with('sexo')->get();
     }
 
     //--------------------------------------------------------------------------------//
