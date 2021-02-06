@@ -49,7 +49,7 @@
                         </button>
 
                         @if($dados['pedido']->status->tipo === App\Models\Pedido::ORCAMENTO_PARCIAL)
-                            <button type="button" id="btn-update" data-pedido="{{ $dados['pedido'] }}" data-redirect={{ route('pedidos.index') }} data-href="{{ route('pedidos.update2', ['id' => $dados['pedido']->id])}}" class="btn btn-success float-right">
+                            <button type="button" id="btn-update" data-pedido="{{ $dados['pedido'] }}" data-redirect={{ route('pedidos.index') }} data-href="{{ route('pedidos.produto.update', ['id' => $dados['pedido']->id])}}" class="btn btn-success float-right">
                                 Concluir orçamento
                                 <i class="fa fa-money-bill"></i>
                             </button>
@@ -77,19 +77,16 @@
                                     $quantidade = 0; 
                                 @endphp
                                 @foreach ($dados['pedido']->orcamento->produtos as $item)
-                                    @php 
+                                    @php
                                         $total += $item->pivot->total;
                                         $quantidade += $item->pivot->quantidade
                                     @endphp
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td style="width: 1px"><img class="img-circle img-size-64 mr-2" src="{{ asset('storage/' . $item->imagem )}}"></td>
                                         <td>({{ $item->nome }}) {{  'R$ '.number_format($item->preco, 2, ',', '.') }}</td>
                                         <td>{{ $item->pivot->quantidade }}</td>
-                                        <td>{{  'R$ '.number_format($item->pivot->total, 2, ',', '.') }}</td>
-                                        <td>
-                                            <em data-pedido="{{ $item }}" data-href="{{ route('pedidos.destroy2', ['id' => $dados['pedido']->id, 'produto' => $item->id])}}" style="cursor: pointer" class="btn-destroy fas fa-2x fa-trash text-danger"></em>
-                                            {{-- <em data-pedido="{{ $item }}" data-href="{{ route('pedidos.update2', ['id' => $dados['pedido']->id])}}" style="cursor: pointer" class="btn-update fas fa-2x fa-user text-info"></em>                                             --}}
-                                        </td>
+                                        <td>{{ 'R$ '.number_format($item->pivot->total, 2, ',', '.') }}</td>
+                                        <td><em data-pedido="{{ $item }}" data-href="{{ route('pedidos.produto.destroy', ['id' => $dados['pedido']->id, 'produto' => $item->id])}}" style="cursor: pointer" class="btn-destroy fas fa-2x fa-trash text-danger"></em></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -14,6 +14,7 @@
                     <h3 class="card-title">Cliente</h3>
                 </div> --}}
                 <!-- form start -->
+                <div id="validation-errors"></div>
                 <form id="formulario-lista" method="POST" role="form" action="{{ route('produtos.store') }}" novalidate>
                     <div class="card-body">
                         <div class="row">
@@ -51,8 +52,7 @@
                                     <label for="foto">Foto</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" name="produto[foto]" class="custom-file-input">
-                                            <label class="custom-file-label" for="foto">Escolher arquivo</label>
+                                            <input type="file" name="produto[foto]" class="form-control" required>
                                         </div>
                                     </div>
                                   </div>

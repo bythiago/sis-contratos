@@ -48,8 +48,7 @@
                                     <label for="foto">Foto</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" name="produto[foto]" class="custom-file-input">
-                                            <label class="custom-file-label" for="foto">Escolher arquivo</label>
+                                            <input type="file" name="produto[foto]" class="form-control">
                                         </div>
                                     </div>
                                 </div>

@@ -2189,7 +2189,7 @@ __webpack_require__.r(__webpack_exports__);
     return readonly;
   }(function () {
     if (typeof readonly != 'undefined' && readonly.length > 0) {
-      $("form :input").attr("disabled", true);
+      $("form :input").attr("readonly", true);
     }
   }),
   iniciar: function iniciar() {
@@ -2466,9 +2466,15 @@ __webpack_require__.r(__webpack_exports__);
         }, 250);
       },
       error: function error(_error) {
-        bootbox.alert(_error.responseJSON.message, function () {
-          window.location.reload();
-        });
+        Util["default"].hideAll();
+        console.log(_error); // bootbox.alert(error.responseJSON, function(){ 
+        //     window.location.reload()
+        // });
+        // $('#validation-errors').html('');
+        // $.each(error.responseJSON.errors, function(key, value) {
+        //     console.log(key, value);
+        //     $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+        // }); 
       }
     });
   },
@@ -2518,9 +2524,10 @@ __webpack_require__.r(__webpack_exports__);
       method: "DELETE",
       data: {
         _token: Produto["default"]._token,
-        id: dados.Produto["default"].id
+        id: dados.produto.id
       },
-      beforeSend: function beforeSend() {//Util.default.processing();
+      beforeSend: function beforeSend() {
+        Util["default"].processing();
       },
       success: function success(_success) {
         Util["default"].hideAll();

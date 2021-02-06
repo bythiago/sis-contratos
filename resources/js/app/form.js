@@ -39,7 +39,7 @@ export default {
     },
     readonly: function(){
         if((typeof readonly != 'undefined') && (readonly.length > 0)){
-            $("form :input").attr("disabled", true);
+            $("form :input").attr("readonly", true);
         } 
     },
     iniciar: function(){

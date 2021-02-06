@@ -7,6 +7,7 @@ use App\Models\Produto;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProdutoController extends Controller
 {
@@ -40,9 +41,17 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {
+        // $validation = $request->validate([
+        //     'nome' => 'required|min:100',
+        //     '*.foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        // ]);
+
         try {
 
+            DB::beginTransaction();
+            
             $dados = [];
+            $dados = $request->all();
             $dados = $request->all();
             
             if($request->hasFile('produto')){
@@ -50,9 +59,8 @@ class ProdutoController extends Controller
             }
 
             $produto = new $this->produto;
-            $produto = $produto->create($dados);
+            $produto = $produto->create($dados['produto']);
 
-            DB::beginTransaction();
             //
             DB::commit();
 
@@ -125,9 +133,17 @@ class ProdutoController extends Controller
     public function destroy(Request $request)
     {
         try {
+            
             DB::beginTransaction();
+            
             $produto = $this->find($request->get('id'));
+            
+            if (Storage::disk('public')->exists($produto->imagem)) {
+                Storage::disk('public')->delete($produto->imagem);
+            }
+
             $produto->delete();
+
             DB::commit();
 
             return response()->json([

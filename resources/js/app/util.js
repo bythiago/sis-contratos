@@ -8,7 +8,7 @@ export default {
     hideAll: function () {
         return new Promise(resolve => {
             setTimeout(() => {
-            resolve(bootbox.hideAll());
+                resolve(bootbox.hideAll());
             }, 100);
         });
     },

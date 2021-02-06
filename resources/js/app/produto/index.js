@@ -6,7 +6,6 @@ export default {
     elementos: [],
 
     iniciarCampos: function () {
-
         //token
         Produto.default._token = $('meta[name="csrf-token"]').attr('content');
 
@@ -50,9 +49,16 @@ export default {
                 }, 250);
             },
             error: function (error) {
-                bootbox.alert(error.responseJSON.message, function(){ 
-                    window.location.reload()
-                });
+                Util.default.hideAll();
+                console.log(error);
+                // bootbox.alert(error.responseJSON, function(){ 
+                //     window.location.reload()
+                // });
+                // $('#validation-errors').html('');
+                // $.each(error.responseJSON.errors, function(key, value) {
+                //     console.log(key, value);
+                //     $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+                // }); 
             }
         });
     },
@@ -107,10 +113,10 @@ export default {
             method: "DELETE",
             data: { 
                 _token : Produto.default._token,
-                id : dados.Produto.default.id
+                id : dados.produto.id
             },
             beforeSend: function () {
-                //Util.default.processing();
+                Util.default.processing();
             },
             success: function (success) {
                 Util.default.hideAll();

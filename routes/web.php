@@ -28,9 +28,9 @@ Route::middleware(['web'])->group(function () {
         Route::resource('produtos', ProdutoController::class);
         
         Route::resource('pedidos', PedidoController::class);
-        Route::group(['prefix' => 'pedidos'], function(){
-            Route::delete('destroy2/{id}/{produto}', [PedidoController::class, 'destroy2'])->name('pedidos.destroy2');
-            Route::put('update2/{id}', [PedidoController::class, 'update2'])->name('pedidos.update2');
+        Route::group(['prefix' => 'pedido'], function(){
+            Route::delete('pedido/produto/destroy/{id}/{produto}', [PedidoController::class, 'destroyProduct'])->name('pedidos.produto.destroy');
+            Route::put('/pedidoproduto/update/{id}', [PedidoController::class, 'updateProduct'])->name('pedidos.produto.update');
         });
     });
 });

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Produto extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;//, SoftDeletes;
 
     protected $table = "produtos";
 
@@ -27,7 +27,7 @@ class Produto extends Model
     }
 
     public function orcamentos(){
-        return $this->belongsToMany(Orcamento::class, 'orcamento_has_produtos', 'id_orcamento', 'id_produto')
+        return $this->belongsToMany(Orcamento::class, 'orcamento_has_produtos', 'id_produto', 'id_orcamento')
                     ->withPivot('quantidade', 'total');
     }
 }

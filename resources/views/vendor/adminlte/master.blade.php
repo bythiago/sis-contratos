@@ -94,7 +94,7 @@
 
         <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-        {{-- <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"> --}}
+        <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

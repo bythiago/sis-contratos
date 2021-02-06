@@ -21,7 +21,7 @@
                     <table id="produto-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>@</th>
+                                <th style="width: 1px">@</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>Preço</th>
@@ -38,15 +38,18 @@
                                     <td>{{ $produto->descricao }}</td>
                                     <td>{{ $produto->preco }}</td>
                                     <td>
-                                    <button class="btn btn-info btn-sm btn-show" data-href="{{ route('produtos.show', $produto->id) }}">
+                                        <button class="btn btn-info btn-sm btn-show" data-href="{{ route('produtos.show', $produto->id) }}">
                                             <i class="fa fa-search"></i>
                                         </button>
                                         <button class="btn btn-success btn-sm btn-edit" data-href="{{ route('produtos.edit', $produto->id) }}">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('produtos.destroy', $produto->id) }}" data-produto="{{ $produto }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                       
+                                        @if (!$produto->orcamentos->count())
+                                            <button class="btn btn-danger btn-sm btn-destroy" data-href="{{ route('produtos.destroy', $produto->id) }}" data-produto="{{ $produto }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

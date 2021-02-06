@@ -12,17 +12,17 @@ use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
-    private $cliente;
+    //private $cliente;
     private $pedido;
     private $produto;
-    private $tipoAnotacao;
+    //private $tipoAnotacao;
 
-    public function __construct(Cliente $cliente, Pedido $pedido, Produto $produto, TipoAnotacao $tipoAnotacao)
+    public function __construct(Pedido $pedido, Produto $produto)
     {
-        $this->cliente = $cliente;
+        //$this->cliente = $cliente;
         $this->pedido = $pedido;
         $this->produto = $produto;
-        $this->tipoAnotacao = $tipoAnotacao;
+        //$this->tipoAnotacao = $tipoAnotacao;
     }
 
     public function index()
@@ -110,12 +110,19 @@ class PedidoController extends Controller
 
             $orcamento = $pedido->orcamento()->updateOrCreate(['id_pedido' => $pedido->id], $dados['orcamento']);
             
-            $orcamento->produtos()->attach($orcamento->id, $dados['produto']);           
+            $produto = $orcamento->produtos()->find($dados['produto']['id_produto']);
+
+            if(is_null($produto)){
+                $orcamento->produtos()->attach($orcamento->id, $dados['produto']);
+            } else {
+                $produto->pivot->quantidade = $produto->pivot->quantidade + $dados['produto']['quantidade'];
+                $produto->pivot->update();
+            }
             //
             DB::commit();
 
             return response()->json([
-                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
+                'message' => "Pedido <strong>{$pedido->numero}</strong> foi atualizado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -127,7 +134,7 @@ class PedidoController extends Controller
 
     }
 
-    public function update2(Request $request, $id){
+    public function updateProduct(Request $request, $id){
 
         try {
 
@@ -145,7 +152,7 @@ class PedidoController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
+                'message' => "Pedido <strong>{$pedido->numero}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -179,7 +186,7 @@ class PedidoController extends Controller
         }
     }
 
-    public function destroy2(Request $request, $id, $produto)
+    public function destroyProduct(Request $request, $id, $produto)
     {
         $dados = [
             'pedido' => $request->get('pedido')
