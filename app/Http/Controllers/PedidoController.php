@@ -219,7 +219,7 @@ class PedidoController extends Controller
     }
     
     private function all(){
-        return Pedido::with('status')->get();
+        return Pedido::with(['anotacao', 'cliente', 'status'])->get();
     }
 
     private function calculaValorTotalProduto($produto){

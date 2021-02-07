@@ -39,7 +39,7 @@
                                     <td>{{ $pedido->status->descricao }}</td>
                                     <td>
                                         @if ($pedido->anotacao)
-                                            <a href="#" style="cursor: help;" class="fas fa-2x fa-info-circle" title="{{ $pedido->anotacao->descricao }}"></a>
+                                            <a href="#" style="cursor: help;" class="fas fa-2x fa-question-circle" title="{{ $pedido->anotacao->descricao }}"></a>
                                         @endif
                                         
                                         <a href="{{ route('pedidos.show', ['pedido' => $pedido]) }}" class="fa fa-2x fa-cart-plus text-warning"></a>
