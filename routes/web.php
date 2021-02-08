@@ -22,7 +22,11 @@ Auth::routes();
 
 //Route::resource('/', ClienteController::class)->middleware('auth');
 Route::get('/home', function(){
-    return redirect()->route('clientes.index');
+    return redirect()->route('login');
+});
+
+Route::get('/', function(){
+    return redirect()->route('login');
 });
 
 Route::middleware(['auth'])->group(function () {
