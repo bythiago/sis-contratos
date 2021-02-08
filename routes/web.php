@@ -20,9 +20,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::resource('/', ClienteController::class)->middleware('auth');
+//Route::resource('/', ClienteController::class)->middleware('auth');
+Route::get('/home', function(){
+    return redirect()->route('clientes.index');
+});
 
-Route::middleware(['web'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'admin'], function(){
         Route::resource('clientes', ClienteController::class);
         Route::resource('produtos', ProdutoController::class);
