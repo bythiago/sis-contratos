@@ -63,7 +63,7 @@ class PedidoController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => "Pedido <strong>{$pedido->id}</strong> foi cadastrado com sucesso"
+                'message' => "Pedido <strong>{$pedido->numero}</strong> foi cadastrado com sucesso"
             ], 200);
 
         } catch(\Exception $exception){
@@ -175,7 +175,7 @@ class PedidoController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => "<strong>Pedido {$request->get('id')}</strong> foi removido com sucesso"
+                'message' => "<strong>Pedido {$pedido->numero}</strong> foi removido com sucesso"
             ], 200);
             
         } catch(\Exception $exception){

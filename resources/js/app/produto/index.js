@@ -169,7 +169,7 @@ export default {
                                     </button>
                                     `;
                                 }
-
+                                
                             return action.join('');
                             
                         }
