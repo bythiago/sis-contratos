@@ -210,7 +210,7 @@ class ProdutoController extends Controller
 
     private function findByNameProduto($q)
     {
-        return $this->produto::whereRaw( 'UPPER(`nome`) LIKE ?', '%'.mb_strtoupper($q).'%')->get();
+        return $this->produto::whereRaw( 'UPPER(nome) LIKE ?', '%'.mb_strtoupper($q).'%')->get();
     }
 
     //--------------------------------------------------------------------------------//
